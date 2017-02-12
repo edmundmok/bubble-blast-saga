@@ -32,20 +32,20 @@ Your answer here
 Your answer here
 
 
-### Problem 6: Class Diagram
+### Problem 7: Class Diagram
 
 Please save your diagram as `class-diagram.png` in the root directory of the repository.
 
-### Problem 7: Testing
+### Problem 8: Testing
 
 Your answer here
 
 
-### Problem 8: The Bells & Whistles
+### Problem 9: The Bells & Whistles
 
 Your answer here
 
 
-### Problem 9: Final Reflection
+### Problem 10: Final Reflection
 
 Your answer here
