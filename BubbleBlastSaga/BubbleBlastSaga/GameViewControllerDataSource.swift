@@ -54,8 +54,7 @@ extension GameViewControllerDataSource: UICollectionViewDataSource {
         // since the cells are reused, so resize for all cases
         // anyway for convenience
         bubbleCell.resizeCell()
-        
-        bubbleCell.type = bubbleGridModel.getBubbleType(at: indexPath)
+        bubbleCell.type = .Empty
         return bubbleCell
     }
 }

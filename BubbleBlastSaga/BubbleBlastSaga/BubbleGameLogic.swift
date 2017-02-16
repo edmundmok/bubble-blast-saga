@@ -120,7 +120,7 @@ class BubbleGameLogic {
         // Initially we assume we all index paths are floating bubbles
         // Then as we do BFS we remove from this set
         // This set is also a way to track "visited"
-        var floatingBubblesIndexPaths = getIndexPathOfBubblesInGrid()
+        var floatingBubblesIndexPaths = bubbleGridModel.getIndexPathOfBubblesInGrid()
         
         // We will carry out BFS with the top section already "visited"
         BubbleGameUtility.getIndexPathsForTopSection(of: bubbleGridModel).forEach {
@@ -207,31 +207,5 @@ class BubbleGameLogic {
                 for: dropDuration, removeOnComplete: true)
             
         }
-    }
-    
-    // Returns the index path of all the bubbles that are present in the grid.
-    private func getIndexPathOfBubblesInGrid() -> Set<IndexPath> {
-        var indexPaths = Set<IndexPath>()
-        
-        for section in 0..<bubbleGridModel.numSections {
-            
-            // Check if is even or odd section
-            let currentSectionRowSize = (section % 2 == 0)
-                ? bubbleGridModel.numRowsPerEvenSection
-                : bubbleGridModel.numRowsPerOddSection
-            
-            for row in 0..<currentSectionRowSize {
-                let currentIndexPath = IndexPath(row: row, section: section)
-                
-                // Check if there is a bubble present in this index path
-                guard let _ = bubbleGridModel.getGameBubble(at: currentIndexPath) else {
-                    continue
-                }
-                
-                // Add the index path if there is a bubble present there
-                indexPaths.insert(currentIndexPath)
-            }
-        }
-        return indexPaths
     }
 }

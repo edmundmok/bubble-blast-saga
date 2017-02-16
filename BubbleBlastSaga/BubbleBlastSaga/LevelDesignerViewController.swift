@@ -75,6 +75,25 @@ class LevelDesignerViewController: UIViewController {
         bubbleGrid.reloadData()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        guard segue.identifier == Constants.startLevelSegue else {
+            return
+        }
+        
+        prepareToStartPlayingLevel(segue: segue)
+    }
+    
+    private func prepareToStartPlayingLevel(segue: UIStoryboardSegue) {
+        // Ensure that it is the unwind segue by checking the destination
+        guard let gameViewController = segue.destination as? GameViewController else {
+            return
+        }
+        
+        // Create a copy so that the model here remains untouched
+        gameViewController.bubbleGridModel = bubbleGridModel
+    }
+    
     // ------------- Save Alert -------------
     
     // Handles the save button by presenting an alert.

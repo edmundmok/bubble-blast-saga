@@ -14,10 +14,6 @@ import Foundation
  */
 class SavedLevelsModelManager: SavedLevelsModel {
     
-    struct Constants {
-        static let fileExtension = "bubblegrid"
-    }
-    
     private(set) var savedLevels: [String]
     
     init() {

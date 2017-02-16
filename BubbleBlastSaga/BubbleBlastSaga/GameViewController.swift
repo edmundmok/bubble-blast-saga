@@ -21,7 +21,7 @@ class GameViewController: UIViewController {
     private var bubbleGame: BubbleGame!
     
     // model
-    private var bubbleGridModel: BubbleGridModel = BubbleGridModelManager(
+    var bubbleGridModel: BubbleGridModel = BubbleGridModelManager(
         numSections: Constants.bubbleGridNumSections,
         numRows: Constants.bubbleGridNumRows
     )
@@ -39,21 +39,19 @@ class GameViewController: UIViewController {
             bubbleGridModel: bubbleGridModel)
         gameViewControllerDelegate = GameViewControllerDelegate(bubbleGrid: bubbleGrid,
             bubbleGridModel: bubbleGridModel)
-        
+                        
         // Configure gestures
         panGestureRecognizer.delegate = self
         longPressGestureRecognizer.delegate = self
         longPressGestureRecognizer.minimumPressDuration = Constants.minimumLongPressDuration
-    
-        // Initialize a new bubble game and start it
-        bubbleGame = BubbleGame(gameSettings: GameSettings(), bubbleGridModel: bubbleGridModel,
-            bubbleGrid: bubbleGrid, gameArea: gameArea)
-        bubbleGame.startGame()
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    // TODO: Discover alternatives, viewdidappear will appear "laggy" as it seems too late.
+    override func viewDidAppear(_ animated: Bool) {
+        // Used to inintialize a bubble game here
+        bubbleGame = BubbleGame(gameSettings: GameSettings(), bubbleGridModel: bubbleGridModel,
+                                bubbleGrid: bubbleGrid, gameArea: gameArea)
+        bubbleGame.startGame()
     }
 
     @IBAction func handleLongPress(_ sender: UILongPressGestureRecognizer) {

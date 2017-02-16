@@ -418,4 +418,30 @@ class BubbleGridModelManager: BubbleGridModel {
         
         return true
     }
+    
+    // Returns the index path of all the bubbles that are present in the grid.
+    func getIndexPathOfBubblesInGrid() -> Set<IndexPath> {
+        var indexPaths = Set<IndexPath>()
+        
+        for section in 0..<numSections {
+            
+            // Check if is even or odd section
+            let currentSectionRowSize = (section % 2 == 0)
+                ? numRowsPerEvenSection
+                : numRowsPerOddSection
+            
+            for row in 0..<currentSectionRowSize {
+                let currentIndexPath = IndexPath(row: row, section: section)
+                
+                // Check if there is a bubble present in this index path
+                guard let _ = getGameBubble(at: currentIndexPath) else {
+                    continue
+                }
+                
+                // Add the index path if there is a bubble present there
+                indexPaths.insert(currentIndexPath)
+            }
+        }
+        return indexPaths
+    }
 }

@@ -25,7 +25,7 @@ class BubbleGame {
     private let gameSettings: GameSettings
     
     init(gameSettings: GameSettings, bubbleGridModel: BubbleGridModel, bubbleGrid: UICollectionView,
-         gameArea: UIView) {
+        gameArea: UIView) {
         
         self.gameSettings = gameSettings
         self.bubbleGridModel = bubbleGridModel
@@ -60,9 +60,11 @@ class BubbleGame {
     
     // Setup the game
     private func setupGame() {
-        // For now only set up game walls, maybe in the future more setup code
-        // like setup obstacles?
+        // Setup Walls
         setupBubbleGameWalls()
+        
+        // Setup grid
+        setupBubbleGrid()
     }
     
     // Setup the game walls in the bubble game
@@ -70,23 +72,50 @@ class BubbleGame {
         // Left wall
         let leftWallPosition = CGPoint(x: gameArea.frame.origin.x, y: gameArea.frame.origin.y)
         let leftWall = GameWall(wallType: .SideWall, position: leftWallPosition,
-            size: CGSize(width: Constants.wallWidth, height: gameArea.frame.height))
+            size: CGSize(width: Constants.wallLength, height: gameArea.frame.height))
         
         // Right wall
         let rightWallPosition = CGPoint(x: gameArea.frame.origin.x + gameArea.frame.width,
             y: gameArea.frame.origin.y)
         let rightWall = GameWall(wallType: .SideWall, position: rightWallPosition,
-            size: CGSize(width: Constants.wallWidth, height: gameArea.frame.height))
+            size: CGSize(width: Constants.wallLength, height: gameArea.frame.height))
         
         // Top wall
         let topWallPosition = CGPoint(x: gameArea.frame.origin.x, y: gameArea.frame.origin.y)
         let topWall = GameWall(wallType: .TopWall, position: topWallPosition,
-            size: CGSize(width: gameArea.frame.width, height: Constants.wallWidth))
+            size: CGSize(width: gameArea.frame.width, height: Constants.wallLength))
         
         // Add the walls
         gameEngine.register(gameObject: leftWall)
         gameEngine.register(gameObject: rightWall)
         gameEngine.register(gameObject: topWall)
+    }
+    
+    // Setup the bubble grid for the bubble game
+    func setupBubbleGrid() {
+        let presentBubblesIndexPath = bubbleGridModel.getIndexPathOfBubblesInGrid()
+        
+        for presentBubbleIndexPath in presentBubblesIndexPath {
+            let bubbleSize = getStandardBubbleSize()
+            guard let gameBubble = bubbleGridModel.getGameBubble(at: presentBubbleIndexPath) else {
+                continue
+            }
+            
+            // Get position
+            guard let bubbleLocation = bubbleGrid.cellForItem(at: presentBubbleIndexPath)?.center else {
+                continue
+            }
+            
+            // Prepare the associated bubble image
+            let bubbleImage = getBubbleImage(for: gameBubble)
+            bubbleImage.frame.size = bubbleSize
+            bubbleImage.center = bubbleLocation
+            
+            gameBubble.center = bubbleLocation
+            gameBubble.radius = getBubbleHitBoxRadius(from: bubbleSize)
+            
+            gameEngine.register(gameObject: gameBubble, with: bubbleImage)
+        }
     }
     
     // Fires a bubble from the given start position, with a given angle at a 
@@ -118,6 +147,14 @@ class BubbleGame {
     // Returns the standard size of a game bubble according to the size of the bubble cell
     // in the current bubble grid collection view.
     private func getStandardBubbleSize() -> CGSize {
+        /*
+        let totalViewWidth = Double(bubbleGrid.frame.width)
+        let maxNumRowsPerSection = Double(bubbleGridModel.numRowsPerEvenSection)
+        
+        let bubbleDiameter = totalViewWidth / maxNumRowsPerSection
+
+        return CGSize(width: bubbleDiameter, height: bubbleDiameter)
+        */
         return bubbleGrid.visibleCells[0].frame.size
     }
     

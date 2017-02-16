@@ -60,4 +60,8 @@ protocol BubbleGridModel {
     // Loads a bubblegrid from a file with the given filename.
     func load(from filename: String)
     
+    // Returns a set containing the index path of all present bubbles in the 
+    // bubble grid.
+    func getIndexPathOfBubblesInGrid() -> Set<IndexPath>
+    
 }

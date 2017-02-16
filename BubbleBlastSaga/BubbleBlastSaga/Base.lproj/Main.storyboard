@@ -78,7 +78,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="1024" height="1366"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0jJ-SO-5Mo" userLabel="Bubble Grid">
-                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1148"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="1024" height="1148.5"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="Jhz-Dd-VkK">
@@ -114,13 +114,13 @@
                                         </connections>
                                     </collectionView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="clp-WR-blE">
-                                        <rect key="frame" x="0.0" y="1148" width="1024" height="218"/>
+                                        <rect key="frame" x="0.0" y="1148.5" width="1024" height="217.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="qeh-iU-MBZ">
-                                                <rect key="frame" x="22" y="21" width="396" height="99"/>
+                                                <rect key="frame" x="22" y="21.5" width="392" height="98"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E6X-ud-AKf" userLabel="Blue Bubble" customClass="PaletteBubble" customModule="BubbleBlastSaga" customModuleProvider="target">
-                                                        <rect key="frame" x="0.0" y="0.0" width="99" height="99"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="98" height="98"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="E6X-ud-AKf" secondAttribute="height" multiplier="1:1" id="dxr-P4-Xbp"/>
                                                         </constraints>
@@ -130,7 +130,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d88-ct-9Of" userLabel="Red Bubble" customClass="PaletteBubble" customModule="BubbleBlastSaga" customModuleProvider="target">
-                                                        <rect key="frame" x="99" y="0.0" width="99" height="99"/>
+                                                        <rect key="frame" x="98" y="0.0" width="98" height="98"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="d88-ct-9Of" secondAttribute="height" multiplier="1:1" id="bU5-wm-QvO"/>
                                                         </constraints>
@@ -140,7 +140,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Kr-Cs-49m" userLabel="Orange Bubble" customClass="PaletteBubble" customModule="BubbleBlastSaga" customModuleProvider="target">
-                                                        <rect key="frame" x="198" y="0.0" width="99" height="99"/>
+                                                        <rect key="frame" x="196" y="0.0" width="98" height="98"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="1Kr-Cs-49m" secondAttribute="height" multiplier="1:1" id="BsN-E9-CB6"/>
                                                         </constraints>
@@ -150,7 +150,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TqX-to-d0r" userLabel="Green Bubble" customClass="PaletteBubble" customModule="BubbleBlastSaga" customModuleProvider="target">
-                                                        <rect key="frame" x="297" y="0.0" width="99" height="99"/>
+                                                        <rect key="frame" x="294" y="0.0" width="98" height="98"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="TqX-to-d0r" secondAttribute="height" multiplier="1:1" id="JXx-Vv-Xbw"/>
                                                         </constraints>
@@ -162,23 +162,23 @@
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vMV-HP-R6y" userLabel="Top Palette Placeholder">
-                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="21"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="1024" height="21.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jni-iS-HX0" userLabel="Left Palette Placeholder">
-                                                <rect key="frame" x="0.0" y="0.0" width="22" height="218"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="22" height="217.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wRo-jh-CFo" userLabel="Right Palette Placeholder">
-                                                <rect key="frame" x="1003" y="0.0" width="21" height="218"/>
+                                                <rect key="frame" x="1003" y="0.0" width="21" height="217.5"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sEh-1h-WeV" userLabel="Bottom Palette Placeholder">
-                                                <rect key="frame" x="0.0" y="197" width="1024" height="21"/>
+                                                <rect key="frame" x="0.0" y="195.5" width="1024" height="22"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lqc-LS-GOD" userLabel="Erase Bubble" customClass="PaletteBubble" customModule="BubbleBlastSaga" customModuleProvider="target">
-                                                <rect key="frame" x="915" y="21" width="88" height="88"/>
+                                                <rect key="frame" x="916" y="21.5" width="87" height="87"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="lqc-LS-GOD" secondAttribute="height" multiplier="1:1" id="V9f-BI-Bpv"/>
                                                 </constraints>
@@ -188,7 +188,7 @@
                                                 </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="aIc-Ne-jAG">
-                                                <rect key="frame" x="22" y="120" width="981" height="77"/>
+                                                <rect key="frame" x="22" y="118.5" width="981" height="77"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K9b-A4-Xf7">
                                                         <rect key="frame" x="0.0" y="0.0" width="245.5" height="77"/>
@@ -208,11 +208,11 @@
                                                         </state>
                                                         <connections>
                                                             <action selector="menuButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="VrB-Qe-vCW"/>
-                                                            <segue destination="39J-a7-Akb" kind="show" id="KmX-tc-qxE"/>
+                                                            <segue destination="39J-a7-Akb" kind="show" identifier="StartLevelDesignerLevel" id="KmX-tc-qxE"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d0j-zK-Xvw">
-                                                        <rect key="frame" x="490.5" y="0.0" width="245.5" height="77"/>
+                                                        <rect key="frame" x="490.5" y="0.0" width="245" height="77"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                         <state key="normal" title="SAVE">
                                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -222,7 +222,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IpT-YF-Xnt">
-                                                        <rect key="frame" x="736" y="0.0" width="245" height="77"/>
+                                                        <rect key="frame" x="735.5" y="0.0" width="245.5" height="77"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                         <state key="normal" title="LOAD">
                                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>

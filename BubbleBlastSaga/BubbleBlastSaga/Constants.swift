@@ -38,7 +38,7 @@ struct Constants {
     static let filledCellBorderWidth = CGFloat(0)
     
     // BubbleGame
-    static let wallWidth = CGFloat(0)
+    static let wallLength = CGFloat(0)
     static let numberOfBubbles = UInt32(4)
     
     // BubbleGameLogic / BubbleGameCollisionHandler
@@ -68,6 +68,9 @@ struct Constants {
     static let dropDurationMultiplier = 0.002
     static let dropDistanceMultiplier = CGFloat(5)
     static let dropHorizontalOffset = CGFloat(0)
+    
+    // LevelDesignerViewController
+    static let startLevelSegue = "StartLevelDesignerLevel"
     
     // Images
     static let blueBubbleImage = "bubble-blue"
