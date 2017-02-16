@@ -72,7 +72,7 @@ class LevelDesignerSaveAlertController: UIViewController {
             
             // Get the URL of the Documents Directory
             let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            let fileExtension = BubbleGridModelManager.Constants.fileExtension
+            let fileExtension = Constants.fileExtension
             
             // Get the URL for a file in the Documents Directory
             let fileURL = documentDirectory.appendingPathComponent(levelName).appendingPathExtension(fileExtension)

@@ -6,22 +6,22 @@
 //  Copyright © 2017 nus.cs3217.a0093960x. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 /**
  `ColoredBubble` represents a colored bubble object in the game.
  */
 class ColoredBubble: GameBubble {
     
-    struct Constants {
-        static let colorKey = "color"
-    }
-    
     let color: BubbleColor
     
-    init(_ color: BubbleColor) {
+    convenience init(color: BubbleColor) {
+        self.init(color: color, radius: 0, center: CGPoint(), velocity: CGVector())
+    }
+    
+    init(color: BubbleColor, radius: CGFloat, center: CGPoint, velocity: CGVector) {
         self.color = color
-        super.init()
+        super.init(radius: radius, center: center, velocity: velocity)
     }
     
     // MARK: NSCoding

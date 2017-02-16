@@ -1,24 +1,19 @@
 //
 //  BubbleGridModelManager.swift
-//  LevelDesigner
+//  GameEngine
 //
-//  Created by Edmund Mok on 1/2/17.
-//  Copyright © 2017 nus.cs3217.a0101010. All rights reserved.
+//  Created by Edmund Mok on 11/2/17.
+//  Copyright © 2017 nus.cs3217.a0093960x. All rights reserved.
 //
 
 import Foundation
 
 /**
  The `BubbleGridModelManager` manages the game's bubble grid by providing
- operations to query and manipulate the grid, as well as 
+ operations to query and manipulate the grid, as well as
  save and load the internal bubble grid.
  */
 class BubbleGridModelManager: BubbleGridModel {
-    
-    struct Constants {
-        static let fileExtension = "bubblegrid"
-        static let bubbleGridKey = "bubbleGrid"
-    }
     
     private(set) var loadedFileName: String?
     private var bubbleGrid: BubbleGrid
@@ -48,17 +43,171 @@ class BubbleGridModelManager: BubbleGridModel {
     }
     
     // Returns the bubble type at the specified indexpath, if there is one.
-    // Otherwise, returns nil.
     func getBubbleType(at indexPath: IndexPath) -> BubbleType {
         let index = getIndex(from: indexPath)
         let gameBubble = bubbleGrid.getBubble(at: index)
         return getBubbleTypeFor(gameBubble: gameBubble)
     }
     
+    // Returns the game bubble at the specified indexPath, if it is a valid
+    // index path for the bubble grid.
+    // Otherwise, returns nil
+    func getGameBubble(at indexPath: IndexPath) -> GameBubble? {
+        // Return nil if invalid index path
+        guard isValidIndexPath(indexPath: indexPath) else {
+            return nil
+        }
+        let index = getIndex(from: indexPath)
+        return bubbleGrid.getBubble(at: index)
+    }
+    
+    // Returns the index path for the given GameBubble object if the
+    // object exists in the Bubble Grid, otherwise returns nil.
+    func getIndexPath(for gameBubble: GameBubble) -> IndexPath? {
+        // Return nil if does not exist
+        guard let index = bubbleGrid.getIndex(for: gameBubble) else {
+            return nil
+        }
+        // Return the index path
+        return getIndexPath(from: index)
+    }
+    
+    // Returns the index path of the neighbours of the GameBubble at the
+    // given index path, otherwise returns an empty array.
+    // If the index path is invalid, also returns an empty array.
+    func getNeighboursIndexPath(of indexPath: IndexPath) -> [IndexPath] {
+        // Invalid index path, return empty array
+        guard isValidIndexPath(indexPath: indexPath) else {
+            return []
+        }
+        
+        // Check if it is an odd or even section
+        guard indexPath.section % 2 == 0 else {
+            // It is an odd section
+            return getOddSectionNeighboursIndexPath(of: indexPath)
+        }
+        
+        // It is an even section
+        return getEvenSectionNeighboursIndexPath(of: indexPath)
+    }
+    
+    // Get the neighbours of the given index path, assuming that the given index path
+    // is in an even section.
+    private func getEvenSectionNeighboursIndexPath(of indexPath: IndexPath) -> [IndexPath] {
+        var neighboursIndexPath = [IndexPath]()
+        
+        // Calculate the index path of its neighbours
+        let topLeft = IndexPath(row: indexPath.row-1, section: indexPath.section-1)
+        let topRight = IndexPath(row: indexPath.row, section: indexPath.section-1)
+        let left = IndexPath(row: indexPath.row-1, section: indexPath.section)
+        let right = IndexPath(row: indexPath.row+1, section: indexPath.section)
+        let bottomLeft = IndexPath(row: indexPath.row-1, section: indexPath.section+1)
+        let bottomRight = IndexPath(row: indexPath.row, section: indexPath.section+1)
+        
+        // For each calculated neighbour, they may not exist.
+        // We need to check if they are actually valid before adding into the array.
+        // top left
+        if isValidIndexPath(indexPath: topLeft) {
+            neighboursIndexPath.append(topLeft)
+        }
+        
+        // top right
+        if isValidIndexPath(indexPath: topRight) {
+            neighboursIndexPath.append(topRight)
+        }
+        
+        // left
+        if isValidIndexPath(indexPath: left) {
+            neighboursIndexPath.append(left)
+        }
+        
+        // right
+        if isValidIndexPath(indexPath: right) {
+            neighboursIndexPath.append(right)
+            
+        }
+        
+        // bottom left
+        if isValidIndexPath(indexPath: bottomLeft) {
+            neighboursIndexPath.append(bottomLeft)
+            
+        }
+        
+        // bottom right
+        if isValidIndexPath(indexPath: bottomRight) {
+            neighboursIndexPath.append(bottomRight)
+            
+        }
+        
+        return neighboursIndexPath
+    }
+    
+    // Get the neighbours of the given index path, assumiming that the given index path
+    // is in an odd section.
+    private func getOddSectionNeighboursIndexPath(of indexPath: IndexPath) -> [IndexPath] {
+        var neighboursIndexPath = [IndexPath]()
+        
+        // Calculate the index path of its neighbours
+        let topLeft = IndexPath(row: indexPath.row, section: indexPath.section-1)
+        let topRight = IndexPath(row: indexPath.row+1, section: indexPath.section-1)
+        let left = IndexPath(row: indexPath.row-1, section: indexPath.section)
+        let right = IndexPath(row: indexPath.row+1, section: indexPath.section)
+        let bottomLeft = IndexPath(row: indexPath.row, section: indexPath.section+1)
+        let bottomRight = IndexPath(row: indexPath.row+1, section: indexPath.section+1)
+        
+        // For each calculated neighbour, they may not exist.
+        // We need to check if they are actually valid before adding into the array.
+        // top left
+        if isValidIndexPath(indexPath: topLeft) {
+            neighboursIndexPath.append(topLeft)
+        }
+        
+        // top right
+        if isValidIndexPath(indexPath: topRight) {
+            neighboursIndexPath.append(topRight)
+        }
+        
+        // left
+        if isValidIndexPath(indexPath: left) {
+            neighboursIndexPath.append(left)
+        }
+        
+        // right
+        if isValidIndexPath(indexPath: right) {
+            neighboursIndexPath.append(right)
+        }
+        
+        // bottom left
+        if isValidIndexPath(indexPath: bottomLeft) {
+            neighboursIndexPath.append(bottomLeft)
+        }
+        
+        // bottom right
+        if isValidIndexPath(indexPath: bottomRight) {
+            neighboursIndexPath.append(bottomRight)
+        }
+        
+        return neighboursIndexPath
+    }
+    
     // Sets the given bubble at the specified indexpath.
     func set(bubbleType: BubbleType, at indexPath: IndexPath) {
+        guard isValidIndexPath(indexPath: indexPath) else {
+            return
+        }
+        
         let index = getIndex(from: indexPath)
         let gameBubble = getGameBubbleFor(bubbleType: bubbleType)
+        bubbleGrid.set(bubble: gameBubble, at: index)
+    }
+    
+    // Sets the given game bubble at the specified index path.
+    func set(gameBubble: GameBubble, at indexPath: IndexPath) {
+        guard isValidIndexPath(indexPath: indexPath) else {
+            return
+        }
+        
+        let index = getIndex(from: indexPath)
         bubbleGrid.set(bubble: gameBubble, at: index)
     }
     
@@ -66,10 +215,10 @@ class BubbleGridModelManager: BubbleGridModel {
     private func getGameBubbleFor(bubbleType: BubbleType) -> GameBubble? {
         switch bubbleType {
         case .Empty: return nil
-        case .BlueBubble: return ColoredBubble(.Blue)
-        case .RedBubble: return ColoredBubble(.Red)
-        case .OrangeBubble: return ColoredBubble(.Orange)
-        case .GreenBubble: return ColoredBubble(.Green)
+        case .BlueBubble: return ColoredBubble(color: .Blue)
+        case .RedBubble: return ColoredBubble(color: .Red)
+        case .OrangeBubble: return ColoredBubble(color: .Orange)
+        case .GreenBubble: return ColoredBubble(color: .Green)
         }
     }
     
@@ -91,6 +240,16 @@ class BubbleGridModelManager: BubbleGridModel {
         case .Orange: return .OrangeBubble
         case .Green: return .GreenBubble
         }
+    }
+    
+    // Removes the game bubble at the specified index path.
+    func remove(at indexPath: IndexPath) {
+        guard isValidIndexPath(indexPath: indexPath) else {
+            return
+        }
+        
+        let index = getIndex(from: indexPath)
+        bubbleGrid.set(bubble: nil, at: index)
     }
     
     // Resets the entire bubble grid, removing all existing bubbles.
@@ -182,7 +341,7 @@ class BubbleGridModelManager: BubbleGridModel {
         guard FileManager.default.fileExists(atPath: fileURL.relativePath) else {
             return
         }
-
+        
         // ensure file content can be read as Data
         guard let data = try? Data(contentsOf: fileURL) else {
             return
@@ -203,5 +362,60 @@ class BubbleGridModelManager: BubbleGridModel {
         
         // set the loaded file name
         self.loadedFileName = filename
+    }
+    
+    // Returns the indexpath that corresponds to the given index
+    // in the bubblegrid.
+    private func getIndexPath(from index: Int) -> IndexPath {
+        // First section is even
+        var index = index
+        var numRowsInSection = numRowsPerEvenSection
+        var currentSection = 0
+        
+        // While we have not found the correct section
+        while index >= numRowsInSection {
+            // Check if it is an even or odd section
+            if currentSection % 2 == 0 {
+                // Advance index by number of rows in the current even section
+                // Next section is an odd section
+                index -= numRowsPerEvenSection
+                numRowsInSection = numRowsPerOddSection
+            } else {
+                // Advance index by number of rows in the current odd section
+                // Next section is an even section
+                index -= numRowsPerOddSection
+                numRowsInSection = numRowsPerEvenSection
+            }
+            // Add to section count
+            currentSection += 1
+        }
+        
+        return IndexPath(row: index, section: currentSection)
+    }
+    
+    // Returns if the given index path is a valid index path for the current bubble grid.
+    private func isValidIndexPath(indexPath: IndexPath) -> Bool {
+        // If section number is wrong, it is invalid
+        guard indexPath.section >= 0 && indexPath.section < numSections else {
+            return false
+        }
+        
+        // check if even section
+        guard indexPath.section % 2 == 0 else {
+            // Is odd section
+            // If row number is wrong for odd section, it is invalid
+            guard indexPath.row >= 0 && indexPath.row < numRowsPerOddSection else {
+                return false
+            }
+            return true
+        }
+        
+        // Is even section
+        // If row number is wrong for even section,it is invalid
+        guard indexPath.row >= 0 && indexPath.row < numRowsPerEvenSection else {
+            return false
+        }
+        
+        return true
     }
 }

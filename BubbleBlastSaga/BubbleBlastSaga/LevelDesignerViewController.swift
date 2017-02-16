@@ -27,7 +27,7 @@ class LevelDesignerViewController: UIViewController {
     // ----------- ViewController related stuff -------------
     
     override func viewDidLoad() {
-        bubbleGrid.register(BubbleCell.self, forCellWithReuseIdentifier: BubbleCell.Constants.identifier)
+        bubbleGrid.register(BubbleCell.self, forCellWithReuseIdentifier: Constants.bubbleCellIdentifier)
         
         // set style of blue palette bubble to be selected
         setPaletteBubblesStyleToSelected(for: bluePaletteBubble)

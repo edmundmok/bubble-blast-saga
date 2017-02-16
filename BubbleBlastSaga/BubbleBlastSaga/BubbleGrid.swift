@@ -1,9 +1,9 @@
 //
 //  BubbleGrid.swift
-//  LevelDesigner
+//  GameEngine
 //
-//  Created by Edmund Mok on 5/2/17.
-//  Copyright © 2017 nus.cs3217.a0101010. All rights reserved.
+//  Created by Edmund Mok on 11/2/17.
+//  Copyright © 2017 nus.cs3217.a0093960x. All rights reserved.
 //
 
 import Foundation
@@ -13,13 +13,6 @@ import Foundation
  grid collection of GameBubble objects.
  */
 class BubbleGrid: NSObject, NSCoding {
-    
-    struct Constants {
-        static let bubblesKey = "bubbles"
-        static let numSectionsKey = "numSections"
-        static let numRowsPerEvenSectionKey = "numRowsPerEvenSection"
-        static let numRowsPerOddSectionKey = "numRowsPerOddSection"
-    }
     
     private(set) var numSections: Int
     private(set) var numRowsPerEvenSection: Int
@@ -42,7 +35,9 @@ class BubbleGrid: NSObject, NSCoding {
         
         let numOddSections = numSections / 2
         let numEvenSections = numSections - numOddSections
-        let totalBubbles = (numRowsPerEvenSection * numEvenSections) + (numRowsPerOddSection * numOddSections)
+        let totalBubbles = (numRowsPerEvenSection * numEvenSections)
+            + (numRowsPerOddSection * numOddSections)
+        
         self.bubbles = [GameBubble?](repeating: nil, count: totalBubbles)
     }
     
@@ -53,6 +48,17 @@ class BubbleGrid: NSObject, NSCoding {
             return nil
         }
         return bubbles[index]
+    }
+    
+    // Returns the index of the given GameBubble in the bubble grid,
+    // otherwise returns nil if the GameBubble does not exist in the grid.
+    func getIndex(for gameBubble: GameBubble) -> Int? {
+        
+        return bubbles
+            .enumerated()
+            .filter { $0.element === gameBubble }
+            .first?
+            .offset
     }
     
     // Sets the given bubble at the specified index.
@@ -79,13 +85,13 @@ class BubbleGrid: NSObject, NSCoding {
     // Decode from an encoded ColoredBubble
     required init?(coder aDecoder: NSCoder) {
         guard let bubbles = aDecoder.decodeObject(forKey: Constants.bubblesKey) as? [GameBubble?] else {
-                return nil
+            return nil
         }
         
         let numSections = aDecoder.decodeInteger(forKey: Constants.numSectionsKey)
         let numRowsPerOddSection = aDecoder.decodeInteger(forKey: Constants.numRowsPerOddSectionKey)
         let numRowsPerEvenSection = aDecoder.decodeInteger(forKey: Constants.numRowsPerEvenSectionKey)
-
+        
         self.bubbles = bubbles
         self.numSections = numSections
         self.numRowsPerOddSection = numRowsPerOddSection

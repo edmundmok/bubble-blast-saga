@@ -1,9 +1,9 @@
 //
 //  BubbleGridModel.swift
-//  LevelDesigner
+//  GameEngine
 //
-//  Created by Edmund Mok on 5/2/17.
-//  Copyright © 2017 nus.cs3217.a0101010. All rights reserved.
+//  Created by Edmund Mok on 11/2/17.
+//  Copyright © 2017 nus.cs3217.a0093960x. All rights reserved.
 //
 
 import Foundation
@@ -22,17 +22,35 @@ protocol BubbleGridModel {
     var numOddSections: Int { get }
     var numEvenSections: Int { get }
     
-    // Returns the bubble type at the specified indexpath, if there is one.
-    // Otherwise, returns nil.
+    // Returns the bubble type at the specified indexpath.
     func getBubbleType(at indexPath: IndexPath) -> BubbleType
     
-    // Sets the given bubble at the specified index.
+    // Returns the game bubble at the specified indexPath, if it is a valid
+    // index path for the bubble grid.
+    // Otherwise, returns nil
+    func getGameBubble(at indexPath: IndexPath) -> GameBubble?
+    
+    // Returns the index path for the given GameBubble object if the
+    // object exists in the Bubble Grid, otherwise returns nil.
+    func getIndexPath(for gameBubble: GameBubble) -> IndexPath?
+    
+    // Returns the index path of the neighbours of the GameBubble at the
+    // given index path, otherwise returns an empty array.
+    // If the index path is invalid, also returns an empty array.
+    func getNeighboursIndexPath(of indexPath: IndexPath) -> [IndexPath]
+    
+    // Sets the given bubble at the specified indexpath.
     func set(bubbleType: BubbleType, at indexPath: IndexPath)
+    
+    // Sets the given game bubble at the specified index path.
+    func set(gameBubble: GameBubble, at indexPath: IndexPath)
+    
+    // Removes the game bubble at the specified index path.
+    func remove(at indexPath: IndexPath)
     
     // Resets the entire bubble grid, removing all existing bubbles.
     // The grid size remains the same but becomes empty.
     func reset()
-    
     
     // Saves the current bubblegrid as a file with the given filename as the name
     // of the saved file.
