@@ -378,7 +378,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aUg-ih-ZZh" userLabel="Cannon" customClass="CannonView" customModule="BubbleBlastSaga" customModuleProvider="target">
-                                        <rect key="frame" x="324" y="839.5" width="120" height="184.5"/>
+                                        <rect key="frame" x="334" y="870.5" width="100" height="153.5"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="aUg-ih-ZZh" secondAttribute="height" multiplier="80:122" id="QJH-Q8-hG3"/>
                                         </constraints>
@@ -388,7 +388,7 @@
                                 <constraints>
                                     <constraint firstItem="aUg-ih-ZZh" firstAttribute="centerX" secondItem="lOC-Xn-23y" secondAttribute="centerX" id="FWy-Gr-LEc"/>
                                     <constraint firstAttribute="bottom" secondItem="aUg-ih-ZZh" secondAttribute="bottom" id="f5F-2v-yLU"/>
-                                    <constraint firstItem="aUg-ih-ZZh" firstAttribute="height" secondItem="lOC-Xn-23y" secondAttribute="height" multiplier="0.18" id="n86-5e-XUj"/>
+                                    <constraint firstItem="aUg-ih-ZZh" firstAttribute="height" secondItem="lOC-Xn-23y" secondAttribute="height" multiplier="0.15" id="n86-5e-XUj"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="od1-Mh-S3U" appends="YES" id="2cI-hx-Y6R"/>

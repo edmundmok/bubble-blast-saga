@@ -94,6 +94,6 @@ struct Constants {
         UIImage(named: "cannon_11")!,
         UIImage(named: "cannon_12")!,
     ]
-    static let cannonFireDuration = 0.5
+    static let cannonFireDuration = 0.3
     static let cannonRepeatCount = 1
 }

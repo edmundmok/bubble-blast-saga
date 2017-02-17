@@ -21,7 +21,7 @@ The user may use either a *Long Press* or *Pan Gesture* to select the cannon dir
 
 As of now, my algorithm for deciding the colors of the next few bubbles is to just generate a random number and get the associated colored bubble according to that random number. Effectively, the upcoming bubbles will be randomly generated.
 
-I am planning to display the current bubble, as well as the next 2 upcoming bubbles after the current bubble. 
+I am planning to display the current bubble, as well as the next upcoming bubble.
 
 ### Problem 3: Integration
 

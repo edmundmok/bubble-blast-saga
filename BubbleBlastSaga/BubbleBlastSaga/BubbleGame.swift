@@ -15,6 +15,7 @@ class BubbleGame {
     private let bubbleGridModel: BubbleGridModel
     private let bubbleGrid: UICollectionView
     private let gameArea: UIView
+    let bubbleCannon = BubbleCannon()
     
     // game engine
     private let gameEngine: GameEngine
@@ -121,9 +122,11 @@ class BubbleGame {
     // Fires a bubble from the given start position, with a given angle at a 
     // fixed speed.
     func fireBubble(from startPosition: CGPoint, at angle: CGFloat) {
+        
+        // TODO: Consider moving the actual firing into the cannon class
     
         let bubbleSize = getStandardBubbleSize()
-        let nextCannonBubble = getNextCannonBubble()
+        let nextCannonBubble = bubbleCannon.currentBubble
         
         // Prepare the associated bubble image
         let bubbleImage = getBubbleImage(for: nextCannonBubble)
@@ -142,19 +145,18 @@ class BubbleGame {
         
         // Fire!
         gameEngine.register(gameObject: nextCannonBubble, with: bubbleImage)
+        
+        // reload
+        bubbleCannon.reloadCannon()
+    }
+    
+    func swapCannonBubble() {
+        bubbleCannon.swapCurrentWithNextBubble()
     }
     
     // Returns the standard size of a game bubble according to the size of the bubble cell
     // in the current bubble grid collection view.
     private func getStandardBubbleSize() -> CGSize {
-        /*
-        let totalViewWidth = Double(bubbleGrid.frame.width)
-        let maxNumRowsPerSection = Double(bubbleGridModel.numRowsPerEvenSection)
-        
-        let bubbleDiameter = totalViewWidth / maxNumRowsPerSection
-
-        return CGSize(width: bubbleDiameter, height: bubbleDiameter)
-        */
         return bubbleGrid.visibleCells[0].frame.size
     }
     
@@ -164,18 +166,6 @@ class BubbleGame {
     private func getBubbleHitBoxRadius(from actualBubbleSize: CGSize) -> CGFloat {
         let bubbleRadius = actualBubbleSize.width * CGFloat(0.5)
         return bubbleRadius * CGFloat(Constants.bubbleHitBoxSizePercentage)
-    }
-    
-    // Randomly generates the next cannon bubble and returns it.
-    private func getNextCannonBubble() -> GameBubble {
-        let randomGameBubbleNumber = arc4random() % Constants.numberOfBubbles
-        switch randomGameBubbleNumber {
-        case 0: return ColoredBubble(color: .Red)
-        case 1: return ColoredBubble(color: .Blue)
-        case 2: return ColoredBubble(color: .Orange)
-        case 3: return ColoredBubble(color: .Green)
-        default: return ColoredBubble(color: .Red)
-        }
     }
     
     // Returns the bubble image associated with the given game bubble.

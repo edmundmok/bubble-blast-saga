@@ -55,6 +55,7 @@
 		F1C749001E559E6D0080A4B2 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748EB1E559E6D0080A4B2 /* Queue.swift */; };
 		F1C749011E559E6D0080A4B2 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748EC1E559E6D0080A4B2 /* Renderer.swift */; };
 		F1F821E01E568EC1006DD5C3 /* CannonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F821DF1E568EC1006DD5C3 /* CannonView.swift */; };
+		F1F821E21E56A8A9006DD5C3 /* BubbleCannon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F821E11E56A8A9006DD5C3 /* BubbleCannon.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -129,6 +130,7 @@
 		F1C748EB1E559E6D0080A4B2 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		F1C748EC1E559E6D0080A4B2 /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
 		F1F821DF1E568EC1006DD5C3 /* CannonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CannonView.swift; sourceTree = "<group>"; };
+		F1F821E11E56A8A9006DD5C3 /* BubbleCannon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleCannon.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -287,6 +289,7 @@
 				F1C748DA1E559E6D0080A4B2 /* BubbleGameCollisionHandler.swift */,
 				F1C748DB1E559E6D0080A4B2 /* BubbleGameLogic.swift */,
 				F1C748DC1E559E6D0080A4B2 /* BubbleGameUtility.swift */,
+				F1F821E11E56A8A9006DD5C3 /* BubbleCannon.swift */,
 			);
 			name = Game;
 			sourceTree = "<group>";
@@ -503,6 +506,7 @@
 				F1C748F21E559E6D0080A4B2 /* CGPoint+Distance.swift in Sources */,
 				F1C748EF1E559E6D0080A4B2 /* BubbleGameCollisionHandler.swift in Sources */,
 				F1C748C31E5596010080A4B2 /* LevelDesignerSaveAlertController.swift in Sources */,
+				F1F821E21E56A8A9006DD5C3 /* BubbleCannon.swift in Sources */,
 				F1C748C51E5596010080A4B2 /* PaletteBubble.swift in Sources */,
 				F1C748BE1E5596010080A4B2 /* GameBubble.swift in Sources */,
 				F1C748731E55954C0080A4B2 /* AppDelegate.swift in Sources */,
