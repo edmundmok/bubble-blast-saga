@@ -44,11 +44,12 @@ class GameViewController: UIViewController {
         panGestureRecognizer.delegate = self
         longPressGestureRecognizer.delegate = self
         longPressGestureRecognizer.minimumPressDuration = Constants.minimumLongPressDuration
-    }
-    
-    // TODO: Discover alternatives, viewdidappear will appear "laggy" as it seems too late.
-    override func viewDidAppear(_ animated: Bool) {
-        // Used to inintialize a bubble game here
+        
+        // Request to layout and adjust constraints for game setup
+        gameArea.layoutIfNeeded()
+        bubbleGrid.layoutIfNeeded()
+        
+        // Setup the game and start the game
         bubbleGame = BubbleGame(gameSettings: GameSettings(), bubbleGridModel: bubbleGridModel,
                                 bubbleGrid: bubbleGrid, gameArea: gameArea)
         bubbleGame.startGame()
