@@ -178,7 +178,7 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lqc-LS-GOD" userLabel="Erase Bubble" customClass="PaletteBubble" customModule="BubbleBlastSaga" customModuleProvider="target">
-                                                <rect key="frame" x="687" y="16" width="65" height="66"/>
+                                                <rect key="frame" x="686" y="16" width="66" height="66"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="lqc-LS-GOD" secondAttribute="height" multiplier="1:1" id="V9f-BI-Bpv"/>
                                                 </constraints>
@@ -201,7 +201,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3qI-sz-XRH">
-                                                        <rect key="frame" x="184" y="0.0" width="184" height="58"/>
+                                                        <rect key="frame" x="184" y="0.0" width="183.5" height="58"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                         <state key="normal" title="START">
                                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -212,7 +212,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d0j-zK-Xvw">
-                                                        <rect key="frame" x="368" y="0.0" width="183" height="58"/>
+                                                        <rect key="frame" x="367.5" y="0.0" width="184" height="58"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                         <state key="normal" title="SAVE">
                                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -222,7 +222,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IpT-YF-Xnt">
-                                                        <rect key="frame" x="551" y="0.0" width="184" height="58"/>
+                                                        <rect key="frame" x="551.5" y="0.0" width="183.5" height="58"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                         <state key="normal" title="LOAD">
                                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -377,10 +377,10 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOC-Xn-23y" userLabel="Game Area">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cannon" translatesAutoresizingMaskIntoConstraints="NO" id="aUg-ih-ZZh" userLabel="Cannon">
-                                        <rect key="frame" x="337" y="768.5" width="94" height="255.5"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aUg-ih-ZZh" userLabel="Cannon" customClass="CannonView" customModule="BubbleBlastSaga" customModuleProvider="target">
+                                        <rect key="frame" x="324" y="839.5" width="120" height="184.5"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" secondItem="aUg-ih-ZZh" secondAttribute="height" multiplier="45:122" id="QJH-Q8-hG3"/>
+                                            <constraint firstAttribute="width" secondItem="aUg-ih-ZZh" secondAttribute="height" multiplier="80:122" id="QJH-Q8-hG3"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
@@ -388,7 +388,7 @@
                                 <constraints>
                                     <constraint firstItem="aUg-ih-ZZh" firstAttribute="centerX" secondItem="lOC-Xn-23y" secondAttribute="centerX" id="FWy-Gr-LEc"/>
                                     <constraint firstAttribute="bottom" secondItem="aUg-ih-ZZh" secondAttribute="bottom" id="f5F-2v-yLU"/>
-                                    <constraint firstItem="aUg-ih-ZZh" firstAttribute="height" secondItem="lOC-Xn-23y" secondAttribute="height" multiplier="0.25" id="n86-5e-XUj"/>
+                                    <constraint firstItem="aUg-ih-ZZh" firstAttribute="height" secondItem="lOC-Xn-23y" secondAttribute="height" multiplier="0.18" id="n86-5e-XUj"/>
                                 </constraints>
                                 <connections>
                                     <outletCollection property="gestureRecognizers" destination="od1-Mh-S3U" appends="YES" id="2cI-hx-Y6R"/>
@@ -414,7 +414,7 @@
                     </view>
                     <connections>
                         <outlet property="bubbleGrid" destination="ViU-zX-Cx2" id="wJy-oh-ZrI"/>
-                        <outlet property="cannon" destination="aUg-ih-ZZh" id="hUY-At-433"/>
+                        <outlet property="cannon" destination="aUg-ih-ZZh" id="YKW-hN-QQh"/>
                         <outlet property="gameArea" destination="lOC-Xn-23y" id="wl9-44-8eQ"/>
                         <outlet property="longPressGestureRecognizer" destination="od1-Mh-S3U" id="fa7-nC-GbY"/>
                         <outlet property="panGestureRecognizer" destination="OOV-5g-Bhh" id="jNl-8p-ceP"/>
@@ -441,7 +441,6 @@
         <image name="bubble-green" width="168" height="168"/>
         <image name="bubble-orange" width="168" height="168"/>
         <image name="bubble-red" width="168" height="168"/>
-        <image name="cannon" width="784" height="419"/>
         <image name="erase" width="168" height="168"/>
     </resources>
 </document>

@@ -54,6 +54,7 @@
 		F1C748FF1E559E6D0080A4B2 /* PhysicsEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748EA1E559E6D0080A4B2 /* PhysicsEngine.swift */; };
 		F1C749001E559E6D0080A4B2 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748EB1E559E6D0080A4B2 /* Queue.swift */; };
 		F1C749011E559E6D0080A4B2 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748EC1E559E6D0080A4B2 /* Renderer.swift */; };
+		F1F821E01E568EC1006DD5C3 /* CannonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F821DF1E568EC1006DD5C3 /* CannonView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,6 +128,7 @@
 		F1C748EA1E559E6D0080A4B2 /* PhysicsEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsEngine.swift; sourceTree = "<group>"; };
 		F1C748EB1E559E6D0080A4B2 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		F1C748EC1E559E6D0080A4B2 /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
+		F1F821DF1E568EC1006DD5C3 /* CannonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CannonView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -267,6 +269,7 @@
 			children = (
 				F1C748A41E5596000080A4B2 /* BubbleCell.swift */,
 				F1C748B21E5596000080A4B2 /* PaletteBubble.swift */,
+				F1F821DF1E568EC1006DD5C3 /* CannonView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -481,6 +484,7 @@
 				F1C748F61E559E6D0080A4B2 /* GameObject.swift in Sources */,
 				F1C748F41E559E6D0080A4B2 /* Constants.swift in Sources */,
 				F1C748BC1E5596010080A4B2 /* BubbleType.swift in Sources */,
+				F1F821E01E568EC1006DD5C3 /* CannonView.swift in Sources */,
 				F1C748ED1E559E6D0080A4B2 /* AnimationHelper.swift in Sources */,
 				F1C748FC1E559E6D0080A4B2 /* PhysicsBody.swift in Sources */,
 				F1C748FE1E559E6D0080A4B2 /* PhysicsCircle.swift in Sources */,

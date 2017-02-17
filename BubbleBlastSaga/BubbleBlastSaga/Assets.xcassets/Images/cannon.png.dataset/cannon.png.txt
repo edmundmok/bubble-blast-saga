@@ -1,0 +1,1 @@
+cannon_01.png.png 5 2, cannon_02.png.png 135 1, cannon_03.png.png 265 0, cannon_04.png.png 396 0, cannon_05.png.png 526 0, cannon_06.png.png 665 0, cannon_07.png.png 2 267, cannon_08.png.png 138 268, cannon_09.png.png 271 268, cannon_10.png.png 405 268, cannon_11.png.png 538 268, cannon_12.png.png 671 268.

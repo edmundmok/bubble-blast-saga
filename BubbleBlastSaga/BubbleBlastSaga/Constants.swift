@@ -77,4 +77,23 @@ struct Constants {
     static let redBubbleImage = "bubble-red"
     static let greenBubbleImage = "bubble-green"
     static let orangeBubbleImage = "bubble-orange"
+    
+    // Images -- Cannon
+    static let cannonImage = "cannon_01"
+    static let cannonAnimationImages = [
+        UIImage(named: "cannon_01")!,
+        UIImage(named: "cannon_02")!,
+        UIImage(named: "cannon_03")!,
+        UIImage(named: "cannon_04")!,
+        UIImage(named: "cannon_05")!,
+        UIImage(named: "cannon_06")!,
+        UIImage(named: "cannon_07")!,
+        UIImage(named: "cannon_08")!,
+        UIImage(named: "cannon_09")!,
+        UIImage(named: "cannon_10")!,
+        UIImage(named: "cannon_11")!,
+        UIImage(named: "cannon_12")!,
+    ]
+    static let cannonFireDuration = 0.5
+    static let cannonRepeatCount = 1
 }

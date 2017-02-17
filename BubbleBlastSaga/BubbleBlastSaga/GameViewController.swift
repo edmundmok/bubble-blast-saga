@@ -12,7 +12,7 @@ class GameViewController: UIViewController {
     
     @IBOutlet weak var bubbleGrid: UICollectionView!
     @IBOutlet weak var gameArea: UIView!
-    @IBOutlet weak var cannon: UIImageView!
+    @IBOutlet weak var cannon: CannonView!
     
     @IBOutlet var longPressGestureRecognizer: UILongPressGestureRecognizer!
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
@@ -92,8 +92,8 @@ class GameViewController: UIViewController {
     private func fireCannon() {
         let angle = atan2(cannon.transform.b, cannon.transform.a) - CGFloat(M_PI_2)
         bubbleGame.fireBubble(from: cannon.center, at: angle)
+        cannon.fireAnimation()
     }
-    
 }
 
 // MARK: UIGestureRecognizerDelegate
