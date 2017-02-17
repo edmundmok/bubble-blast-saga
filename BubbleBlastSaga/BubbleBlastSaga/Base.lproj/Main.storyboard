@@ -374,9 +374,13 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOC-Xn-23y" userLabel="Game Area">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOC-Xn-23y" userLabel="Game View">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v0J-tn-WL7" userLabel="Game Area">
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aUg-ih-ZZh" userLabel="Cannon" customClass="CannonView" customModule="BubbleBlastSaga" customModuleProvider="target">
                                         <rect key="frame" x="334" y="870.5" width="100" height="153.5"/>
                                         <constraints>
@@ -386,7 +390,11 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="v0J-tn-WL7" secondAttribute="trailing" id="6w3-zi-Nu8"/>
+                                    <constraint firstItem="v0J-tn-WL7" firstAttribute="leading" secondItem="lOC-Xn-23y" secondAttribute="leading" id="8NI-xg-0hl"/>
                                     <constraint firstItem="aUg-ih-ZZh" firstAttribute="centerX" secondItem="lOC-Xn-23y" secondAttribute="centerX" id="FWy-Gr-LEc"/>
+                                    <constraint firstItem="v0J-tn-WL7" firstAttribute="top" secondItem="lOC-Xn-23y" secondAttribute="top" id="Jf8-pf-e4w"/>
+                                    <constraint firstAttribute="bottom" secondItem="v0J-tn-WL7" secondAttribute="bottom" id="cjJ-ub-ghe"/>
                                     <constraint firstAttribute="bottom" secondItem="aUg-ih-ZZh" secondAttribute="bottom" id="f5F-2v-yLU"/>
                                     <constraint firstItem="aUg-ih-ZZh" firstAttribute="height" secondItem="lOC-Xn-23y" secondAttribute="height" multiplier="0.15" id="n86-5e-XUj"/>
                                 </constraints>
@@ -415,7 +423,7 @@
                     <connections>
                         <outlet property="bubbleGrid" destination="ViU-zX-Cx2" id="wJy-oh-ZrI"/>
                         <outlet property="cannon" destination="aUg-ih-ZZh" id="YKW-hN-QQh"/>
-                        <outlet property="gameArea" destination="lOC-Xn-23y" id="wl9-44-8eQ"/>
+                        <outlet property="gameArea" destination="v0J-tn-WL7" id="Mvm-ju-BLb"/>
                         <outlet property="longPressGestureRecognizer" destination="od1-Mh-S3U" id="fa7-nC-GbY"/>
                         <outlet property="panGestureRecognizer" destination="OOV-5g-Bhh" id="jNl-8p-ceP"/>
                     </connections>
@@ -432,7 +440,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3231" y="42"/>
+            <point key="canvasLocation" x="3230.46875" y="41.6015625"/>
         </scene>
     </scenes>
     <resources>

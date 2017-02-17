@@ -10,9 +10,10 @@ import UIKit
 
 class GameViewController: UIViewController {
     
+    // Main views
     @IBOutlet weak var bubbleGrid: UICollectionView!
-    @IBOutlet weak var gameArea: UIView!
     @IBOutlet weak var cannon: CannonView!
+    @IBOutlet weak var gameArea: UIView!
     
     @IBOutlet var longPressGestureRecognizer: UILongPressGestureRecognizer!
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
@@ -53,6 +54,9 @@ class GameViewController: UIViewController {
         bubbleGame = BubbleGame(gameSettings: GameSettings(), bubbleGridModel: bubbleGridModel,
                                 bubbleGrid: bubbleGrid, gameArea: gameArea)
         bubbleGame.startGame()
+        
+        // Setup the image for the next bubble
+        
     }
 
     @IBAction func handleLongPress(_ sender: UILongPressGestureRecognizer) {
