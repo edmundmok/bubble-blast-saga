@@ -66,4 +66,18 @@ class BubbleGameUtility {
         return nearestEmptyIndexPath
     }
     
+    // Returns the bubble image associated with the given game bubble.
+    static func getBubbleImage(for gameBubble: GameBubble) -> UIImageView {
+        guard let coloredBubble = gameBubble as? ColoredBubble else {
+            return UIImageView()
+        }
+        
+        switch coloredBubble.color {
+        case .Red: return UIImageView(image: UIImage(named: Constants.redBubbleImage))
+        case .Blue: return UIImageView(image: UIImage(named: Constants.blueBubbleImage))
+        case .Orange: return UIImageView(image: UIImage(named: Constants.orangeBubbleImage))
+        case .Green: return UIImageView(image: UIImage(named: Constants.greenBubbleImage))
+        }
+    }
+    
 }

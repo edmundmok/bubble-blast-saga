@@ -387,15 +387,28 @@
                                             <constraint firstAttribute="width" secondItem="aUg-ih-ZZh" secondAttribute="height" multiplier="80:122" id="QJH-Q8-hG3"/>
                                         </constraints>
                                     </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vcg-aJ-YFr" userLabel="Current Cannon Bubble">
+                                        <rect key="frame" x="264" y="883" width="240" height="128"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cannon-base" translatesAutoresizingMaskIntoConstraints="NO" id="AFR-vG-OMV" userLabel="Cannon Base">
+                                        <rect key="frame" x="332.5" y="921.5" width="103" height="102.5"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" secondItem="AFR-vG-OMV" secondAttribute="height" multiplier="15:15" id="VbI-Kv-cgu"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="v0J-tn-WL7" secondAttribute="trailing" id="6w3-zi-Nu8"/>
                                     <constraint firstItem="v0J-tn-WL7" firstAttribute="leading" secondItem="lOC-Xn-23y" secondAttribute="leading" id="8NI-xg-0hl"/>
+                                    <constraint firstItem="AFR-vG-OMV" firstAttribute="height" secondItem="v0J-tn-WL7" secondAttribute="height" multiplier="0.1" id="AHI-5B-QH8"/>
+                                    <constraint firstItem="AFR-vG-OMV" firstAttribute="centerX" secondItem="v0J-tn-WL7" secondAttribute="centerX" id="Egw-Pb-1BN"/>
                                     <constraint firstItem="aUg-ih-ZZh" firstAttribute="centerX" secondItem="lOC-Xn-23y" secondAttribute="centerX" id="FWy-Gr-LEc"/>
                                     <constraint firstItem="v0J-tn-WL7" firstAttribute="top" secondItem="lOC-Xn-23y" secondAttribute="top" id="Jf8-pf-e4w"/>
                                     <constraint firstAttribute="bottom" secondItem="v0J-tn-WL7" secondAttribute="bottom" id="cjJ-ub-ghe"/>
                                     <constraint firstAttribute="bottom" secondItem="aUg-ih-ZZh" secondAttribute="bottom" id="f5F-2v-yLU"/>
+                                    <constraint firstAttribute="bottom" secondItem="AFR-vG-OMV" secondAttribute="bottom" id="fGh-KM-no1"/>
                                     <constraint firstItem="aUg-ih-ZZh" firstAttribute="height" secondItem="lOC-Xn-23y" secondAttribute="height" multiplier="0.15" id="n86-5e-XUj"/>
                                 </constraints>
                                 <connections>
@@ -423,6 +436,8 @@
                     <connections>
                         <outlet property="bubbleGrid" destination="ViU-zX-Cx2" id="wJy-oh-ZrI"/>
                         <outlet property="cannon" destination="aUg-ih-ZZh" id="YKW-hN-QQh"/>
+                        <outlet property="cannonBase" destination="AFR-vG-OMV" id="7Ew-xz-MUe"/>
+                        <outlet property="currentBubbleView" destination="vcg-aJ-YFr" id="95z-MO-IFx"/>
                         <outlet property="gameArea" destination="v0J-tn-WL7" id="Mvm-ju-BLb"/>
                         <outlet property="longPressGestureRecognizer" destination="od1-Mh-S3U" id="fa7-nC-GbY"/>
                         <outlet property="panGestureRecognizer" destination="OOV-5g-Bhh" id="jNl-8p-ceP"/>
@@ -449,6 +464,7 @@
         <image name="bubble-green" width="168" height="168"/>
         <image name="bubble-orange" width="168" height="168"/>
         <image name="bubble-red" width="168" height="168"/>
+        <image name="cannon-base" width="133" height="139"/>
         <image name="erase" width="168" height="168"/>
     </resources>
 </document>

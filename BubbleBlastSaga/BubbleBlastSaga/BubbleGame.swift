@@ -108,7 +108,7 @@ class BubbleGame {
             }
             
             // Prepare the associated bubble image
-            let bubbleImage = getBubbleImage(for: gameBubble)
+            let bubbleImage = BubbleGameUtility.getBubbleImage(for: gameBubble)
             bubbleImage.frame.size = bubbleSize
             bubbleImage.center = bubbleLocation
             
@@ -129,7 +129,7 @@ class BubbleGame {
         let nextCannonBubble = bubbleCannon.currentBubble
         
         // Prepare the associated bubble image
-        let bubbleImage = getBubbleImage(for: nextCannonBubble)
+        let bubbleImage = BubbleGameUtility.getBubbleImage(for: nextCannonBubble)
         bubbleImage.frame.size = bubbleSize
         bubbleImage.center = startPosition
         
@@ -166,19 +166,5 @@ class BubbleGame {
     private func getBubbleHitBoxRadius(from actualBubbleSize: CGSize) -> CGFloat {
         let bubbleRadius = actualBubbleSize.width * CGFloat(0.5)
         return bubbleRadius * CGFloat(Constants.bubbleHitBoxSizePercentage)
-    }
-    
-    // Returns the bubble image associated with the given game bubble.
-    private func getBubbleImage(for gameBubble: GameBubble) -> UIImageView {
-        guard let coloredBubble = gameBubble as? ColoredBubble else {
-            return UIImageView()
-        }
-        
-        switch coloredBubble.color {
-        case .Red: return UIImageView(image: UIImage(named: Constants.redBubbleImage))
-        case .Blue: return UIImageView(image: UIImage(named: Constants.blueBubbleImage))
-        case .Orange: return UIImageView(image: UIImage(named: Constants.orangeBubbleImage))
-        case .Green: return UIImageView(image: UIImage(named: Constants.greenBubbleImage))
-        }
     }
 }
