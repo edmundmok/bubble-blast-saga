@@ -86,10 +86,20 @@ class BubbleGame {
         let topWall = GameWall(wallType: .TopWall, position: topWallPosition,
             size: CGSize(width: gameArea.frame.width, height: Constants.wallLength))
         
+        // Bottom wall - move it SLIGHTLY below the screen, so that the bubble doesnt 
+        // immediately trigger the collision at the bottom edge of the screen but rather
+        // fly down a little first, so that it looks like it flew to eternity instead of
+        // being terminated at the edge (aesthetic purposes)
+        let bottomWallPosition = CGPoint(x: gameArea.frame.origin.x,
+            y: gameArea.frame.maxY + getStandardBubbleSize().width * Constants.bottomWallMultiplier)
+        let bottomWall = GameWall(wallType: .BottomWall, position: bottomWallPosition,
+            size: CGSize(width: gameArea.frame.width, height: Constants.wallLength))
+        
         // Add the walls
         gameEngine.register(gameObject: leftWall)
         gameEngine.register(gameObject: rightWall)
         gameEngine.register(gameObject: topWall)
+        gameEngine.register(gameObject: bottomWall)
     }
     
     // Setup the bubble grid for the bubble game

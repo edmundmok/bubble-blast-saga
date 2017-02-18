@@ -124,6 +124,12 @@ extension BubbleGameCollisionHandler: CollisionHandler {
             return
         }
         
+        //Consider switch case with appropriate helper private functions
+        if wall.wallType == .BottomWall {
+            // If the bubble flies too far down the bottom, remove it from the game
+            gameEngine.deregister(gameObject: gameBubble)
+        }
+        
         // Check the type of the collided wall
         guard wall.wallType == .TopWall else {
             // If not top wall, it must be a side wall. Just need to reflect the ball.

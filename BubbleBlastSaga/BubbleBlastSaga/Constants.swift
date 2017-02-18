@@ -43,6 +43,7 @@ struct Constants {
     // BubbleGame
     static let wallLength = CGFloat(0)
     static let numberOfBubbles = UInt32(4)
+    static let bottomWallMultiplier = CGFloat(3)
     
     // BubbleGameLogic / BubbleGameCollisionHandler
     static let infiniteDistance = CGFloat(-1)

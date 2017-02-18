@@ -11,7 +11,7 @@ import UIKit
 class GameWall: GameObject, PhysicsBox {
     
     enum WallType {
-        case SideWall, TopWall
+        case SideWall, TopWall, BottomWall
     }
     
     var wallType: WallType
