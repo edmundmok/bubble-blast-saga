@@ -7,6 +7,9 @@ CS3217 Problem Set 5
 
 **Tutor:** Delon Wong
 
+# Note to self
+> Fix my chaining of star bubble. Either carry forward the original bubble to chain to the star, or continue with current implementation to activate all lightning bubbles. But there will be a problem as described below.
+
 ### Rules of Your Game
 
 Your answer here
@@ -43,7 +46,31 @@ In short, I only had to pass my model to my game view controller, and created an
 
 ### Problem 4.3
 
-Your answer here
+*(Just realised this part is only 5 points, enjoy the read :D)*
+
+#### Strategy in implementing special bubble behavior
+
+Previously, upon a collision and the bubble snapping into place, the logic would then handle the interactions between the newly snapped bubble and its adjacent neighbours (basically just checking if there are connected bubbles to remove). 
+
+Now, with special bubbles, I just need to add an activation function `activateSpecialBubbles(near: coloredBubble)` to be called at the start of the interaction handling function. Basically, I will handle any interactions with nearby special bubbles first, before handling any removal of connected bubbles with the same color.
+
+This special bubbles activating function will then seek out the adjacent special bubbles, and activate each adjacent bubble by using a generic `activateSpecialBubble(at indexPath: IndexPath, with activatingBubble: GameBubble)` method. The method will check the type of special bubble and call the appropriate helper method. 
+
+Each type of special bubble will have its own helper method, for example: `activate(lightningBubble: PowerBubble, at indexPath: IndexPath, with activatingBubble: GameBubble)`, `activate(bombBubble: PowerBubble, at indexPath: IndexPath, with activatingBubble: GameBubble)` and `activate(starBubble: PowerBubble, at indexPath: IndexPath, with activatingBubble: GameBubble)`. The reason we need the activating bubble is for chaining behavior, described in the section below, **About the chaining behavior**. The appropriate behavior for each special bubble is then implemented in each of the helper functions respectively. 
+
+My strategy for the chaining is to recursively call my `activateSpecialBubble(at indexPath: IndexPath, with activatingBubble: GameBubble)` method. An example: User shoots a projectile at a **Lightning Bubble**. **Lightning Bubble** activates, destroying the row it is on. This also destroys a **Bomb bubble** on the same row. **Bomb bubble activates**, destroying adjacent bubbles. What my implementation will do is first check for special bubbles around the projectile bubble when it is snapped into place. After that, for each special bubbles beside it, activate them. Once activated, depending on the **power / ability** of the special bubble, it will have a list or set of index paths of bubbles in the grid to remove. For each index path, I will check whether it is a special bubble and if it is, activate it by calling `activateSpecialBubble(at indexPath: IndexPath, with activatingBubble: GameBubble)` on that special bubble at that index path. This will carry out the chaining recursively. Furthermore, I only remove these bubbles at the indexpaths found only after I attempt to chain, because if you remove first then you can't actually chain!
+
+Another question arises: This will activate all the special bubbles around the snapped projectile bubble, but it can only activate one at a time. What if there are cases where the order in which we activate the bubbles makes a difference?
+
+Here is such a case: There is a **Lightning bubble**, an empty space, and then a **Star bubble**. The user shoots the projectile between the 2, landing in between. 
+
+#### Why my strategy is the best among alternatives
+
+1. It is easy to add more special bubble behaviors by just adding a new helper method for that new type of special bubble.
+2. Existing code handling the removal of colored bubbles does not have to modified, and can be reused as we simply just have to package it in a method called 	`handleColoredInteractions(with: coloredBubble)` to be  called after we handle special bubbles first.
+3. An alternative is handling colored bubble removals first, but this might lead to cases where the behavior might not be expected. For example, let's say we have a section of all blue bubbles, except the first bubble is a bomb bubble. If the user shoots at the bomb and it lands just below the bomb bubble, his intention is to activate the bomb. So if the removal of colored bubble is handled first, the entire row would be removed and the bubble that was shot is also removed. Then the bomb is never activated. As such I give special bubbles a higher priority. Of course, you can also argue the other end where the user is trying to pop the connected row instead of the bomb. In that case, my approach would not give the desired result. Another alternative is to not actually remove that bubble affected by the bomb, so that the connected bubbles will be removed also. But actually, this will look weird on the screen because the bomb animation will destroy the adjacent bubbles, yet it still remove connected bubbles with the destroyed bubble. To handle this dilemma, I simply give higher priority to special bubbles, because they are after all *special bubbles*.
+4. Recursion might not be the most efficient way to handle this, especially in **extreme** settings like the entire grid is filled with bombs. However, it is the simplest way to implement the chaining right now, and I can't think of a better alternative that is as neat.
+
 
 #### About the chaining behaviour
 
