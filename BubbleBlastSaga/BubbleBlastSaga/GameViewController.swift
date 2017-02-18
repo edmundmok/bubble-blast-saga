@@ -36,7 +36,7 @@ class GameViewController: UIViewController {
 
     override func viewDidLoad() {
         // Register collectionview cell
-        bubbleGrid.register(BubbleCell.self, forCellWithReuseIdentifier: Constants.bubbleCellIdentifier)
+        bubbleGrid.register(GameBubbleCell.self, forCellWithReuseIdentifier: Constants.bubbleCellIdentifier)
 
         // Setup delegates
         gameViewControllerDataSource = GameViewControllerDataSource(bubbleGrid: bubbleGrid,

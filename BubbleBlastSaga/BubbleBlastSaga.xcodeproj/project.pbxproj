@@ -60,6 +60,7 @@
 		F1F821EA1E57F742006DD5C3 /* BubblePower.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F821E91E57F742006DD5C3 /* BubblePower.swift */; };
 		F1F821EE1E58718C006DD5C3 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F821ED1E58718C006DD5C3 /* MainMenuViewController.swift */; };
 		F1F821F01E587590006DD5C3 /* LevelSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F821EF1E587590006DD5C3 /* LevelSelectViewController.swift */; };
+		F1F821F21E587E3C006DD5C3 /* GameBubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F821F11E587E3C006DD5C3 /* GameBubbleCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +140,7 @@
 		F1F821E91E57F742006DD5C3 /* BubblePower.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubblePower.swift; sourceTree = "<group>"; };
 		F1F821ED1E58718C006DD5C3 /* MainMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		F1F821EF1E587590006DD5C3 /* LevelSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSelectViewController.swift; sourceTree = "<group>"; };
+		F1F821F11E587E3C006DD5C3 /* GameBubbleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBubbleCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,6 +282,7 @@
 			isa = PBXGroup;
 			children = (
 				F1C748A41E5596000080A4B2 /* BubbleCell.swift */,
+				F1F821F11E587E3C006DD5C3 /* GameBubbleCell.swift */,
 				F1C748B21E5596000080A4B2 /* PaletteBubble.swift */,
 				F1F821DF1E568EC1006DD5C3 /* CannonView.swift */,
 			);
@@ -508,6 +511,7 @@
 				F1C748FE1E559E6D0080A4B2 /* PhysicsCircle.swift in Sources */,
 				F1C748C81E5596010080A4B2 /* SavedLevelsModelManager.swift in Sources */,
 				F1C748BA1E5596010080A4B2 /* BubbleGridModel.swift in Sources */,
+				F1F821F21E587E3C006DD5C3 /* GameBubbleCell.swift in Sources */,
 				F1C749011E559E6D0080A4B2 /* Renderer.swift in Sources */,
 				F1C748EE1E559E6D0080A4B2 /* BubbleGame.swift in Sources */,
 				F1C748B91E5596010080A4B2 /* BubbleGrid.swift in Sources */,
