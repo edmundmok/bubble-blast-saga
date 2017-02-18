@@ -17,6 +17,10 @@ enum BubbleType: Int {
     case RedBubble = 2
     case OrangeBubble = 3
     case GreenBubble = 4
+    case IndestructibleBubble = 5
+    case LightningBubble = 6
+    case BombBubble = 7
+    case StarBubble = 8
     
     // Cycles to and retrieves the next bubble type
     var next: BubbleType {

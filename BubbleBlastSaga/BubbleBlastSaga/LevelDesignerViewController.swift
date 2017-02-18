@@ -221,10 +221,14 @@ class LevelDesignerViewController: UIViewController {
     // Otherwise, returns nil.
     private func getBubbleTypeCorrespondingToCurrentPaletteMode() -> BubbleType {
         switch selectedMode {
-        case .RedPaletteBubble: return .RedBubble
         case .BluePaletteBubble: return .BlueBubble
-        case .GreenPaletteBubble: return .GreenBubble
+        case .RedPaletteBubble: return .RedBubble
         case .OrangePaletteBubble: return .OrangeBubble
+        case .GreenPaletteBubble: return .GreenBubble
+        case .IndestructiblePaletteBubble: return .IndestructibleBubble
+        case .LightningPaletteBubble: return .LightningBubble
+        case .BombPaletteBubble: return .BombBubble
+        case .StarPaletteBubble: return .StarBubble
         case .ErasePaletteButton: return .Empty
         }
     }

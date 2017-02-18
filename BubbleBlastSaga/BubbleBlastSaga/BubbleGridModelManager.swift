@@ -219,6 +219,10 @@ class BubbleGridModelManager: BubbleGridModel {
         case .RedBubble: return ColoredBubble(color: .Red)
         case .OrangeBubble: return ColoredBubble(color: .Orange)
         case .GreenBubble: return ColoredBubble(color: .Green)
+        case .IndestructibleBubble: return PowerBubble(power: .Indestructible)
+        case .LightningBubble: return PowerBubble(power: .Lightning)
+        case .BombBubble: return PowerBubble(power: .Bomb)
+        case .StarBubble: return PowerBubble(power: .Star)
         }
     }
     
@@ -226,19 +230,31 @@ class BubbleGridModelManager: BubbleGridModel {
     private func getBubbleTypeFor(gameBubble: GameBubble?) -> BubbleType {
         switch gameBubble {
         case let coloredBubble as ColoredBubble:
-            return getBubbleTypeFor(coloredBubble: coloredBubble)
+            return getBubbleType(for: coloredBubble)
+        case let powerBubble as PowerBubble:
+            return getBubbleType(for: powerBubble)
         default:
             return .Empty
         }
     }
     
     // Returns a BubbleType that corresponds to the given ColoredBubble.
-    private func getBubbleTypeFor(coloredBubble: ColoredBubble) -> BubbleType {
+    private func getBubbleType(for coloredBubble: ColoredBubble) -> BubbleType {
         switch coloredBubble.color {
         case .Blue: return .BlueBubble
         case .Red: return .RedBubble
         case .Orange: return .OrangeBubble
         case .Green: return .GreenBubble
+        }
+    }
+    
+    // Returns a BubbleType that corresponds to the given PowerBubble.
+    private func getBubbleType(for powerBubble: PowerBubble) -> BubbleType {
+        switch powerBubble.power {
+        case .Indestructible: return .IndestructibleBubble
+        case .Lightning: return .LightningBubble
+        case .Bomb: return .BombBubble
+        case .Star: return .StarBubble
         }
     }
     

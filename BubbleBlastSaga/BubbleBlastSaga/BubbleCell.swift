@@ -61,8 +61,12 @@ class BubbleCell: UICollectionViewCell {
         case .Empty: return nil
         case .BlueBubble: return UIImage(named: Constants.blueBubbleImage)
         case .RedBubble: return UIImage(named: Constants.redBubbleImage)
-        case .GreenBubble: return UIImage(named: Constants.greenBubbleImage)
         case .OrangeBubble: return UIImage(named: Constants.orangeBubbleImage)
+        case .GreenBubble: return UIImage(named: Constants.greenBubbleImage)
+        case .IndestructibleBubble: return UIImage(named: Constants.indestructibleBubbleImage)
+        case .LightningBubble: return UIImage(named: Constants.lightningBubbleImage)
+        case .BombBubble: return UIImage(named: Constants.bombBubbleImage)
+        case .StarBubble: return UIImage(named: Constants.starBubbleImage)
         }
     }
 }

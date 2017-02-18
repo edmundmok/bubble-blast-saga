@@ -30,6 +30,9 @@ struct Constants {
     
     // ColoredBubble
     static let colorKey = "color"
+    
+    // PowerBubble
+    static let powerKey = "power"
 
     // BubbleCell
     static let bubbleCellIdentifier = "BubbleCell"
@@ -75,8 +78,12 @@ struct Constants {
     // Images
     static let blueBubbleImage = "bubble-blue"
     static let redBubbleImage = "bubble-red"
-    static let greenBubbleImage = "bubble-green"
     static let orangeBubbleImage = "bubble-orange"
+    static let greenBubbleImage = "bubble-green"
+    static let indestructibleBubbleImage = "bubble-indestructible"
+    static let lightningBubbleImage = "bubble-lightning"
+    static let bombBubbleImage = "bubble-bomb"
+    static let starBubbleImage = "bubble-star"
     
     // Images -- Cannon
     static let cannonImage = "cannon_01"
