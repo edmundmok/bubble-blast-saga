@@ -49,6 +49,7 @@ struct Constants {
     static let minimumConnectedCountToPop = 3
     static let pointAtFarLocation = CGPoint(x: 999999, y: 999999)
     static let velocityReflectMultiplier = CGFloat(-1)
+    static let bubbleStandardMass = CGFloat(1)
     
     // GameViewController
     static let bubbleGridNumSections = 12

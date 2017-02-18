@@ -32,6 +32,13 @@ extension BubbleGameCollisionHandler: CollisionHandler {
     
     func handleCollisionBetween(_ aCircle: PhysicsCircle, and otherCircle: PhysicsCircle) {
         
+        // Handle collision between 2 moving bubbles
+        if aCircle.velocity != CGVector.zero && otherCircle.velocity != CGVector.zero {
+            // Simply bounce them off each other
+            handleCollisionBetweenTwoMovingCircles(aCircle: aCircle, otherCircle: otherCircle)
+            return
+        }
+        
         // Handle collision only between a moving bubble and a stationary bubble
         guard isCollisionBetweenMovingCircleAndStationaryCircle(aCircle: aCircle,
             otherCircle: otherCircle) else {
@@ -157,6 +164,41 @@ extension BubbleGameCollisionHandler: CollisionHandler {
     }
     
     // ---------------------- Helper methods --------------------- //
+    
+    private func handleCollisionBetweenTwoMovingCircles(aCircle: PhysicsCircle, otherCircle: PhysicsCircle) {
+        // We need them to bounce off each other upon collision
+        // Referencing physics from: http://ericleong.me/research/circle-circle/#dynamic-circle---static-circle-collision
+        
+        // Assume a arbitrary constant mass
+        let mass = Constants.bubbleStandardMass
+        
+        // Get distance between two points of collision
+        let distance = aCircle.center.distance(to: otherCircle.center)
+        
+        // Find norm of vector from point of collision of first circle and 
+        // point of collision of second circle
+        let normX = (otherCircle.center.x - aCircle.center.x) / distance
+        let normY = (otherCircle.center.y - aCircle.center.y) / distance
+        
+        // Calculate the p-value that takes into account the velocities of both circles
+        let pValFirstCircleHalf = aCircle.velocity.dx * normX + aCircle.velocity.dy * normY
+        let pValSecondCircleHalf = otherCircle.velocity.dx * normX + otherCircle.velocity.dy * normY
+        let pVal = 2 * (pValFirstCircleHalf - pValSecondCircleHalf) / (mass + mass)
+        
+        // Compute the final velocities
+        let aCircleNewDx = aCircle.velocity.dx - pVal * mass * normX
+        let aCircleNewDy = aCircle.velocity.dy - pVal * mass * normY
+        
+        let otherCircleNewDx = otherCircle.velocity.dx + pVal * mass * normX
+        let otherCircleNewDy = otherCircle.velocity.dy + pVal * mass * normY
+        
+        // Set their new velocities
+        aCircle.velocity.dx = aCircleNewDx
+        aCircle.velocity.dy = aCircleNewDy
+        
+        otherCircle.velocity.dx = otherCircleNewDx
+        otherCircle.velocity.dy = otherCircleNewDy
+    }
     
     // Returns a boolean representing if the collision between the two given circles is one
     // that is between a moving and stationary circle.
