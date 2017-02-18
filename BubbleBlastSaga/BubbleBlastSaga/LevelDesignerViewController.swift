@@ -114,6 +114,10 @@ class LevelDesignerViewController: UIViewController {
     @IBOutlet weak var redPaletteBubble: PaletteBubble!
     @IBOutlet weak var orangePaletteBubble: PaletteBubble!
     @IBOutlet weak var greenPaletteBubble: PaletteBubble!
+    @IBOutlet weak var indestructiblePaletteBubble: PaletteBubble!
+    @IBOutlet weak var lightningPaletteBubble: PaletteBubble!
+    @IBOutlet weak var bombPaletteBubble: PaletteBubble!
+    @IBOutlet weak var starPaletteBubble: PaletteBubble!
     @IBOutlet weak var erasePaletteBubble: PaletteBubble!
     @IBOutlet var paletteBubbles: [PaletteBubble]!
     
@@ -127,6 +131,10 @@ class LevelDesignerViewController: UIViewController {
         case redPaletteBubble: selectedMode = .RedPaletteBubble
         case orangePaletteBubble: selectedMode = .OrangePaletteBubble
         case greenPaletteBubble: selectedMode = .GreenPaletteBubble
+        case indestructiblePaletteBubble: selectedMode = .IndestructiblePaletteBubble
+        case lightningPaletteBubble: selectedMode = .LightningPaletteBubble
+        case bombPaletteBubble: selectedMode = .BombPaletteBubble
+        case starPaletteBubble: selectedMode = .StarPaletteBubble
         case erasePaletteBubble: selectedMode = .ErasePaletteButton
         default: return
         }

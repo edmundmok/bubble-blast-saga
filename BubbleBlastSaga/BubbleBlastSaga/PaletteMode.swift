@@ -16,5 +16,9 @@ enum PaletteMode {
     case BluePaletteBubble
     case GreenPaletteBubble
     case OrangePaletteBubble
+    case IndestructiblePaletteBubble
+    case LightningPaletteBubble
+    case BombPaletteBubble
+    case StarPaletteBubble
     case ErasePaletteButton
 }
