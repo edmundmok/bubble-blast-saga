@@ -14,6 +14,9 @@ class BubbleGameLogic {
     fileprivate let bubbleGridModel: BubbleGridModel
     fileprivate let gameEngine: GameEngine
     
+    // special data structure for chaining to avoid checking special bubble activation repeatedly
+    fileprivate var bubblesActivated = Set<IndexPath>()
+    
     init(bubbleGrid: UICollectionView, bubbleGridModel: BubbleGridModel, gameEngine: GameEngine) {
         self.bubbleGrid = bubbleGrid
         self.bubbleGridModel = bubbleGridModel
@@ -23,8 +26,138 @@ class BubbleGameLogic {
     // Handle the resulting interactions of the snapped bubble, such as removing connected 
     // bubbles and also removing floating bubbles after.
     func handleInteractions(with snappedBubble: GameBubble) {
+        
+        // The game only shoots colored bubbles
+        guard let coloredBubble = snappedBubble as? ColoredBubble else {
+            return
+        }
+        
+        // Reset the special data structure at the start of each interaction handling
+        bubblesActivated = Set<IndexPath>()
+        
+        // activate special bubbles if present
+        activateSpecialBubbles(near: coloredBubble)
+        
+        // check if the snapped bubble was removed as a result of special bubble effects
+        
+        // if yes, nothing else to continue with
+        
+        // otherwise, attempt to carry out normal bubble removals
+        handleColoredInteractions(with: coloredBubble)
+
+    }
+    
+    private func activateSpecialBubbles(near snappedBubble: ColoredBubble) {
+        // get the indexpath of the snapped bubble
+        guard let indexPath = bubbleGridModel.getIndexPath(for: snappedBubble) else {
+            return
+        }
+        // get the neighbours index path of the snapped bubble
+        let neighboursIndexPath = bubbleGridModel.getNeighboursIndexPath(of: indexPath)
+
+        // check the specialness of each neighbour
+        let specialNeighbours = getSpecialBubblesIndexPath(from: neighboursIndexPath)
+        
+        // activate all special neighbours
+        specialNeighbours.forEach { activateSpecialBubble(at: $0, with: snappedBubble) }
+    }
+    
+    private func getSpecialBubblesIndexPath(from indexPaths: [IndexPath]) -> [IndexPath] {
+        var specialIndexPaths = [IndexPath]()
+        
+        for indexPath in indexPaths {
+            guard let _ = bubbleGridModel.getGameBubble(at: indexPath) as? PowerBubble else {
+                continue
+            }
+            specialIndexPaths.append(indexPath)
+        }
+        return specialIndexPaths
+    }
+    
+    private func activateSpecialBubble(at indexPath: IndexPath, with activatingBubble: GameBubble) {
+        // index path given should be a power bubble
+        guard let powerBubble = bubbleGridModel.getGameBubble(at: indexPath) as? PowerBubble else {
+            return
+        }
+        
+        // check type of power and activate accordingly
+        switch powerBubble.power {
+        case .Lightning: activate(lightningBubble: powerBubble, at: indexPath, with: activatingBubble)
+        case .Bomb: activate(bombBubble: powerBubble, at: indexPath, with: activatingBubble)
+        case .Star: activate(starBubble: powerBubble, at: indexPath, with: activatingBubble)
+        default: return
+        }
+    }
+    
+    private func activate(lightningBubble: PowerBubble, at indexPath: IndexPath, with activatingBubble: GameBubble) {
+        // Removes all bubbles in the same row as it
+        
+        // add to the special datastructure to avoid repeatedly chaining each other
+        bubblesActivated.insert(indexPath)
+        
+        // index path to remove is all on the same section
+        let indexPathsToRemove = bubbleGridModel.getIndexPathsForSectionContaining(indexPath: indexPath)
+        
+        // attempt to chain
+        indexPathsToRemove
+            .filter { !bubblesActivated.contains($0) }
+            .forEach { activateSpecialBubble(at: $0, with: lightningBubble) }
+        
+        // remove the lightning affected ones
+        indexPathsToRemove.forEach {
+            // check if there is actually a game bubble there
+            guard let gameBubble = bubbleGridModel.getGameBubble(at: $0) else {
+                return
+            }
+            // remove it from the grid and the game engine
+            bubbleGridModel.remove(at: $0)
+            gameEngine.deregister(gameObject: gameBubble)
+        }
+    }
+    
+    private func activate(bombBubble: PowerBubble, at indexPath: IndexPath, with activatingBubble: GameBubble) {
+        // Removes all bubbles adjacent to it
+        
+        // add to the special datastructure to avoid repeatedly chaining each other
+        bubblesActivated.insert(indexPath)
+        
+        // get the neighbours index path of the bomb bubble
+        var neighboursIndexPath = bubbleGridModel.getNeighboursIndexPath(of: indexPath)
+        
+        // add the bomb itself for removal
+        neighboursIndexPath.append(indexPath)
+        
+        // look for any chaining if necessary first
+        // carry out the chain
+        // TODO: The recursion might be a concern.
+        let chainableBubbles = getSpecialBubblesIndexPath(from: neighboursIndexPath)
+        chainableBubbles
+            .filter { !bubblesActivated.contains($0) }
+            .forEach { activateSpecialBubble(at: $0, with: bombBubble) }
+        
+        // remove the bomb affected ones
+        neighboursIndexPath.forEach {
+            // check if there is actually a game bubble there
+            guard let gameBubble = bubbleGridModel.getGameBubble(at: $0) else {
+                return
+            }
+            // remove it from the grid and the game engine
+            bubbleGridModel.remove(at: $0)
+            gameEngine.deregister(gameObject: gameBubble)
+        }
+        
+    }
+    
+    private func activate(starBubble: PowerBubble, at indexPath: IndexPath, with activatingBubble: GameBubble) {
+        // Removes all colored bubble with the same color as the bubble that activated it
+        
+        
+    }
+    
+    private func handleColoredInteractions(with snappedBubble: ColoredBubble) {
         // remove connected bubbles
         let didRemoveConnected = removeConnectedBubblesOfSameColor(as: snappedBubble)
+        
         // remove floating bubbles
         removeFloatingBubbles()
         
@@ -43,13 +176,9 @@ class BubbleGameLogic {
     
     // Removes all game bubbles that are same color as the given start game bubble and
     // index path that are connected to it.
-    private func removeConnectedBubblesOfSameColor(as gameBubble: GameBubble) -> Bool {
-        // The given bubble must be a ColoredBubble object
-        guard let coloredBubble = gameBubble as? ColoredBubble else {
-            return false
-        }
+    private func removeConnectedBubblesOfSameColor(as coloredBubble: ColoredBubble) -> Bool {
         
-        guard let startIndexPath = bubbleGridModel.getIndexPath(for: gameBubble) else {
+        guard let startIndexPath = bubbleGridModel.getIndexPath(for: coloredBubble) else {
             return false
         }
         

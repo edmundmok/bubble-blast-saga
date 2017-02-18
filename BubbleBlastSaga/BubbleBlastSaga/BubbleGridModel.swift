@@ -64,4 +64,6 @@ protocol BubbleGridModel {
     // bubble grid.
     func getIndexPathOfBubblesInGrid() -> Set<IndexPath>
     
+    func getIndexPathsForSectionContaining(indexPath: IndexPath) -> [IndexPath]
+    
 }

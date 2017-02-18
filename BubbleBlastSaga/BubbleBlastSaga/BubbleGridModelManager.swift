@@ -460,4 +460,14 @@ class BubbleGridModelManager: BubbleGridModel {
         }
         return indexPaths
     }
+    
+    func getIndexPathsForSectionContaining(indexPath: IndexPath) -> [IndexPath] {
+        var indexPaths = [IndexPath]()
+
+        for row in 0..<getNumRowsFor(section: indexPath.section) {
+            indexPaths.append(IndexPath(row: row, section: indexPath.section))
+        }
+        
+        return indexPaths
+    }
 }

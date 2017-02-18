@@ -45,6 +45,13 @@ In short, I only had to pass my model to my game view controller, and created an
 
 Your answer here
 
+#### About the chaining behaviour
+
+The problem set description does not define a way to handle what happens in the case a **Star Bubble** is **destroyed** by another **Special Bubble (in this case, either another Lightning, Bomb or Star)**. 
+
+As such, I have decided to make it such that whatever is the last thing that activated the Star Bubble is the one that the it will follow to remove from the bubble grid. For example, if a lightning bubble destroys its row, and in the process, destroyed a Star bubble, the Star Bubble will remove (and activate) all lightning bubbles in the grid (whihc makes sense, since it is the one that caused the star bubble to activate its ability).
+
+This also brings up another point, in the problem set it only says **star bubbles** remove the *ALL* bubbles with the appropriate color from the grid. However, with my approach, then the **star bubbles** will **"remove" special bubbles** from the grid. In this case, I think it would be more exciting not just to **"remove"** them, but **activate** them as well. This would allow a higher skill ceiling as users can plan their shots to chain lightnings or bombs with the star, and activate even more lightnings and bombs as a result.
 
 ### Problem 7: Class Diagram
 
