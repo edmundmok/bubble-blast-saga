@@ -68,15 +68,28 @@ class BubbleGameUtility {
     
     // Returns the bubble image associated with the given game bubble.
     static func getBubbleImage(for gameBubble: GameBubble) -> UIImageView {
-        guard let coloredBubble = gameBubble as? ColoredBubble else {
-            return UIImageView()
+        switch gameBubble {
+        case let coloredBubble as ColoredBubble: return getBubbleImage(for: coloredBubble)
+        case let powerBubble as PowerBubble: return getBubbleImage(for: powerBubble)
+        default: return UIImageView()
         }
-        
+    }
+    
+    private static func getBubbleImage(for coloredBubble: ColoredBubble) -> UIImageView {
         switch coloredBubble.color {
         case .Red: return UIImageView(image: UIImage(named: Constants.redBubbleImage))
         case .Blue: return UIImageView(image: UIImage(named: Constants.blueBubbleImage))
         case .Orange: return UIImageView(image: UIImage(named: Constants.orangeBubbleImage))
         case .Green: return UIImageView(image: UIImage(named: Constants.greenBubbleImage))
+        }
+    }
+    
+    private static func getBubbleImage(for powerBubble: PowerBubble) -> UIImageView {
+        switch powerBubble.power {
+        case .Indestructible: return UIImageView(image: UIImage(named: Constants.indestructibleBubbleImage))
+        case .Lightning: return UIImageView(image: UIImage(named: Constants.lightningBubbleImage))
+        case .Bomb: return UIImageView(image: UIImage(named: Constants.bombBubbleImage))
+        case .Star: return UIImageView(image: UIImage(named: Constants.starBubbleImage))
         }
     }
     
