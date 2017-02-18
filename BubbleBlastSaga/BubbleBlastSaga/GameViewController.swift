@@ -16,6 +16,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var cannonBase: UIImageView!
     @IBOutlet weak var gameArea: UIView!
     @IBOutlet weak var currentBubbleView: UIImageView!
+    @IBOutlet weak var nextBubbleView: UIImageView!
     
     @IBOutlet var longPressGestureRecognizer: UILongPressGestureRecognizer!
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
@@ -63,6 +64,7 @@ class GameViewController: UIViewController {
         
         // Setup the image for the current cannon bubble
         updateCurrentCannonBubbleImage()
+        updateNextCannonBubbleImage()
     }
     
     private func updateCurrentCannonBubbleImage() {
@@ -71,12 +73,18 @@ class GameViewController: UIViewController {
             height: bubbleGrid.visibleCells[0].frame.size.height*0.8)
         
         // TODO: This thing may not work for all screen sizes
-        
         // Bubble size should scale with the base, not the cell size.
         currentBubbleView.center = CGPoint(x: cannon.center.x, y: cannon.center.y + cannon.frame.height * 0.1)
         let currentBubble = bubbleGame.bubbleCannon.currentBubble
         let currentBubbleImage = BubbleGameUtility.getBubbleImage(for: currentBubble)
         currentBubbleView.image = currentBubbleImage.image
+    }
+    
+    private func updateNextCannonBubbleImage() {
+        nextBubbleView.frame.size = bubbleGrid.visibleCells[0].frame.size
+        let nextBubble = bubbleGame.bubbleCannon.nextBubble
+        let nextBubbleImage = BubbleGameUtility.getBubbleImage(for: nextBubble)
+        nextBubbleView.image = nextBubbleImage.image
     }
 
     @IBAction func handleLongPress(_ sender: UILongPressGestureRecognizer) {
@@ -120,6 +128,7 @@ class GameViewController: UIViewController {
         
         // update image
         updateCurrentCannonBubbleImage()
+        updateNextCannonBubbleImage()
     }
 }
 
