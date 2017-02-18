@@ -25,8 +25,21 @@ I am planning to display the current bubble, as well as the next upcoming bubble
 
 ### Problem 3: Integration
 
-Your answer here
+#### How my design allowed the integration
 
+My design for the Level Designer side and Game Engine side both use the same underlying BubbleGridModel / BubbleGridModelManager. As such, when the user presses the **START** button, I just need to segue from the Level Designer View Controller to the Game View Controller and in the process pass the same underlying BubbleGridModel from the LevelDesignerViewController to the GameViewController. As the GameViewController loads up, it will then load the model received by the LevelDesigner into the Game Engine, and then start the game engine, so that the bubbles in the bubble grid are in the game engine, and can be interacted with as physics objects and rendered on screen. 
+
+In short, I only had to pass my model to my game view controller, and created another method to iterate through the model and each bubble in the bubble grid to the game engine.  
+
+#### What are the alternative approaches?
+1. 
+
+#### Advantage vs alternative approaches
+1. 
+
+
+#### Disadvantage vs alternative approaches
+1. 
 
 ### Problem 4.3
 
