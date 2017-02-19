@@ -110,6 +110,15 @@ struct Constants {
         UIImage(named: "cannon_11")!,
         UIImage(named: "cannon_12")!,
     ]
+    
+    // Images -- Bubble burst
+    static let bubbleBurstAnimationImages = [
+        UIImage(named: "bubble-burst_01")!,
+        UIImage(named: "bubble-burst_02")!,
+        UIImage(named: "bubble-burst_03")!,
+        UIImage(named: "bubble-burst_04")!
+    ]
+    
     static let cannonFireDuration = 0.3
     static let cannonRepeatCount = 1
 }

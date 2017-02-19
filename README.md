@@ -91,7 +91,7 @@ Your answer here
 
 ### Problem 9: The Bells & Whistles
 
-1. Added a trajectory animation and path to the cannon. While the user is taking aim, the path of the bubble will be projected so that the user can fine tune his aim.
+1. Added a trajectory animation and path to the cannon. While the user is taking aim, the path of the bubble will be projected so that the user can fine tune his aim. Modification made: Need to use the physics engine to manually step through for the special trajectory bubble and after each step add its position to an array of points. Then when the bubble stops, or after a limit is reached on the number of points, draw a bezier path connecting those points.
 2. 
 
 
