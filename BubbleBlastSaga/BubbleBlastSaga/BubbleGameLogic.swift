@@ -18,7 +18,9 @@ class BubbleGameLogic {
     // special data structure for chaining to avoid checking special bubble activation repeatedly
     fileprivate var bubblesActivated = Set<IndexPath>()
     
-    init(bubbleGrid: UICollectionView, bubbleGridModel: BubbleGridModel, gameEngine: GameEngine, bubbleGameAnimator: BubbleGameAnimator) {
+    init(bubbleGrid: UICollectionView, bubbleGridModel: BubbleGridModel, gameEngine: GameEngine,
+        bubbleGameAnimator: BubbleGameAnimator) {
+        
         self.bubbleGrid = bubbleGrid
         self.bubbleGridModel = bubbleGridModel
         self.gameEngine = gameEngine
