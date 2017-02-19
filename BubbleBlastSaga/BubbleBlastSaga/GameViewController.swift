@@ -53,8 +53,6 @@ class GameViewController: UIViewController {
         longPressGestureRecognizer.minimumPressDuration = Constants.minimumLongPressDuration
         
         // Request to layout and adjust constraints for game setup
-        // gameArea.layoutIfNeeded()
-        // bubbleGrid.layoutIfNeeded()
         self.view.subviews.forEach { $0.layoutIfNeeded() }
         
         // Setup the game and start the game
