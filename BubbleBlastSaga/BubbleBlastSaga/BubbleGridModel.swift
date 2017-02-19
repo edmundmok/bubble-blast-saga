@@ -13,7 +13,7 @@ import Foundation
  operations to query and manipulate the grid, as well as
  save and load the internal bubble grid.
  */
-protocol BubbleGridModel {
+protocol BubbleGridModel: NSCopying {
     
     var loadedFileName: String? { get }
     var numSections: Int { get }

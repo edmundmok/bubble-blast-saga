@@ -380,6 +380,22 @@ class BubbleGridModelManager: BubbleGridModel {
         self.loadedFileName = filename
     }
     
+    func copy(with zone: NSZone? = nil) -> Any {
+        let loadedFileNameCopy = loadedFileName?.copy()
+        let bubbleGridCopy = bubbleGrid.copy()
+        
+        let copy = BubbleGridModelManager(numSections: numSections, numRows: numRowsPerEvenSection)
+        
+        guard let loadedFileName = loadedFileNameCopy as? String?,
+            let bubbleGrid = bubbleGridCopy as? BubbleGrid else {
+                return copy
+        }
+        
+        copy.loadedFileName = loadedFileName
+        copy.bubbleGrid = bubbleGrid
+        return copy
+    }
+    
     // Returns the indexpath that corresponds to the given index
     // in the bubblegrid.
     private func getIndexPath(from index: Int) -> IndexPath {

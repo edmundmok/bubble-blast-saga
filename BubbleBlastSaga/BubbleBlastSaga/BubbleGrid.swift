@@ -12,7 +12,7 @@ import Foundation
  The BubbleGrid class represents a bubble grid, which is a
  grid collection of GameBubble objects.
  */
-class BubbleGrid: NSObject, NSCoding {
+class BubbleGrid: NSObject, NSCoding, NSCopying {
     
     private(set) var numSections: Int
     private(set) var numRowsPerEvenSection: Int
@@ -104,5 +104,12 @@ class BubbleGrid: NSObject, NSCoding {
         aCoder.encode(self.numSections, forKey: Constants.numSectionsKey)
         aCoder.encode(self.numRowsPerOddSection, forKey: Constants.numRowsPerOddSectionKey)
         aCoder.encode(self.numRowsPerEvenSection, forKey: Constants.numRowsPerEvenSectionKey)
+    }
+    
+    // MARK: NSCopying
+    func copy(with zone: NSZone? = nil) -> Any {
+        let copy = BubbleGrid(numSections: numSections, numRows: numRowsPerEvenSection)
+        copy.bubbles = bubbles
+        return copy
     }
 }

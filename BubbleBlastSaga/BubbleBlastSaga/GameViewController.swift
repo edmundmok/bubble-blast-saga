@@ -58,7 +58,15 @@ class GameViewController: UIViewController {
         self.view.subviews.forEach { $0.layoutIfNeeded() }
         
         // Setup the game and start the game
-        bubbleGame = BubbleGame(gameSettings: GameSettings(), bubbleGridModel: bubbleGridModel,
+        
+        // Create a copy of the model, so that any changes due to gameplay
+        // do not affect the level designer's model
+        // Plus, can reset the game state to original state easily.
+        guard let modelCopy = bubbleGridModel.copy() as? BubbleGridModel else {
+            return
+        }
+        
+        bubbleGame = BubbleGame(gameSettings: GameSettings(), bubbleGridModel: modelCopy,
                                 bubbleGrid: bubbleGrid, gameArea: gameArea)
         bubbleGame.startGame()
         
