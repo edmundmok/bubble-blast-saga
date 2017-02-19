@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		F12266C71E593182004A3971 /* TrajectoryBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12266C61E593182004A3971 /* TrajectoryBubble.swift */; };
 		F12266C91E594B54004A3971 /* TrajectoryPathLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12266C81E594B54004A3971 /* TrajectoryPathLayer.swift */; };
+		F12266CB1E59927D004A3971 /* BubbleGameAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12266CA1E59927D004A3971 /* BubbleGameAnimator.swift */; };
 		F1C748731E55954C0080A4B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748721E55954C0080A4B2 /* AppDelegate.swift */; };
 		F1C748751E55954C0080A4B2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748741E55954C0080A4B2 /* ViewController.swift */; };
 		F1C7487A1E55954C0080A4B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1C748791E55954C0080A4B2 /* Assets.xcassets */; };
@@ -35,7 +36,6 @@
 		F1C748C81E5596010080A4B2 /* SavedLevelsModelManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748B51E5596000080A4B2 /* SavedLevelsModelManager.swift */; };
 		F1C748C91E5596010080A4B2 /* String+Alphanumeric.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748B61E5596000080A4B2 /* String+Alphanumeric.swift */; };
 		F1C748CE1E5596850080A4B2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F1C748CC1E5596850080A4B2 /* Main.storyboard */; };
-		F1C748ED1E559E6D0080A4B2 /* AnimationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748D81E559E6D0080A4B2 /* AnimationHelper.swift */; };
 		F1C748EE1E559E6D0080A4B2 /* BubbleGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748D91E559E6D0080A4B2 /* BubbleGame.swift */; };
 		F1C748EF1E559E6D0080A4B2 /* BubbleGameCollisionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748DA1E559E6D0080A4B2 /* BubbleGameCollisionHandler.swift */; };
 		F1C748F01E559E6D0080A4B2 /* BubbleGameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748DB1E559E6D0080A4B2 /* BubbleGameLogic.swift */; };
@@ -85,6 +85,7 @@
 /* Begin PBXFileReference section */
 		F12266C61E593182004A3971 /* TrajectoryBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrajectoryBubble.swift; sourceTree = "<group>"; };
 		F12266C81E594B54004A3971 /* TrajectoryPathLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrajectoryPathLayer.swift; sourceTree = "<group>"; };
+		F12266CA1E59927D004A3971 /* BubbleGameAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleGameAnimator.swift; sourceTree = "<group>"; };
 		F1C7486F1E55954C0080A4B2 /* BubbleBlastSaga.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BubbleBlastSaga.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1C748721E55954C0080A4B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1C748741E55954C0080A4B2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -117,7 +118,6 @@
 		F1C748B51E5596000080A4B2 /* SavedLevelsModelManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SavedLevelsModelManager.swift; sourceTree = "<group>"; };
 		F1C748B61E5596000080A4B2 /* String+Alphanumeric.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Alphanumeric.swift"; sourceTree = "<group>"; };
 		F1C748CD1E5596850080A4B2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		F1C748D81E559E6D0080A4B2 /* AnimationHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnimationHelper.swift; sourceTree = "<group>"; };
 		F1C748D91E559E6D0080A4B2 /* BubbleGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleGame.swift; sourceTree = "<group>"; };
 		F1C748DA1E559E6D0080A4B2 /* BubbleGameCollisionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleGameCollisionHandler.swift; sourceTree = "<group>"; };
 		F1C748DB1E559E6D0080A4B2 /* BubbleGameLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleGameLogic.swift; sourceTree = "<group>"; };
@@ -301,13 +301,13 @@
 				F1C748E11E559E6D0080A4B2 /* GameObject.swift */,
 				F1C748E21E559E6D0080A4B2 /* GameSettings.swift */,
 				F1C748E61E559E6D0080A4B2 /* GameWall.swift */,
-				F1C748D81E559E6D0080A4B2 /* AnimationHelper.swift */,
 				F1C748EC1E559E6D0080A4B2 /* Renderer.swift */,
 				F1C748D91E559E6D0080A4B2 /* BubbleGame.swift */,
 				F1C748DA1E559E6D0080A4B2 /* BubbleGameCollisionHandler.swift */,
 				F1C748DB1E559E6D0080A4B2 /* BubbleGameLogic.swift */,
 				F1C748DC1E559E6D0080A4B2 /* BubbleGameUtility.swift */,
 				F1F821E11E56A8A9006DD5C3 /* BubbleCannon.swift */,
+				F12266CA1E59927D004A3971 /* BubbleGameAnimator.swift */,
 			);
 			name = Game;
 			sourceTree = "<group>";
@@ -513,7 +513,6 @@
 				F1F821EE1E58718C006DD5C3 /* MainMenuViewController.swift in Sources */,
 				F1F821E81E57F738006DD5C3 /* PowerBubble.swift in Sources */,
 				F1F821E01E568EC1006DD5C3 /* CannonView.swift in Sources */,
-				F1C748ED1E559E6D0080A4B2 /* AnimationHelper.swift in Sources */,
 				F1C748FC1E559E6D0080A4B2 /* PhysicsBody.swift in Sources */,
 				F1C748FE1E559E6D0080A4B2 /* PhysicsCircle.swift in Sources */,
 				F1C748C81E5596010080A4B2 /* SavedLevelsModelManager.swift in Sources */,
@@ -533,6 +532,7 @@
 				F1C748F31E559E6D0080A4B2 /* CollisionHandler.swift in Sources */,
 				F1C748F21E559E6D0080A4B2 /* CGPoint+Distance.swift in Sources */,
 				F1C748EF1E559E6D0080A4B2 /* BubbleGameCollisionHandler.swift in Sources */,
+				F12266CB1E59927D004A3971 /* BubbleGameAnimator.swift in Sources */,
 				F1C748C31E5596010080A4B2 /* LevelDesignerSaveAlertController.swift in Sources */,
 				F1F821E21E56A8A9006DD5C3 /* BubbleCannon.swift in Sources */,
 				F1C748C51E5596010080A4B2 /* PaletteBubble.swift in Sources */,

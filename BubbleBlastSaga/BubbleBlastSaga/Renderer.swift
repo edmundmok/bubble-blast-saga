@@ -31,6 +31,10 @@ class Renderer {
         imageMap[gameObject.uuid] = nil
     }
     
+    func getImage(for gameObject: GameObject) -> UIImageView? {
+        return imageMap[gameObject.uuid]
+    }
+    
     // Draws the given game objects onto the current canvas.
     func draw(_ gameObjects: [GameObject]) {
         for gameObject in gameObjects {
@@ -48,32 +52,5 @@ class Renderer {
             // Drawing a circle, use its center
             objectImageView?.center = circle.center
         }
-    }
-    
-    // Animates the given game object's corresponding image (if available), using the 
-    // given animation over the specified duration.
-    // Removes the image from the imageMap and the canvas on animation complete if requested.
-    func animate(_ gameObject: GameObject, with animation: AnimationHelper.Animation,
-        for duration: TimeInterval, removeOnComplete: Bool) {
-        
-        // If there is no image for the given game object, nothing to animate
-        guard let imageToAnimate = imageMap[gameObject.uuid] else {
-            return
-        }
-        
-        // Get the appropriate animation
-        let animationForView = AnimationHelper.create(animation, for: imageToAnimate)
-        
-        // Run the animation
-        UIView.animate(withDuration: duration, animations: animationForView, completion: { _ in
-            // Check if removing on complete
-            guard removeOnComplete else {
-                return
-            }
-            
-            // If yes, remove it on complete
-            self.imageMap[gameObject.uuid] = nil
-            imageToAnimate.removeFromSuperview()
-        })
     }
 }

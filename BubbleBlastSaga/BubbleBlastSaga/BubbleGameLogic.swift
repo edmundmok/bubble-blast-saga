@@ -13,14 +13,16 @@ class BubbleGameLogic {
     fileprivate let bubbleGrid: UICollectionView
     fileprivate let bubbleGridModel: BubbleGridModel
     fileprivate let gameEngine: GameEngine
+    fileprivate let bubbleGameAnimator: BubbleGameAnimator
     
     // special data structure for chaining to avoid checking special bubble activation repeatedly
     fileprivate var bubblesActivated = Set<IndexPath>()
     
-    init(bubbleGrid: UICollectionView, bubbleGridModel: BubbleGridModel, gameEngine: GameEngine) {
+    init(bubbleGrid: UICollectionView, bubbleGridModel: BubbleGridModel, gameEngine: GameEngine, bubbleGameAnimator: BubbleGameAnimator) {
         self.bubbleGrid = bubbleGrid
         self.bubbleGridModel = bubbleGridModel
         self.gameEngine = gameEngine
+        self.bubbleGameAnimator = bubbleGameAnimator
     }
     
     // Handle the resulting interactions of the snapped bubble, such as removing connected 
@@ -355,9 +357,7 @@ class BubbleGameLogic {
             // Deregister from the game engine
             gameEngine.deregisterForAnimation(gameObject: gameBubble)
             
-            // Run animation using renderer, remove on complete
-            gameEngine.renderer.animate(gameBubble, with: .BubblePop,
-                for: Constants.popDuration, removeOnComplete: true)
+            bubbleGameAnimator.popBubble(gameBubble)
         }
     }
     
@@ -374,13 +374,7 @@ class BubbleGameLogic {
             // Deregister from the game engine
             gameEngine.deregisterForAnimation(gameObject: gameBubble)
             
-            // Compute drop duration
-            let distanceToBottom = gameEngine.renderer.canvas.frame.maxY - gameBubble.center.y
-            let dropDuration = Double(distanceToBottom) * Constants.dropDurationMultiplier
-            
-            // Run animation using renderer, remove on complete
-            gameEngine.renderer.animate(gameBubble, with: .BubbleDrop,
-                for: dropDuration, removeOnComplete: true)
+            bubbleGameAnimator.dropBubble(gameBubble)
             
         }
     }

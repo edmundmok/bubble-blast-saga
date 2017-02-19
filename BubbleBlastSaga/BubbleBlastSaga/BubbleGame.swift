@@ -25,8 +25,8 @@ class BubbleGame {
     // Those will go in here. For now, it only has the time step.
     private let gameSettings: GameSettings
     
-    init(gameSettings: GameSettings, bubbleGridModel: BubbleGridModel, bubbleGrid: UICollectionView,
-        gameArea: UIView) {
+    init(gameSettings: GameSettings, bubbleGridModel: BubbleGridModel,
+        bubbleGrid: UICollectionView, gameArea: UIView) {
         
         self.gameSettings = gameSettings
         self.bubbleGridModel = bubbleGridModel
@@ -39,8 +39,12 @@ class BubbleGame {
         let gameEngine = GameEngine(physicsEngine: physicsEngine, renderer: renderer,
             gameSettings: gameSettings)
         
+        let bubbleGameAnimator = BubbleGameAnimator(gameArea: gameArea, renderer: renderer,
+            bubbleGrid: bubbleGrid)
+        
         let bubbleGameLogic = BubbleGameLogic(bubbleGrid: bubbleGrid,
-            bubbleGridModel: bubbleGridModel, gameEngine: gameEngine)
+            bubbleGridModel: bubbleGridModel, gameEngine: gameEngine,
+            bubbleGameAnimator: bubbleGameAnimator)
         
         let collisionHandler = BubbleGameCollisionHandler(bubbleGrid: bubbleGrid,
             bubbleGridModel: bubbleGridModel, bubbleGameLogic: bubbleGameLogic,
