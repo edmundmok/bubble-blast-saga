@@ -160,6 +160,48 @@ class BubbleGame {
         bubbleCannon.reloadCannon()
     }
     
+    // Get the trajectory points starting from the given startPosition and 
+    // at the given angle.
+    func getTrajectoryPoints(from startPosition: CGPoint, at angle: CGFloat) -> [CGPoint] {
+        // Compute attributes of a normal bubble to give the trajectory bubble
+        let bubbleSize = getStandardBubbleSize()
+        let center = startPosition
+        let radius = getBubbleHitBoxRadius(from: bubbleSize)
+        
+        // Compute the velocity for the trajectory bubble
+        let totalVelocity = Constants.bubbleSpeed
+        let velocityX = totalVelocity * cos(angle)
+        let velocityY = totalVelocity * sin(angle)
+        let velocityVector = CGVector(dx: velocityX, dy: velocityY)
+        
+        // Create the trajectory bubble
+        let trajectoryBubble = TrajectoryBubble(radius: radius, center: center, velocity: velocityVector)
+        
+        // Array to store trajectory points, starting with the start position
+        var trajectoryPoints = [CGPoint]()
+        trajectoryPoints.append(startPosition)
+
+        // Run simulation to obtain trajectory points
+        for _ in 0..<Constants.trajectoryPointsCount {
+            
+            // run simulation using the physics engine
+            // without actually registering to the game engine
+            // to prevent complications with collisions
+            gameEngine.physicsEngine.updateState(for: trajectoryBubble)
+            trajectoryPoints.append(trajectoryBubble.center)
+
+            
+            // Can just return if bubble stops moving
+            // No further useful points can be obtained after it stops
+            guard trajectoryBubble.velocity != CGVector.zero else {
+                return trajectoryPoints
+            }
+        }
+        
+        return trajectoryPoints
+    }
+    
+    // Swap the current cannon bubble with the next cannon bubble.
     func swapCannonBubble() {
         bubbleCannon.swapCurrentWithNextBubble()
     }

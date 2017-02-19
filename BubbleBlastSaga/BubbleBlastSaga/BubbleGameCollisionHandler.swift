@@ -50,7 +50,7 @@ extension BubbleGameCollisionHandler: CollisionHandler {
         let movingCircle = (aCircle.velocity != CGVector.zero) ? aCircle : otherCircle
         let stationaryCircle = (movingCircle === aCircle) ? otherCircle : aCircle
         
-        // Only deal with collison between GameBubble objects
+        // Only deal with collision between GameBubble objects
         guard let movingBubble = movingCircle as? GameBubble,
             let stationaryBubble = stationaryCircle as? GameBubble else {
                 return
@@ -108,8 +108,23 @@ extension BubbleGameCollisionHandler: CollisionHandler {
         // Stop the moving circle first
         movingBubble.velocity = CGVector.zero
         movingBubble.center = snapCenter
-        bubbleGridModel.set(gameBubble: movingBubble, at: nearestEmptyNeighbourIndexPath)
-        bubbleGameLogic.handleInteractions(with: movingBubble)
+        
+        
+        // At this point, the bubble may be a TrajectoryBubble used to compute trajectory
+        // path, or a normal cannon bubble shot from the cannon.
+        
+        // Only handle futher interactions if not trajectory bubble
+        guard let _ = movingBubble as? TrajectoryBubble else {
+            // If not a trajectory bubble, then it is a regular bubble fired from the cannon
+            // so we need to handle normal interactions
+            bubbleGridModel.set(gameBubble: movingBubble, at: nearestEmptyNeighbourIndexPath)
+            bubbleGameLogic.handleInteractions(with: movingBubble)
+            return
+        }
+        
+        // Otherwise it is a trajectory bubble, so we only needed it to snap
+        // No need to handle any interactions
+
     }
     
     func handleCollisionBetween(_ aCircle: PhysicsCircle, and aBox: PhysicsBox) {
@@ -160,8 +175,21 @@ extension BubbleGameCollisionHandler: CollisionHandler {
         // Stop the moving circle first
         gameBubble.velocity = CGVector.zero
         gameBubble.center = snapCenter
-        bubbleGridModel.set(gameBubble: gameBubble, at: nearestEmptyTopSectionIndexPath)
-        bubbleGameLogic.handleInteractions(with: gameBubble)
+        
+        // At this point, the bubble may be a TrajectoryBubble used to compute trajectory
+        // path, or a normal cannon bubble shot from the cannon.
+        
+        // Only handle futher interactions if not trajectory bubble
+        guard let _ = gameBubble as? TrajectoryBubble else {
+            // If not a trajectory bubble, then it is a regular bubble fired from the cannon
+            // so we need to handle normal interactions
+            bubbleGridModel.set(gameBubble: gameBubble, at: nearestEmptyTopSectionIndexPath)
+            bubbleGameLogic.handleInteractions(with: gameBubble)
+            return
+        }
+        
+        // Otherwise it is a trajectory bubble, so we only needed it to snap
+        // No need to handle any interactions
     }
     
     func handleCollisionBetween(_ aBox: PhysicsBox, and otherBox: PhysicsBox) {
@@ -172,6 +200,12 @@ extension BubbleGameCollisionHandler: CollisionHandler {
     // ---------------------- Helper methods --------------------- //
     
     private func handleCollisionBetweenTwoMovingCircles(aCircle: PhysicsCircle, otherCircle: PhysicsCircle) {
+        
+        // Ignore any trajectory bubble collision with actual flying bubbles that were fired before
+        if aCircle is TrajectoryBubble || otherCircle is TrajectoryBubble {
+            return
+        }
+        
         // We need them to bounce off each other upon collision
         // Referencing physics from: http://ericleong.me/research/circle-circle/#dynamic-circle---static-circle-collision
         

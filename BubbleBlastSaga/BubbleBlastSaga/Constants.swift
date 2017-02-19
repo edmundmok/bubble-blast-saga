@@ -44,6 +44,7 @@ struct Constants {
     static let wallLength = CGFloat(0)
     static let numberOfBubbles = UInt32(4)
     static let bottomWallMultiplier = CGFloat(3)
+    static let trajectoryPointsCount = 120
     
     // BubbleGameLogic / BubbleGameCollisionHandler
     static let infiniteDistance = CGFloat(-1)
@@ -58,6 +59,12 @@ struct Constants {
     static let minimumLongPressDuration = 0.0
     static let bubbleHitBoxSizePercentage = 0.65
     static let bubbleSpeed: CGFloat = 15
+    
+    // TrajectoryPathLayer
+    static let lineWidthMultiplier = CGFloat(0.005)
+    static let dashPatternStart = NSNumber(value: 0)
+    static let dashMultiplier = CGFloat(4)
+    static let dashPhase = CGFloat(0)
     
     // GameSettings
     static let defaultTimeStep = 1.0 / 60.0

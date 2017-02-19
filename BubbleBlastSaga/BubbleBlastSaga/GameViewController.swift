@@ -17,6 +17,9 @@ class GameViewController: UIViewController {
     @IBOutlet weak var gameArea: UIView!
     @IBOutlet weak var currentBubbleView: UIImageView!
     @IBOutlet weak var nextBubbleView: UIImageView!
+    @IBOutlet weak var trajectoryPathView: UIView!
+    
+    private var trajectoryPathLayer = TrajectoryPathLayer()
     
     @IBOutlet var longPressGestureRecognizer: UILongPressGestureRecognizer!
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
@@ -65,6 +68,10 @@ class GameViewController: UIViewController {
         // Setup the image for the current cannon bubble
         updateCurrentCannonBubbleImage()
         updateNextCannonBubbleImage()
+        
+        // Trajectory path (aiming guide)
+        self.trajectoryPathView.layer.addSublayer(trajectoryPathLayer)
+        trajectoryPathLayer.setPathStyle(gameArea: gameArea)
     }
     
     private func updateCurrentCannonBubbleImage() {
@@ -91,6 +98,7 @@ class GameViewController: UIViewController {
         // Point at finger location on a single tap
         if sender.state == .began {
             updateCannonAngle(sender)
+            updateTrajectoryPath(sender)
             return
         }
         
@@ -105,6 +113,7 @@ class GameViewController: UIViewController {
     
     @IBAction func handlePanGesture(_ sender: UIPanGestureRecognizer) {
         updateCannonAngle(sender)
+        updateTrajectoryPath(sender)
     }
     
     // Update the angle of the cannon image to face the user's finger location
@@ -122,13 +131,24 @@ class GameViewController: UIViewController {
     
     // Fires the cannon in the bubble game
     private func fireCannon() {
-        let angle = atan2(cannon.transform.b, cannon.transform.a) - CGFloat(M_PI_2)
+        let angle = getCurrentCannonAngle()
         bubbleGame.fireBubble(from: cannon.center, at: angle)
         cannon.fireAnimation()
         
         // update image
         updateCurrentCannonBubbleImage()
         updateNextCannonBubbleImage()
+    }
+    
+    private func updateTrajectoryPath(_ sender: UIGestureRecognizer) {
+        
+        let angle = getCurrentCannonAngle()
+        let trajectoryPoints = bubbleGame.getTrajectoryPoints(from: cannon.center, at: angle)
+        trajectoryPathLayer.drawPath(from: trajectoryPoints, start: cannon.center)
+    }
+    
+    private func getCurrentCannonAngle() -> CGFloat {
+        return atan2(cannon.transform.b, cannon.transform.a) - CGFloat(M_PI_2)
     }
 }
 

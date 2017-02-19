@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F12266C71E593182004A3971 /* TrajectoryBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12266C61E593182004A3971 /* TrajectoryBubble.swift */; };
+		F12266C91E594B54004A3971 /* TrajectoryPathLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12266C81E594B54004A3971 /* TrajectoryPathLayer.swift */; };
 		F1C748731E55954C0080A4B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748721E55954C0080A4B2 /* AppDelegate.swift */; };
 		F1C748751E55954C0080A4B2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748741E55954C0080A4B2 /* ViewController.swift */; };
 		F1C7487A1E55954C0080A4B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1C748791E55954C0080A4B2 /* Assets.xcassets */; };
@@ -81,6 +83,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		F12266C61E593182004A3971 /* TrajectoryBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrajectoryBubble.swift; sourceTree = "<group>"; };
+		F12266C81E594B54004A3971 /* TrajectoryPathLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrajectoryPathLayer.swift; sourceTree = "<group>"; };
 		F1C7486F1E55954C0080A4B2 /* BubbleBlastSaga.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BubbleBlastSaga.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1C748721E55954C0080A4B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1C748741E55954C0080A4B2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -285,6 +289,7 @@
 				F1F821F11E587E3C006DD5C3 /* GameBubbleCell.swift */,
 				F1C748B21E5596000080A4B2 /* PaletteBubble.swift */,
 				F1F821DF1E568EC1006DD5C3 /* CannonView.swift */,
+				F12266C81E594B54004A3971 /* TrajectoryPathLayer.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -319,6 +324,7 @@
 				F1C748B31E5596000080A4B2 /* PaletteMode.swift */,
 				F1F821E71E57F738006DD5C3 /* PowerBubble.swift */,
 				F1F821E91E57F742006DD5C3 /* BubblePower.swift */,
+				F12266C61E593182004A3971 /* TrajectoryBubble.swift */,
 			);
 			name = Game;
 			sourceTree = "<group>";
@@ -503,6 +509,7 @@
 				F1C748F61E559E6D0080A4B2 /* GameObject.swift in Sources */,
 				F1C748F41E559E6D0080A4B2 /* Constants.swift in Sources */,
 				F1C748BC1E5596010080A4B2 /* BubbleType.swift in Sources */,
+				F12266C91E594B54004A3971 /* TrajectoryPathLayer.swift in Sources */,
 				F1F821EE1E58718C006DD5C3 /* MainMenuViewController.swift in Sources */,
 				F1F821E81E57F738006DD5C3 /* PowerBubble.swift in Sources */,
 				F1F821E01E568EC1006DD5C3 /* CannonView.swift in Sources */,
@@ -519,6 +526,7 @@
 				F1C748F01E559E6D0080A4B2 /* BubbleGameLogic.swift in Sources */,
 				F1C748BB1E5596010080A4B2 /* BubbleGridModelManager.swift in Sources */,
 				F1C748F91E559E6D0080A4B2 /* GameViewControllerDataSource.swift in Sources */,
+				F12266C71E593182004A3971 /* TrajectoryBubble.swift in Sources */,
 				F1C748B71E5596000080A4B2 /* BubbleCell.swift in Sources */,
 				F1C748C91E5596010080A4B2 /* String+Alphanumeric.swift in Sources */,
 				F1C749001E559E6D0080A4B2 /* Queue.swift in Sources */,

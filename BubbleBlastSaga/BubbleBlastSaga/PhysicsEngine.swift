@@ -11,24 +11,31 @@ import UIKit
 class PhysicsEngine {
     
     var collisionHandler: CollisionHandler?
+    private var physicsBodies = [PhysicsBody]()
+    
+    func updateState(for physicsBody: PhysicsBody) {
+        // Update the positions of all physics bodies
+        let didUpdate = update(physicsBody)
+        
+        // If body did not update, can just continue
+        guard didUpdate else {
+            return
+        }
+        
+        // Otherwise if body did update, we need to check
+        // for collisions
+        checkCollisions(for: physicsBody, with: physicsBodies)
+    }
     
     // Update the state of all objects in the entire physics world.
     func updateState(for physicsBodies: [PhysicsBody]) {
         
-        for physicsBody in physicsBodies {
-            
-            // Update the positions of all physics bodies
-            let didUpdate = update(physicsBody)
-            
-            // If body did not update, can just continue
-            guard didUpdate else {
-                continue
-            }
-            
-            // Otherwise if body did update, we need to check
-            // for collisions
-            checkCollisions(for: physicsBody, with: physicsBodies)
-        }
+        // Update the latest set of physics bodies to be 
+        // updated by the physics engine.
+        self.physicsBodies = physicsBodies
+        
+        // Update each body
+        physicsBodies.forEach { updateState(for: $0) }
 
     }
     

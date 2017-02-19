@@ -91,7 +91,8 @@ Your answer here
 
 ### Problem 9: The Bells & Whistles
 
-Your answer here
+1. Added a trajectory animation and path to the cannon. While the user is taking aim, the path of the bubble will be projected so that the user can fine tune his aim.
+2. 
 
 
 ### Problem 10: Final Reflection
