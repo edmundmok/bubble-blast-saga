@@ -91,8 +91,9 @@ Your answer here
 
 ### Problem 9: The Bells & Whistles
 
-1. Added a trajectory animation and path to the cannon. While the user is taking aim, the path of the bubble will be projected so that the user can fine tune his aim. Modification made: Need to use the physics engine to manually step through for the special trajectory bubble and after each step add its position to an array of points. Then when the bubble stops, or after a limit is reached on the number of points, draw a bezier path connecting those points.
-2. 
+1. **Added a trajectory animation and path to the cannon.** While the user is taking aim, the path of the bubble will be projected so that the user can fine tune his aim. Modification made: Need to use the physics engine to manually step through for the special trajectory bubble and after each step add its position to an array of points. Then when the bubble stops, or after a limit is reached on the number of points, draw a bezier path connecting those points.
+2. **Added bubble bursting animation when bubbles are popped.** For this, I realised my classes that did the animation previously were a bit restrictive as I only took into account animations using `UIView.animateWithDuration(...)`. The bubble bursting animation required the use of a UIImageView's animationImages instead. Previously, my `Renderer` was doing the animations, and I had an `AnimationHelper` that generates the *animation code block* that is used in the `UIView.animateWithDuration(...)` method. As you can see it only takes into account a certain type of animation using the UIView but cannot use the `UIImageView`'s animationImages property. So I had to reorganize my animation code and create a `BubbleGameAnimator` class for `BubbleGameLogic` to know about and call whenever an animation needs to be done due to logic stuff. `BubbleGameAnimator` will then execute the appropriate animation accordingly. `BubbleGameAnimator` is able to execute both types of animations that I mentioned before. I feel that this change is good as these animations are a bit *game-specific* for the `Renderer` to know about so having a `BubbleGameAnimator` do these instead of a `Renderer` doing these feels abit more cohesive, and also the `Renderer` more reusable.
+3. 
 
 
 ### Problem 10: Final Reflection

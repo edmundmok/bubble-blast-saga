@@ -56,12 +56,12 @@ class BubbleGameAnimator {
             return
         }
         
-        // Run the animation
-        UIView.animate(withDuration: Constants.popDuration, animations: {
-            bubbleImage.transform = CGAffineTransform(scaleX: Constants.popExpansionFactor,
-                y: Constants.popExpansionFactor)
-            bubbleImage.alpha = Constants.popAlpha
-        }, completion: { _ in
+        bubbleImage.animationImages = Constants.bubbleBurstAnimationImages
+        bubbleImage.animationDuration = Constants.popDuration
+        bubbleImage.animationRepeatCount = Constants.popRepeatCount
+        bubbleImage.startAnimating()
+        
+        Timer.scheduledTimer(withTimeInterval: Constants.popRemovalTime, repeats: false, block: { _ in
             self.renderer.deregisterImage(for: gameBubble)
         })
     }

@@ -74,9 +74,9 @@ struct Constants {
     static let verticalOffsetMultiplier = CGFloat(-8)
     
     // Animations
-    static let popDuration = 0.1
-    static let popExpansionFactor = CGFloat(2)
-    static let popAlpha = CGFloat(0)
+    static let popDuration = 0.5
+    static let popRemovalTime = 0.8 * popDuration
+    static let popRepeatCount = 1
     static let dropDurationMultiplier = 0.002
     static let dropDistanceMultiplier = CGFloat(5)
     static let dropHorizontalOffset = CGFloat(0)
