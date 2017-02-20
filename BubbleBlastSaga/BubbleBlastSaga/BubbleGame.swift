@@ -220,8 +220,28 @@ class BubbleGame {
         // get all the candidate positions
         let candidates = getCandidates(for: currentColoredBubble)
         
+        var maxCount = -1, maxCandidate = IndexPath()
+        
+        for candidate in candidates {
+            guard let modelCopy = bubbleGridModel.copy() as? BubbleGridModel else {
+                continue
+            }
+            
+            modelCopy.set(gameBubble: bubbleCannon.currentBubble, at: candidate)
+            let bubbleGameLogicSim = BubbleGameLogicSimulator(bubbleGrid: bubbleGrid, bubbleGridModel: modelCopy)
+            
+            let count = bubbleGameLogicSim.handleInteractions(with: bubbleCannon.currentBubble)
+            
+            if count > maxCount {
+                maxCount = count
+                maxCandidate = candidate
+            }
+        }
+        
+        
+        
         // for each candidate position, compute the number of possible bubbles removed
-        bubbleGameAnimator.flashHintLocations(candidates)
+        bubbleGameAnimator.flashHintLocations(maxCandidate)
         
         // best position is the one with max number of bubbles removed
     }
