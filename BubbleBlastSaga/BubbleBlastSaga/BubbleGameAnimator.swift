@@ -66,4 +66,17 @@ class BubbleGameAnimator {
         })
     }
     
+    func flashHintLocations(_ indexPaths: [IndexPath]) {
+        indexPaths
+            .map { bubbleGrid.cellForItem(at: $0) }
+            .flatMap { $0 }
+            .forEach { cell in
+                UIView.animate(withDuration: 0.5, animations: {
+                    cell.backgroundColor = UIColor.yellow
+                }, completion: { _ in
+                    cell.backgroundColor = UIColor.clear
+                })
+            }
+    }
+    
 }

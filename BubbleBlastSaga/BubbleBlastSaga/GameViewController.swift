@@ -144,6 +144,8 @@ class GameViewController: UIViewController {
         // update image
         updateCurrentCannonBubbleImage()
         updateNextCannonBubbleImage()
+        
+        bubbleGame.getHint()
     }
     
     private func updateTrajectoryPath(_ sender: UIGestureRecognizer) {

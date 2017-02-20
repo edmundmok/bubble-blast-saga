@@ -16,6 +16,7 @@ class BubbleGame {
     private let bubbleGrid: UICollectionView
     private let gameArea: UIView
     let bubbleCannon = BubbleCannon()
+    private let bubbleGameAnimator: BubbleGameAnimator
     
     // game engine
     private let gameEngine: GameEngine
@@ -53,6 +54,7 @@ class BubbleGame {
         physicsEngine.collisionHandler = collisionHandler
         
         self.gameEngine = gameEngine
+        self.bubbleGameAnimator = bubbleGameAnimator
     }
     
     // Starts the bubble game running
@@ -204,6 +206,76 @@ class BubbleGame {
         
         return trajectoryPoints
     }
+    
+    // ------------------------ HINT RELATED ------------------------
+    
+    // Get the hint for the next move.
+    func getHint() -> CGPoint {
+        
+        // TODO: Refactor this line
+        guard let currentColoredBubble = bubbleCannon.currentBubble as? ColoredBubble else {
+            return CGPoint()
+        }
+        
+        // get all the candidate positions
+        let candidates = getCandidates(for: currentColoredBubble)
+        
+        // for each candidate position, compute the number of possible bubbles removed
+        bubbleGameAnimator.flashHintLocations(candidates)
+        
+        // best position is the one with max number of bubbles removed
+        
+        return CGPoint()
+    }
+    
+    private func getCandidates(for coloredBubble: ColoredBubble) -> [IndexPath] {
+        // assuming that the last section is empty (game should be over otherwise anyway)
+        let bottomIndexPaths = BubbleGameUtility.getIndexPathsForBottomSection(of: bubbleGridModel)
+        
+        // bfs from bottom section, look for empty cells that have filled neighbours, add them
+        // to the set
+        var queue = Queue<IndexPath>()
+        var visited = Set<IndexPath>()
+        
+        var candidates = [IndexPath]()
+        
+        bottomIndexPaths
+            .filter { bubbleGridModel.getGameBubble(at: $0) == nil }
+            .forEach {
+                queue.enqueue($0)
+                visited.insert($0)
+            }
+        
+        while !queue.isEmpty {
+            guard let next = try? queue.dequeue() else {
+                break
+            }
+            
+            
+            let nextNeighbours = bubbleGridModel.getNeighboursIndexPath(of: next)
+            
+            
+            // TODO: REFACTOR this
+            let isCandidate =  nextNeighbours
+                .filter { (bubbleGridModel.getGameBubble(at: $0) as? ColoredBubble)?.color == coloredBubble.color }
+                .count > 0
+            
+            if isCandidate {
+                candidates.append(next)
+            }
+            
+            nextNeighbours
+                .filter { !visited.contains($0) }
+                .forEach {
+                    queue.enqueue($0)
+                    visited.insert($0)
+                }
+        }
+        
+        return candidates
+    }
+    
+    // ------------------------ HINT RELATED ------------------------
     
     // Swap the current cannon bubble with the next cannon bubble.
     func swapCannonBubble() {

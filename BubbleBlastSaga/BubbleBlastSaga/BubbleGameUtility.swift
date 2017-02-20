@@ -22,6 +22,20 @@ class BubbleGameUtility {
         return indexPaths
     }
     
+    static func getIndexPathsForBottomSection(of bubbleGridModel: BubbleGridModel) -> [IndexPath] {
+        var indexPaths = [IndexPath]()
+        
+        let bottomSectionNum = bubbleGridModel.numSections - 1
+        let numRowsInBottomSection = bottomSectionNum % 2 == 0 ? bubbleGridModel.numRowsPerEvenSection : bubbleGridModel.numRowsPerOddSection
+        
+        // Add from index 0 to the last index in the first section of the grid (section 0 is even)
+        for index in 0..<numRowsInBottomSection {
+            indexPaths.append(IndexPath(row: index, section: bottomSectionNum))
+        }
+        
+        return indexPaths
+    }
+    
     // Returns the nearest empty index path to the given game bubble, among the given indexPaths.
     static func getNearestEmptyIndexPath(from gameBubble: GameBubble, to indexPaths: [IndexPath],
         bubbleGrid: UICollectionView, bubbleGridModel: BubbleGridModel) -> IndexPath? {
