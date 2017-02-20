@@ -144,8 +144,6 @@ class GameViewController: UIViewController {
         // update image
         updateCurrentCannonBubbleImage()
         updateNextCannonBubbleImage()
-        
-        bubbleGame.getHint()
     }
     
     private func updateTrajectoryPath(_ sender: UIGestureRecognizer) {
@@ -157,6 +155,10 @@ class GameViewController: UIViewController {
     
     private func getCurrentCannonAngle() -> CGFloat {
         return atan2(cannon.transform.b, cannon.transform.a) - CGFloat(M_PI_2)
+    }
+    
+    @IBAction func getHint(_ sender: UIButton) {
+        bubbleGame.getHint()
     }
 }
 

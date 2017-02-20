@@ -71,10 +71,13 @@ class BubbleGameAnimator {
             .map { bubbleGrid.cellForItem(at: $0) }
             .flatMap { $0 }
             .forEach { cell in
+                
                 UIView.animate(withDuration: 0.5, animations: {
                     cell.backgroundColor = UIColor.yellow
                 }, completion: { _ in
-                    cell.backgroundColor = UIColor.clear
+                    UIView.animate(withDuration: 0.5, animations: {
+                        cell.backgroundColor = UIColor.clear
+                    })
                 })
             }
     }

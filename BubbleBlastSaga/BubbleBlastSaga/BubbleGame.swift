@@ -210,11 +210,11 @@ class BubbleGame {
     // ------------------------ HINT RELATED ------------------------
     
     // Get the hint for the next move.
-    func getHint() -> CGPoint {
+    func getHint() {
         
         // TODO: Refactor this line
         guard let currentColoredBubble = bubbleCannon.currentBubble as? ColoredBubble else {
-            return CGPoint()
+            return
         }
         
         // get all the candidate positions
@@ -224,8 +224,6 @@ class BubbleGame {
         bubbleGameAnimator.flashHintLocations(candidates)
         
         // best position is the one with max number of bubbles removed
-        
-        return CGPoint()
     }
     
     private func getCandidates(for coloredBubble: ColoredBubble) -> [IndexPath] {
@@ -254,10 +252,25 @@ class BubbleGame {
             
             let nextNeighbours = bubbleGridModel.getNeighboursIndexPath(of: next)
             
+            guard bubbleGridModel.getGameBubble(at: next) == nil else {
+                continue
+            }
+            
             
             // TODO: REFACTOR this
             let isCandidate =  nextNeighbours
-                .filter { (bubbleGridModel.getGameBubble(at: $0) as? ColoredBubble)?.color == coloredBubble.color }
+                .filter {
+                    
+                    if let powerBubble = bubbleGridModel.getGameBubble(at: $0) as? PowerBubble {
+                        guard powerBubble.power != .Indestructible else {
+                            return false
+                        }
+                        return true
+                    }
+                    
+                    return (bubbleGridModel.getGameBubble(at: $0) as? ColoredBubble)?.color == coloredBubble.color
+                
+                }
                 .count > 0
             
             if isCandidate {
