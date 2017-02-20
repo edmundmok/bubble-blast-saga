@@ -9,6 +9,7 @@ CS3217 Problem Set 5
 
 # Note to self
 > Fix my chaining of star bubble. Either carry forward the original bubble to chain to the star, or continue with current implementation to activate all lightning bubbles. But there will be a problem as described below.
+> Also, clean up my code for LogicSim (hint related).
 
 ### Rules of Your Game
 
