@@ -158,7 +158,11 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func getHint(_ sender: UIButton) {
-        bubbleGame.getHint()
+        let fired = bubbleGame.getHint(from: cannon.center)
+        
+        // update image
+        updateCurrentCannonBubbleImage()
+        updateNextCannonBubbleImage()
     }
 }
 

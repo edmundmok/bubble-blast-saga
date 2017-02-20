@@ -210,11 +210,11 @@ class BubbleGame {
     // ------------------------ HINT RELATED ------------------------
     
     // Get the hint for the next move.
-    func getHint() {
+    func getHint(from startPosition: CGPoint) -> Bool {
         
         // TODO: Refactor this line
         guard let currentColoredBubble = bubbleCannon.currentBubble as? ColoredBubble else {
-            return
+            return false
         }
         
         // get all the candidate positions
@@ -238,12 +238,86 @@ class BubbleGame {
             }
         }
         
+        guard maxCandidate != IndexPath() else {
+            return false
+        }
         
+        guard let targetCenter = bubbleGrid.cellForItem(at: maxCandidate)?.center else {
+            return false
+        }
         
         // for each candidate position, compute the number of possible bubbles removed
         bubbleGameAnimator.flashHintLocations(maxCandidate)
         
+        
+        let reboundCoord = getCoordinateForRightRebound(from: startPosition, to: targetCenter)
+        
+        let angle = atan2(reboundCoord.y - startPosition.y,
+                          reboundCoord.x - startPosition.x)
+        
+        print("computed angle: \(angle)")
+        
         // best position is the one with max number of bubbles removed
+        fireBubble(from: startPosition, at: angle)
+        return true
+    }
+    
+    private func getCoordinateForLeftRebound(from startPosition: CGPoint, to coordinate: CGPoint) -> CGPoint {
+        // computing as double first for more accuracy
+        
+        // w3
+        let horizontalDistanceFromStartPositionToWall = distance(from: startPosition, to: CGPoint(x: gameArea.frame.minX, y: startPosition.y))
+    
+        // w2
+        let horizontalDistanceFromReflectedPointToWall = horizontalDistanceFromStartPositionToWall - Double(startPosition.x - coordinate.x)
+        
+        // w1
+        let horizontalDistanceFromStartPositionToReflectedPoint = horizontalDistanceFromStartPositionToWall - horizontalDistanceFromReflectedPointToWall
+        
+        // ratio = w1 / w2
+        let triangleRatio = horizontalDistanceFromStartPositionToReflectedPoint / horizontalDistanceFromReflectedPointToWall
+        
+        // h = (Yd - Ys) / (2 + ratio)
+        let heightToSymmetryLine = Double(coordinate.y - startPosition.y) / (2 + triangleRatio)
+        
+        // left rebound coord
+        let reboundCoord = CGPoint(x: gameArea.frame.minX, y: coordinate.y - CGFloat(heightToSymmetryLine))
+        
+        print(reboundCoord)
+        
+        return reboundCoord
+    }
+    
+    private func getCoordinateForRightRebound(from startPosition: CGPoint, to coordinate: CGPoint) -> CGPoint {
+        // computing as double first for more accuracy
+        
+        // w3
+        let horizontalDistanceFromStartPositionToWall = distance(from: startPosition, to: CGPoint(x: gameArea.frame.maxX, y: startPosition.y))
+        
+        // w2
+        let horizontalDistanceFromReflectedPointToWall = horizontalDistanceFromStartPositionToWall - Double(coordinate.x - startPosition.x)
+        
+        // w1
+        let horizontalDistanceFromStartPositionToReflectedPoint = horizontalDistanceFromStartPositionToWall - horizontalDistanceFromReflectedPointToWall
+        
+        // ratio = w1 / w2
+        let triangleRatio = horizontalDistanceFromStartPositionToReflectedPoint / horizontalDistanceFromReflectedPointToWall
+        
+        // h = (Yd - Ys) / (2 + ratio)
+        let heightToSymmetryLine = Double(coordinate.y - startPosition.y) / (2 + triangleRatio)
+        
+        // left rebound coord
+        let reboundCoord = CGPoint(x: gameArea.frame.maxX, y: coordinate.y - CGFloat(heightToSymmetryLine))
+        
+        print(reboundCoord)
+        
+        return reboundCoord
+    }
+    
+    private func distance(from start: CGPoint, to end: CGPoint) -> Double {
+        let distX = Double(start.x - end.x)
+        let distY = Double(start.y - end.y)
+        return sqrt(pow(distX, 2) + pow(distY, 2))
     }
     
     private func getCandidates(for coloredBubble: ColoredBubble) -> [IndexPath] {
