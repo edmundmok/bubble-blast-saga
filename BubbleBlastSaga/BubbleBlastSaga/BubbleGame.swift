@@ -220,6 +220,7 @@ class BubbleGame {
         // get all the candidate positions
         let candidates = getCandidates(for: currentColoredBubble)
         
+        /*
         var maxCount = -1, maxCandidate = IndexPath()
         
         for candidate in candidates {
@@ -240,15 +241,89 @@ class BubbleGame {
         
         guard maxCandidate != IndexPath() else {
             return false
+        }*/
+        
+        var candidateCountDictionary = [IndexPath: Int]()
+        for candidate in candidates {
+            guard let modelCopy = bubbleGridModel.copy() as? BubbleGridModel else {
+                continue
+            }
+            
+            modelCopy.set(gameBubble: bubbleCannon.currentBubble, at: candidate)
+            let bubbleGameLogicSim = BubbleGameLogicSimulator(bubbleGrid: bubbleGrid, bubbleGridModel: modelCopy)
+            
+            let count = bubbleGameLogicSim.handleInteractions(with: bubbleCannon.currentBubble)
+            
+            candidateCountDictionary[candidate] = count
         }
         
+        let myArr = Array(candidateCountDictionary.keys)
+        let sortedCandidates = myArr.sorted {
+            let obj1 = candidateCountDictionary[$0] ?? 0 // get ob associated w/ key 1
+            let obj2 = candidateCountDictionary[$1] ?? 0 // get ob associated w/ key 2
+            return obj1 > obj2
+        }
+    
+        for candidate in sortedCandidates {
+            guard let targetCell = bubbleGrid.cellForItem(at: candidate) else {
+                continue
+            }
+            
+            let targetCenter = targetCell.center
+            
+            // try direct angle
+            let directAngle = atan2(targetCenter.y - startPosition.y,
+                              targetCenter.x - startPosition.x)
+            
+            if let finalPosition = getTrajectoryPoints(from: startPosition, at: directAngle).last {
+                // check if direct angle lands at location close enough
+                guard finalPosition.distance(to: targetCenter) > targetCell.frame.size.width else {
+                    bubbleGameAnimator.flashHintLocations(candidate)
+                    fireBubble(from: startPosition, at: directAngle)
+                    return true
+                }
+            }
+            
+            // try left angle
+            let leftReboundCoord = getCoordinateForLeftRebound(from: startPosition, to: targetCenter)
+            let leftReboundAngle = atan2(leftReboundCoord.y - startPosition.y,
+                                         leftReboundCoord.x - startPosition.x)
+            
+            if let finalPosition = getTrajectoryPoints(from: startPosition, at: leftReboundAngle).last {
+                // check if direct angle lands at location close enough
+                guard finalPosition.distance(to: targetCenter) > targetCell.frame.size.width else {
+                    bubbleGameAnimator.flashHintLocations(candidate)
+                    fireBubble(from: startPosition, at: leftReboundAngle)
+                    return true
+                }
+            }
+            
+            // try right angle
+            let rightReboundCoord = getCoordinateForRightRebound(from: startPosition, to: targetCenter)
+            let rightReboundAngle = atan2(rightReboundCoord.y - startPosition.y,
+                                         rightReboundCoord.x - startPosition.x)
+            
+            if let finalPosition = getTrajectoryPoints(from: startPosition, at: rightReboundAngle).last {
+                // check if direct angle lands at location close enough
+                guard finalPosition.distance(to: targetCenter) > targetCell.frame.size.width else {
+                    bubbleGameAnimator.flashHintLocations(candidate)
+                    fireBubble(from: startPosition, at: rightReboundAngle)
+                    return true
+                }
+            }
+            
+        }
+        
+        return false
+        
+        /*
         guard let targetCenter = bubbleGrid.cellForItem(at: maxCandidate)?.center else {
             return false
         }
         
         // for each candidate position, compute the number of possible bubbles removed
-        bubbleGameAnimator.flashHintLocations(maxCandidate)
-        
+        //bubbleGameAnimator.flashHintLocations(maxCandidate)
+        *
         
         let reboundCoord = getCoordinateForRightRebound(from: startPosition, to: targetCenter)
         
@@ -260,6 +335,7 @@ class BubbleGame {
         // best position is the one with max number of bubbles removed
         fireBubble(from: startPosition, at: angle)
         return true
+         */
     }
     
     private func getCoordinateForLeftRebound(from startPosition: CGPoint, to coordinate: CGPoint) -> CGPoint {
