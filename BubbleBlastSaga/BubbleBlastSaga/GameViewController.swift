@@ -94,11 +94,6 @@ class GameViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
-    
     private func updateCurrentCannonBubbleImage() {
         // currentBubbleView.frame.size = bubbleGrid.visibleCells[0].frame.size
         currentBubbleView.frame.size = CGSize(width: bubbleGrid.visibleCells[0].frame.size.width*0.8,

@@ -22,6 +22,14 @@ class LevelDesignerLoadViewController: UIViewController {
         self.levelDesignerLoadDataSource = LevelDesignerLoadDataSource(savedLevels: savedLevels, savedLevelsModel: savedLevelsModel)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
     // MARK: Editing
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)

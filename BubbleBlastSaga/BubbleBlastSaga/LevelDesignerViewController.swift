@@ -44,10 +44,6 @@ class LevelDesignerViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(false, animated: true)
-    }
-    
     @IBAction func goBackToLevelDesigner(segue: UIStoryboardSegue) {
         // do nothing; need this for unwind segue
     }
