@@ -255,7 +255,9 @@ class BubbleGame {
             if let finalPosition = getTrajectoryPoints(from: startPosition, at: directAngle).last {
                 // check if direct angle lands at location close enough
                 guard finalPosition.distance(to: targetCenter) > targetCell.frame.size.width else {
-                    bubbleGameAnimator.flashHintLocations(candidate)
+                    DispatchQueue.main.sync {
+                        bubbleGameAnimator.flashHintLocations(candidate)
+                    }
                     return directAngle
                 }
             }
@@ -269,7 +271,9 @@ class BubbleGame {
             if let finalPosition = getTrajectoryPoints(from: startPosition, at: leftReboundAngle).last {
                 // check if direct angle lands at location close enough
                 guard finalPosition.distance(to: targetCenter) > targetCell.frame.size.width else {
-                    bubbleGameAnimator.flashHintLocations(candidate)
+                    DispatchQueue.main.sync {
+                        bubbleGameAnimator.flashHintLocations(candidate)
+                    }
                     return leftReboundAngle
                 }
             }
@@ -282,7 +286,9 @@ class BubbleGame {
             if let finalPosition = getTrajectoryPoints(from: startPosition, at: rightReboundAngle).last {
                 // check if direct angle lands at location close enough
                 guard finalPosition.distance(to: targetCenter) > targetCell.frame.size.width else {
-                    bubbleGameAnimator.flashHintLocations(candidate)
+                    DispatchQueue.main.sync {
+                        bubbleGameAnimator.flashHintLocations(candidate)
+                    }
                     return rightReboundAngle
                 }
             }
@@ -402,7 +408,8 @@ class BubbleGame {
                 }
         }
         
-        return candidates
+        // don't lose the game
+        return candidates.filter { $0.section < bubbleGridModel.numSections - 1 }
     }
     
     // ------------------------ HINT RELATED ------------------------

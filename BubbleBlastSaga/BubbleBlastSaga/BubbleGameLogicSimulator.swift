@@ -44,7 +44,8 @@ class BubbleGameLogicSimulator {
         // otherwise, attempt to carry out normal bubble removals
         handleColoredInteractions(with: coloredBubble)
         
-        return bubblesActivated.count
+        // return bubblesToRemove.count
+        return bubblesToRemove.count + bubblesActivated.count
     }
     
     private func activateSpecialBubbles(near snappedBubble: ColoredBubble) {
