@@ -259,6 +259,7 @@ class BubbleGame {
                     return directAngle
                 }
             }
+ 
             
             // try left angle
             let leftReboundCoord = getCoordinateForLeftRebound(from: startPosition, to: targetCenter)
@@ -292,13 +293,13 @@ class BubbleGame {
     }
     
     private func getCoordinateForLeftRebound(from startPosition: CGPoint, to coordinate: CGPoint) -> CGPoint {
-        // computing as double first for more accuracy
+        let actualRadiusOfBubble = getStandardBubbleSize().width * 0.5 * CGFloat(Constants.bubbleHitBoxSizePercentage)
         
         // w3
-        let horizontalDistanceFromStartPositionToWall = distance(from: startPosition, to: CGPoint(x: gameArea.frame.minX, y: startPosition.y))
-    
+        let horizontalDistanceFromStartPositionToWall = startPosition.distance(to: CGPoint(x: gameArea.frame.minX + actualRadiusOfBubble, y: startPosition.y))
+        
         // w2
-        let horizontalDistanceFromReflectedPointToWall = horizontalDistanceFromStartPositionToWall - Double(startPosition.x - coordinate.x)
+        let horizontalDistanceFromReflectedPointToWall = horizontalDistanceFromStartPositionToWall - (startPosition.x - coordinate.x)
         
         // w1
         let horizontalDistanceFromStartPositionToReflectedPoint = horizontalDistanceFromStartPositionToWall - horizontalDistanceFromReflectedPointToWall
@@ -307,21 +308,21 @@ class BubbleGame {
         let triangleRatio = horizontalDistanceFromStartPositionToReflectedPoint / horizontalDistanceFromReflectedPointToWall
         
         // h = (Yd - Ys) / (2 + ratio)
-        let heightToSymmetryLine = Double(coordinate.y - startPosition.y) / (2 + triangleRatio)
+        let heightToSymmetryLine = (coordinate.y - startPosition.y) / (2 + triangleRatio)
         
         // left rebound coord
-        let reboundCoord = CGPoint(x: gameArea.frame.minX, y: coordinate.y - CGFloat(heightToSymmetryLine))
+        let reboundCoord = CGPoint(x: gameArea.frame.minX + actualRadiusOfBubble, y: coordinate.y - heightToSymmetryLine)
         return reboundCoord
     }
     
     private func getCoordinateForRightRebound(from startPosition: CGPoint, to coordinate: CGPoint) -> CGPoint {
-        // computing as double first for more accuracy
+        let actualRadiusOfBubble = getStandardBubbleSize().width * 0.5 * CGFloat(Constants.bubbleHitBoxSizePercentage)
         
         // w3
-        let horizontalDistanceFromStartPositionToWall = distance(from: startPosition, to: CGPoint(x: gameArea.frame.maxX, y: startPosition.y))
+        let horizontalDistanceFromStartPositionToWall = startPosition.distance(to: CGPoint(x: gameArea.frame.maxX - actualRadiusOfBubble, y: startPosition.y))
         
         // w2
-        let horizontalDistanceFromReflectedPointToWall = horizontalDistanceFromStartPositionToWall - Double(coordinate.x - startPosition.x)
+        let horizontalDistanceFromReflectedPointToWall = horizontalDistanceFromStartPositionToWall - (coordinate.x - startPosition.x)
         
         // w1
         let horizontalDistanceFromStartPositionToReflectedPoint = horizontalDistanceFromStartPositionToWall - horizontalDistanceFromReflectedPointToWall
@@ -330,17 +331,11 @@ class BubbleGame {
         let triangleRatio = horizontalDistanceFromStartPositionToReflectedPoint / horizontalDistanceFromReflectedPointToWall
         
         // h = (Yd - Ys) / (2 + ratio)
-        let heightToSymmetryLine = Double(coordinate.y - startPosition.y) / (2 + triangleRatio)
+        let heightToSymmetryLine = (coordinate.y - startPosition.y) / (2 + triangleRatio)
         
         // left rebound coord
-        let reboundCoord = CGPoint(x: gameArea.frame.maxX, y: coordinate.y - CGFloat(heightToSymmetryLine))
+        let reboundCoord = CGPoint(x: gameArea.frame.maxX - actualRadiusOfBubble, y: coordinate.y - heightToSymmetryLine)
         return reboundCoord
-    }
-    
-    private func distance(from start: CGPoint, to end: CGPoint) -> Double {
-        let distX = Double(start.x - end.x)
-        let distY = Double(start.y - end.y)
-        return sqrt(pow(distX, 2) + pow(distY, 2))
     }
     
     private func getCandidates(for coloredBubble: ColoredBubble) -> [IndexPath] {
