@@ -8,7 +8,6 @@ CS3217 Problem Set 5
 **Tutor:** Delon Wong
 
 # Note to self
-> Fix my chaining of star bubble. Either carry forward the original bubble to chain to the star, or continue with current implementation to activate all lightning bubbles. But there will be a problem as described below.
 > Also, clean up my code for LogicSim (hint related).
 
 ### Rules of Your Game
@@ -61,10 +60,6 @@ Each type of special bubble will have its own helper method, for example: `activ
 
 My strategy for the chaining is to recursively call my `activateSpecialBubble(at indexPath: IndexPath, with activatingBubble: GameBubble)` method. An example: User shoots a projectile at a **Lightning Bubble**. **Lightning Bubble** activates, destroying the row it is on. This also destroys a **Bomb bubble** on the same row. **Bomb bubble activates**, destroying adjacent bubbles. What my implementation will do is first check for special bubbles around the projectile bubble when it is snapped into place. After that, for each special bubbles beside it, activate them. Once activated, depending on the **power / ability** of the special bubble, it will have a list or set of index paths of bubbles in the grid to remove. For each index path, I will check whether it is a special bubble and if it is, activate it by calling `activateSpecialBubble(at indexPath: IndexPath, with activatingBubble: GameBubble)` on that special bubble at that index path. This will carry out the chaining recursively. Furthermore, I only remove these bubbles at the indexpaths found only after I attempt to chain, because if you remove first then you can't actually chain!
 
-Another question arises: This will activate all the special bubbles around the snapped projectile bubble, but it can only activate one at a time. What if there are cases where the order in which we activate the bubbles makes a difference?
-
-Here is such a case: There is a **Lightning bubble**, an empty space, and then a **Star bubble**. The user shoots the projectile between the 2, landing in between. 
-
 #### Why my strategy is the best among alternatives
 
 1. It is easy to add more special bubble behaviors by just adding a new helper method for that new type of special bubble.
@@ -77,9 +72,15 @@ Here is such a case: There is a **Lightning bubble**, an empty space, and then a
 
 The problem set description does not define a way to handle what happens in the case a **Star Bubble** is **destroyed** by another **Special Bubble (in this case, either another Lightning, Bomb or Star)**. 
 
-As such, I have decided to make it such that whatever is the last thing that activated the Star Bubble is the one that the it will follow to remove from the bubble grid. For example, if a lightning bubble destroys its row, and in the process, destroyed a Star bubble, the Star Bubble will remove (and activate) all lightning bubbles in the grid (whihc makes sense, since it is the one that caused the star bubble to activate its ability).
+As such, I have decided to make it such that original colored bubble fired from the cannon, that initiated the chain in the first place, that activated the Star Bubble is the one that the it will follow to remove from the bubble grid. For example, if we shot a Red bubble, which activated a lightning bubble destroys its row, and in the process, destroyed a Star bubble, the Star Bubble will remove all Red bubbles as it was the color that started the chain, and so it is as if the Red bubble was the one who activated it (although indirectly).
 
-This also brings up another point, in the problem set it only says **star bubbles** remove the *ALL* bubbles with the appropriate color from the grid. However, with my approach, then the **star bubbles** will **"remove" special bubbles** from the grid. In this case, I think it would be more exciting not just to **"remove"** them, but **activate** them as well. This would allow a higher skill ceiling as users can plan their shots to chain lightnings or bombs with the star, and activate even more lightnings and bombs as a result.
+Another question arises: This will activate all the special bubbles around the snapped projectile bubble, but it can only activate one at a time. What if there are cases where the order in which we activate the bubbles makes a difference?
+
+Here is such a case: There is a **Lightning bubble**, an empty space, and then a **Star bubble**. The user shoots the projectile between the two, landing in between. 
+
+With my current approach, the order which we activate will not be a problem since if we activate the lightning first, we would propagate the original color bubble color to the star, thus activating the star with the original color. If we activate the star first, the star removes all of that color and activates the lightning. In any case, both will lead to the same result.
+
+This is in contrast with an alternative where we activate the star based on whatever bubble was the one who "hit" it. E.g. if lightning hit it, then star will activate all lightning in the grid. This might seem cooler but can cause problems due to activation order, as mentioned in the scenario above. There will be different results depending on whether we activate the lightning or the star first.
 
 ### Problem 7: Class Diagram
 
@@ -96,6 +97,9 @@ Your answer here
 2. **Added bubble bursting animation when bubbles are popped.** For this, I realised my classes that did the animation previously were a bit restrictive as I only took into account animations using `UIView.animateWithDuration(...)`. The bubble bursting animation required the use of a UIImageView's animationImages instead. Previously, my `Renderer` was doing the animations, and I had an `AnimationHelper` that generates the *animation code block* that is used in the `UIView.animateWithDuration(...)` method. As you can see it only takes into account a certain type of animation using the UIView but cannot use the `UIImageView`'s animationImages property. So I had to reorganize my animation code and create a `BubbleGameAnimator` class for `BubbleGameLogic` to know about and call whenever an animation needs to be done due to logic stuff. `BubbleGameAnimator` will then execute the appropriate animation accordingly. `BubbleGameAnimator` is able to execute both types of animations that I mentioned before. I feel that this change is good as these animations are a bit *game-specific* for the `Renderer` to know about so having a `BubbleGameAnimator` do these instead of a `Renderer` doing these feels abit more cohesive, and also the `Renderer` more reusable.
 3. **Added a simple hint system to inform user of possible locations to shoot at.** This system only hints at possible locations to shoot at, not actually checking which location can maximize the result. The result is that it will be quite laggy. For this simple hint system, I only needed to identify all the exposed bubbles (bubbles that can be reached somehow) and check if the neighbour is a special bubble or same color as the current cannon bubble. If any of these are true, the position is possible hint position.
 4. **Added an advanced hint system to inform user of best case position for the bubble to be to maximize bubbles removed.** This is an improved version of the previous system, that actually does simulation of the outcomes for each candidate positions of the basic system. It then reveals the best position for the current bubble to be in. A consideration is that there is a *thinking time* incurred to decide which is the best position due to running simulations. If the game is still going on, it might appear laggy to the user. **Possible counter, to be finalized: Only able to use hint when no bubbles are flying, and display a thinking popup or something so that user cannot do anything when the system is thinking. This will "hide" the lagginess that will be perceived if the game is still ongoing while the thinking process is being executed (moving projectiles and the rotation of cannon might appear laggy).**
+5. 
+
+
 5. **Added game score.**
 
 
