@@ -289,6 +289,11 @@ class BubbleGame {
             
         }
         
+        // if still no positions to shoot:
+        // - Recommend a swap to the next bubble
+        // - If even after swap, still no valid location, just recommend to fire at a decent location
+        // - Decent location (subjective) means:
+        //   1. As high as possible so that it does not accidentally lose the game
         return nil
     }
     
