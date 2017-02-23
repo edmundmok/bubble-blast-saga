@@ -17,13 +17,11 @@ class BubbleGame {
     private let gameArea: UIView
     let bubbleCannon = BubbleCannon()
     private let bubbleGameAnimator: BubbleGameAnimator
+    let bubbleGameStats = BubbleGameStats()
     
     // game engine
     private let gameEngine: GameEngine
     
-    // Game settings: What is it for?
-    // In the future I want to allow the user to customize bubble speed, etc.
-    // Those will go in here. For now, it only has the time step.
     private let gameSettings: GameSettings
     
     init(gameSettings: GameSettings, bubbleGridModel: BubbleGridModel,
@@ -45,7 +43,7 @@ class BubbleGame {
         
         let bubbleGameLogic = BubbleGameLogic(bubbleGrid: bubbleGrid,
             bubbleGridModel: bubbleGridModel, gameEngine: gameEngine,
-            bubbleGameAnimator: bubbleGameAnimator)
+            bubbleGameAnimator: bubbleGameAnimator, bubbleGameStats: bubbleGameStats)
         
         let collisionHandler = BubbleGameCollisionHandler(bubbleGrid: bubbleGrid,
             bubbleGridModel: bubbleGridModel, bubbleGameLogic: bubbleGameLogic,
@@ -294,6 +292,9 @@ class BubbleGame {
             }
             
         }
+        
+        // still need to deal with no position to shoot (e.g. no adjacent bubbles possible 
+        // with same color)
         
         // if still no positions to shoot:
         // - Recommend a swap to the next bubble

@@ -14,17 +14,23 @@ class BubbleGameLogic {
     fileprivate let bubbleGridModel: BubbleGridModel
     fileprivate let gameEngine: GameEngine
     fileprivate let bubbleGameAnimator: BubbleGameAnimator
+    private let bubbleGameStats: BubbleGameStats
     
     // special data structure for chaining to avoid checking special bubble activation repeatedly
     fileprivate var bubblesActivated = Set<IndexPath>()
+    // to check which bubbles have already been marked to be removed
+    fileprivate var bubblesToRemove = Set<IndexPath>()
+    // track the current chaining count
+    fileprivate var currentChainCount = 0
     
     init(bubbleGrid: UICollectionView, bubbleGridModel: BubbleGridModel, gameEngine: GameEngine,
-        bubbleGameAnimator: BubbleGameAnimator) {
+         bubbleGameAnimator: BubbleGameAnimator, bubbleGameStats: BubbleGameStats) {
         
         self.bubbleGrid = bubbleGrid
         self.bubbleGridModel = bubbleGridModel
         self.gameEngine = gameEngine
         self.bubbleGameAnimator = bubbleGameAnimator
+        self.bubbleGameStats = bubbleGameStats
     }
     
     // Handle the resulting interactions of the snapped bubble, such as removing connected 
@@ -38,16 +44,30 @@ class BubbleGameLogic {
         
         // Reset the special data structure at the start of each interaction handling
         bubblesActivated = Set<IndexPath>()
+        bubblesToRemove = Set<IndexPath>()
+        
+        // reset the current chain count for each interaction handling
+        currentChainCount = 0
         
         // activate special bubbles if present
         activateSpecialBubbles(near: coloredBubble)
+        
+        let countForBubblesRemovedBySpecialInteractions = bubblesToRemove.count
+        
+        // reset bubblesToRemove
+        bubblesToRemove = Set<IndexPath>()
         
         // check if the snapped bubble was removed as a result of special bubble effects
         // if yes, nothing else to continue with
         
         // otherwise, attempt to carry out normal bubble removals
         handleColoredInteractions(with: coloredBubble)
-
+        
+        let totalBubblesRemoved = countForBubblesRemovedBySpecialInteractions + bubblesToRemove.count
+        
+        print("chain count: ", currentChainCount)
+        print("total bubbles removed: ", totalBubblesRemoved)
+        return
     }
     
     private func activateSpecialBubbles(near snappedBubble: ColoredBubble) {
@@ -104,7 +124,17 @@ class BubbleGameLogic {
         // attempt to chain, activating bubble is the lightning bubble
         indexPathsToRemove
             .filter { !bubblesActivated.contains($0) }
-            .forEach { activateSpecialBubble(at: $0, with: activatingBubble) }
+            .filter {
+                // check that it is actually a special bubble and is not a indestructible
+                guard let powerType = (bubbleGridModel.getGameBubble(at: $0) as? PowerBubble)?.power else {
+                    return false
+                }
+                return powerType != .Indestructible
+            }
+            .forEach {
+                currentChainCount += 1
+                activateSpecialBubble(at: $0, with: activatingBubble)
+            }
         
         // remove the lightning affected ones
         indexPathsToRemove.forEach {
@@ -112,6 +142,8 @@ class BubbleGameLogic {
             guard let gameBubble = bubbleGridModel.getGameBubble(at: $0) else {
                 return
             }
+            
+            bubblesToRemove.insert($0)
             // remove it from the grid and the game engine
             bubbleGridModel.remove(at: $0)
             gameEngine.deregister(gameObject: gameBubble)
@@ -134,7 +166,17 @@ class BubbleGameLogic {
         let chainableBubbles = getSpecialBubblesIndexPath(from: neighboursIndexPath)
         chainableBubbles
             .filter { !bubblesActivated.contains($0) }
-            .forEach { activateSpecialBubble(at: $0, with: activatingBubble) }
+            .filter {
+                // check that it is actually a special bubble and is not a indestructible
+                guard let powerType = (bubbleGridModel.getGameBubble(at: $0) as? PowerBubble)?.power else {
+                    return false
+                }
+                return powerType != .Indestructible
+            }
+            .forEach {
+                currentChainCount += 1
+                activateSpecialBubble(at: $0, with: activatingBubble)
+            }
         
         // remove the bomb affected ones
         neighboursIndexPath.forEach {
@@ -143,6 +185,7 @@ class BubbleGameLogic {
                 return
             }
             // remove it from the grid and the game engine
+            bubblesToRemove.insert($0)
             bubbleGridModel.remove(at: $0)
             gameEngine.deregister(gameObject: gameBubble)
         }
@@ -162,14 +205,16 @@ class BubbleGameLogic {
                     return
                 }
                 
+                bubblesToRemove.insert($0)
                 bubbleGridModel.remove(at: $0)
                 gameEngine.deregister(gameObject: gameBubble)
-        }
+            }
         
         
         // remove the star itself
         bubbleGridModel.remove(at: indexPath)
         gameEngine.deregister(gameObject: starBubble)
+        bubblesToRemove.insert(indexPath)
     }
 
     private func handleColoredInteractions(with snappedBubble: ColoredBubble) {
@@ -320,6 +365,8 @@ class BubbleGameLogic {
                 return
             }
             
+            bubblesToRemove.insert($0)
+            
             // Remove from the backing bubble grid model
             bubbleGridModel.remove(at: $0)
             
@@ -338,6 +385,9 @@ class BubbleGameLogic {
             guard let gameBubble = bubbleGridModel.getGameBubble(at: indexPath) else {
                 return
             }
+            
+            bubblesToRemove.insert(indexPath)
+            
             bubbleGridModel.remove(at: indexPath)
             
             // Deregister from the game engine

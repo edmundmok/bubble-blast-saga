@@ -33,6 +33,9 @@ class BubbleGameStats {
     private(set) var currentCombo = 0
     private(set) var bestCombo = 0
     
+    // best chaining count
+    private(set) var maxChain = 0
+    
     // Lucky color is the color of the bubble that led to the best combo
     private(set) var luckyColor: BubbleColor?
     
