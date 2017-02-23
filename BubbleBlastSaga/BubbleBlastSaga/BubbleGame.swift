@@ -210,38 +210,15 @@ class BubbleGame {
     // ------------------------ HINT RELATED ------------------------
     
     // Get the hint for the next move.
-    func getHint(from startPosition: CGPoint) -> Bool {
+    func getHint(from startPosition: CGPoint) -> CGFloat? {
         
         // TODO: Refactor this line
         guard let currentColoredBubble = bubbleCannon.currentBubble as? ColoredBubble else {
-            return false
+            return nil
         }
         
         // get all the candidate positions
         let candidates = getCandidates(for: currentColoredBubble)
-        
-        /*
-        var maxCount = -1, maxCandidate = IndexPath()
-        
-        for candidate in candidates {
-            guard let modelCopy = bubbleGridModel.copy() as? BubbleGridModel else {
-                continue
-            }
-            
-            modelCopy.set(gameBubble: bubbleCannon.currentBubble, at: candidate)
-            let bubbleGameLogicSim = BubbleGameLogicSimulator(bubbleGrid: bubbleGrid, bubbleGridModel: modelCopy)
-            
-            let count = bubbleGameLogicSim.handleInteractions(with: bubbleCannon.currentBubble)
-            
-            if count > maxCount {
-                maxCount = count
-                maxCandidate = candidate
-            }
-        }
-        
-        guard maxCandidate != IndexPath() else {
-            return false
-        }*/
         
         var candidateCountDictionary = [IndexPath: Int]()
         for candidate in candidates {
@@ -279,8 +256,7 @@ class BubbleGame {
                 // check if direct angle lands at location close enough
                 guard finalPosition.distance(to: targetCenter) > targetCell.frame.size.width else {
                     bubbleGameAnimator.flashHintLocations(candidate)
-                    fireBubble(from: startPosition, at: directAngle)
-                    return true
+                    return directAngle
                 }
             }
             
@@ -293,8 +269,7 @@ class BubbleGame {
                 // check if direct angle lands at location close enough
                 guard finalPosition.distance(to: targetCenter) > targetCell.frame.size.width else {
                     bubbleGameAnimator.flashHintLocations(candidate)
-                    fireBubble(from: startPosition, at: leftReboundAngle)
-                    return true
+                    return leftReboundAngle
                 }
             }
             
@@ -307,35 +282,13 @@ class BubbleGame {
                 // check if direct angle lands at location close enough
                 guard finalPosition.distance(to: targetCenter) > targetCell.frame.size.width else {
                     bubbleGameAnimator.flashHintLocations(candidate)
-                    fireBubble(from: startPosition, at: rightReboundAngle)
-                    return true
+                    return rightReboundAngle
                 }
             }
             
         }
         
-        return false
-        
-        /*
-        guard let targetCenter = bubbleGrid.cellForItem(at: maxCandidate)?.center else {
-            return false
-        }
-        
-        // for each candidate position, compute the number of possible bubbles removed
-        //bubbleGameAnimator.flashHintLocations(maxCandidate)
-        *
-        
-        let reboundCoord = getCoordinateForRightRebound(from: startPosition, to: targetCenter)
-        
-        let angle = atan2(reboundCoord.y - startPosition.y,
-                          reboundCoord.x - startPosition.x)
-        
-        print("computed angle: \(angle)")
-        
-        // best position is the one with max number of bubbles removed
-        fireBubble(from: startPosition, at: angle)
-        return true
-         */
+        return nil
     }
     
     private func getCoordinateForLeftRebound(from startPosition: CGPoint, to coordinate: CGPoint) -> CGPoint {
@@ -358,9 +311,6 @@ class BubbleGame {
         
         // left rebound coord
         let reboundCoord = CGPoint(x: gameArea.frame.minX, y: coordinate.y - CGFloat(heightToSymmetryLine))
-        
-        print(reboundCoord)
-        
         return reboundCoord
     }
     
@@ -384,9 +334,6 @@ class BubbleGame {
         
         // left rebound coord
         let reboundCoord = CGPoint(x: gameArea.frame.maxX, y: coordinate.y - CGFloat(heightToSymmetryLine))
-        
-        print(reboundCoord)
-        
         return reboundCoord
     }
     

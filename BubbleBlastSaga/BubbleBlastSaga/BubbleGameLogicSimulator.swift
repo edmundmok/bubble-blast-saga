@@ -46,7 +46,7 @@ class BubbleGameLogicSimulator {
         // otherwise, attempt to carry out normal bubble removals
         handleColoredInteractions(with: coloredBubble)
         
-        return bubblesActivated.count + bubblesToRemove.count
+        return bubblesActivated.count
         
     }
     

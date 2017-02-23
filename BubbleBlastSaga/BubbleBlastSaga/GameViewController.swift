@@ -158,11 +158,23 @@ class GameViewController: UIViewController {
     }
     
     @IBAction func getHint(_ sender: UIButton) {
-        let fired = bubbleGame.getHint(from: cannon.center)
+        guard let hintAngle = bubbleGame.getHint(from: cannon.center) else {
+            return
+        }
+        
+        let angleChange = hintAngle + CGFloat(M_PI_2)
+        cannon.transform = CGAffineTransform(rotationAngle: angleChange)
+        
+        let trajectoryPoints = bubbleGame.getTrajectoryPoints(from: cannon.center, at: hintAngle)
+        trajectoryPathLayer.drawPath(from: trajectoryPoints, start: cannon.center)
         
         // update image
         updateCurrentCannonBubbleImage()
         updateNextCannonBubbleImage()
+    }
+    
+    @IBAction func tempFire(_ sender: UIButton) {
+        fireCannon()
     }
 }
 
