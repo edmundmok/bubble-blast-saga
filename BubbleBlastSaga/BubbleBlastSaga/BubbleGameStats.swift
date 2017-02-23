@@ -21,7 +21,7 @@ class BubbleGameStats {
     }
     
     // About the game
-    private(set) var currentScore = 0
+    private(set) var currentScore = 0.0
     private(set) var gameOutcome = GameOutcome.InProgress
     
     // Streak - number of times in a row player shoots a bubble that removes something
@@ -31,7 +31,7 @@ class BubbleGameStats {
     // Combo - total number of bubbles removed in 1 shot 
     // (includes special bubble removals, connected bubble removals, and bubbles dropped)
     private(set) var currentCombo = 0
-    private(set) var bestCombo = 0
+    private(set) var maxCombo = 0
     
     // best chaining count
     private(set) var maxChain = 0
@@ -48,5 +48,48 @@ class BubbleGameStats {
         }
         
         return Double(bubblesShotThatLeadToRemovals) / Double(bubblesShot)
+    }
+    
+    func incrementBubblesShot() {
+        bubblesShot += 1
+    }
+    
+    // Updates the stats with the knowledge that the latest shot was a failed shot
+    // and did not remove any bubbles.
+    func updateStatsWithFailedShot() {
+        currentStreak = 0
+        currentCombo = 0
+    }
+    
+    // Updates the stats with the knowledge that the latest shot was a successful
+    // shot and remove at non-zero number of bubble.
+    func updateStatsWithSuccessfulShot(removalCount: Int, chainCount: Int, with coloredBubble: ColoredBubble) {
+        // update current information
+        currentCombo = removalCount
+        bubblesShotThatLeadToRemovals += 1
+        
+        // update max info if necessary
+        if currentStreak > maxStreak {
+            maxStreak = currentStreak
+        }
+        
+        if currentCombo > maxCombo {
+            maxCombo = currentCombo
+            luckyColor = coloredBubble.color
+        }
+        
+        if chainCount > maxChain {
+            maxChain = chainCount
+        }
+        
+        // update the total score
+        let removalScore = removalCount * 50
+        let chainCountBonus = Double(chainCount) * 0.5
+        let streakBonus = Double(currentStreak) * 0.5
+        
+        currentScore += Double(removalScore) * (1 + chainCountBonus + streakBonus)
+        
+        // update streak only after updating score
+        currentStreak += 1
     }
 }

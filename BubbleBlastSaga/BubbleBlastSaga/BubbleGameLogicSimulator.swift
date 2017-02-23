@@ -56,8 +56,6 @@ class BubbleGameLogicSimulator {
         
         let countForBubblesRemovedBySpecialInteractions = bubblesToRemove.count
         
-        print(bubblesToRemove)
-        
         // reset bubblesToRemove
         bubblesToRemove = Set<IndexPath>()
         
@@ -69,8 +67,6 @@ class BubbleGameLogicSimulator {
         
         let totalBubblesRemoved = countForBubblesRemovedBySpecialInteractions + bubblesToRemove.count
         
-        print("chain count: ", currentChainCount)
-        print("total bubbles removed: ", totalBubblesRemoved)
         return totalBubblesRemoved
     }
     

@@ -141,8 +141,15 @@ extension BubbleGameCollisionHandler: CollisionHandler {
         
         //Consider switch case with appropriate helper private functions
         if wall.wallType == .BottomWall {
+            // ignore if trajectory bubble
+            if gameBubble is TrajectoryBubble {
+                return
+            }
+            
             // If the bubble flies too far down the bottom, remove it from the game
             gameEngine.deregister(gameObject: gameBubble)
+            
+            bubbleGameLogic.handleBubbleOutOfBounds()
         }
         
         // Check the type of the collided wall

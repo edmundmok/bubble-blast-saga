@@ -18,6 +18,9 @@ class GameViewController: UIViewController {
     @IBOutlet weak var currentBubbleView: UIImageView!
     @IBOutlet weak var nextBubbleView: UIImageView!
     @IBOutlet weak var trajectoryPathView: UIView!
+    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var comboLabel: UILabel!
+    @IBOutlet weak var streakLabel: UILabel!
     
     private var trajectoryPathLayer = TrajectoryPathLayer()
     
@@ -68,8 +71,15 @@ class GameViewController: UIViewController {
                                 bubbleGrid: bubbleGrid, gameArea: gameArea)
         bubbleGame.startGame()
         
+        // Setup notification observer
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "GameStatsUpdated"), object: nil, queue: nil, using: handleGameStatsUpdated)
+        
         // Change cannon anchor point to the hole area
         cannon.layer.anchorPoint = CGPoint(x: 0.5, y: 0.65)
+        
+        // Hide combo and streak labels
+        comboLabel.alpha = 0
+        streakLabel.alpha = 0
         
         // Setup the image for the current cannon bubble
         updateCurrentCannonBubbleImage()
@@ -181,6 +191,24 @@ class GameViewController: UIViewController {
     
     @IBAction func tempFire(_ sender: UIButton) {
         fireCannon()
+    }
+    
+    func handleGameStatsUpdated(notification: Notification) {
+        // update stats to show on screen
+        scoreLabel.text = String(Int(bubbleGame.bubbleGameStats.currentScore))
+        comboLabel.text = "x" + String(bubbleGame.bubbleGameStats.currentCombo) + "!"
+        
+        guard bubbleGame.bubbleGameStats.currentCombo > 0 else {
+            return
+        }
+        
+        UIView.animate(withDuration: 0.2, animations: {
+            self.comboLabel.alpha = 1.0
+        }, completion: { _ in
+            UIView.animate(withDuration: 0.8, animations: {
+                self.comboLabel.alpha = 0.0
+            })
+        })
     }
 }
 

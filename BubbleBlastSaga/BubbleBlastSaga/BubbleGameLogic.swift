@@ -33,7 +33,15 @@ class BubbleGameLogic {
         self.bubbleGameStats = bubbleGameStats
     }
     
-    // Handle the resulting interactions of the snapped bubble, such as removing connected 
+    func handleBubbleOutOfBounds() {
+        // no bubbles were removed by this shot, reset necessary stats
+        bubbleGameStats.updateStatsWithFailedShot()
+        
+        // post a notification so that interested parties (e.g. game vc) update
+        NotificationCenter.default.post(name: .init("GameStatsUpdated"), object: nil)
+    }
+    
+    // Handle the resulting interactions of the snapped bubble, such as removing connected
     // bubbles and also removing floating bubbles after.
     func handleInteractions(with snappedBubble: GameBubble) {
         
@@ -64,9 +72,22 @@ class BubbleGameLogic {
         handleColoredInteractions(with: coloredBubble)
         
         let totalBubblesRemoved = countForBubblesRemovedBySpecialInteractions + bubblesToRemove.count
+
+        // update the stats
+        guard totalBubblesRemoved > 0 else {
+            // no bubbles were removed by this shot, reset necessary stats
+            bubbleGameStats.updateStatsWithFailedShot()
+            
+            // post a notification so that interested parties (e.g. game vc) update
+            NotificationCenter.default.post(name: .init("GameStatsUpdated"), object: nil)
+            
+            return
+        }
         
-        print("chain count: ", currentChainCount)
-        print("total bubbles removed: ", totalBubblesRemoved)
+        bubbleGameStats.updateStatsWithSuccessfulShot(removalCount: totalBubblesRemoved, chainCount: currentChainCount, with: coloredBubble)
+        // post a notification so that interested parties (e.g. game vc) update
+        NotificationCenter.default.post(name: .init("GameStatsUpdated"), object: nil)
+        
         return
     }
     
