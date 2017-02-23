@@ -517,7 +517,7 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aUg-ih-ZZh" userLabel="Cannon" customClass="CannonView" customModule="BubbleBlastSaga" customModuleProvider="target">
-                                        <rect key="frame" x="334" y="870.5" width="100" height="153.5"/>
+                                        <rect key="frame" x="334" y="871" width="100" height="153"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="aUg-ih-ZZh" secondAttribute="height" multiplier="80:122" id="QJH-Q8-hG3"/>
                                         </constraints>
@@ -527,7 +527,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cannon-base" translatesAutoresizingMaskIntoConstraints="NO" id="AFR-vG-OMV" userLabel="Cannon Base">
-                                        <rect key="frame" x="332.5" y="921.5" width="103" height="102.5"/>
+                                        <rect key="frame" x="333.5" y="922" width="102" height="102"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="AFR-vG-OMV" secondAttribute="height" multiplier="15:15" id="VbI-Kv-cgu"/>
                                         </constraints>
@@ -556,7 +556,7 @@
                                 </connections>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g9g-xX-Nij">
-                                <rect key="frame" x="533" y="922" width="105" height="89"/>
+                                <rect key="frame" x="533" y="883" width="105" height="71"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Hint">
                                     <color key="titleColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
@@ -566,13 +566,29 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Fc-ch-kcl" userLabel="Fire Hint">
-                                <rect key="frame" x="646" y="922" width="102" height="87"/>
+                                <rect key="frame" x="646" y="883" width="122" height="71"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Fire">
                                     <color key="titleColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
                                     <action selector="tempFire:" destination="39J-a7-Akb" eventType="touchUpInside" id="hac-Tg-s6S"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7w8-zc-d8f">
+                                <rect key="frame" x="533" y="948" width="105" height="54"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Back"/>
+                                <connections>
+                                    <action selector="handleBack:" destination="39J-a7-Akb" eventType="touchUpInside" id="cvz-lv-doR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cVY-A1-Wtg">
+                                <rect key="frame" x="646" y="948" width="122" height="54"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Retry"/>
+                                <connections>
+                                    <action selector="handleRetry:" destination="39J-a7-Akb" eventType="touchUpInside" id="7R9-xl-Xzn"/>
                                 </connections>
                             </button>
                         </subviews>

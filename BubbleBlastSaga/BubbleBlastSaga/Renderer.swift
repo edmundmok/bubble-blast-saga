@@ -31,6 +31,14 @@ class Renderer {
         imageMap[gameObject.uuid] = nil
     }
     
+    func deregisterAllImages() {
+        imageMap
+            .forEach {
+                $0.value.removeFromSuperview()
+                imageMap[$0.key] = nil
+            }
+    }
+    
     func getImage(for gameObject: GameObject) -> UIImageView? {
         return imageMap[gameObject.uuid]
     }

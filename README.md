@@ -98,6 +98,10 @@ Your answer here
 3. **Added a simple hint system to inform user of possible locations to shoot at.** This system only hints at possible locations to shoot at, not actually checking which location can maximize the result. The result is that it will be quite laggy. For this simple hint system, I only needed to identify all the exposed bubbles (bubbles that can be reached somehow) and check if the neighbour is a special bubble or same color as the current cannon bubble. If any of these are true, the position is possible hint position.
 4. **Added an advanced hint system to inform user of best case position for the bubble to be to maximize bubbles removed.** This is an improved version of the previous system, that actually does simulation of the outcomes for each candidate positions of the basic system. It then reveals the best position for the current bubble to be in. A consideration is that there is a *thinking time* incurred to decide which is the best position due to running simulations. In order to prevent lag to the game, I used async calls for the hints so that the UI will never appear laggy. Although, this would mean that there might be a little delay in the computation of the hint.
 5. **Added game score.** The score is shown at the bottom of the screen, below all the bubbles. Each bubble removed will contribute to the score with a base score, and the score will be boosted based on the current streak of the player and the combo of the player.
+6. **Added retry and back button in game view.** *Retry button* allows the player to restart the level and attempt the level again from the start. *Back button* allows the player to go back to the previous screen he came from (e.g. he started from Level Designer, so go back to Level Designer).
+6. **Added game end conditions depending on game modes.**
+	* 
+7. **Added end game screen.**
 
 
 ### Problem 10: Final Reflection

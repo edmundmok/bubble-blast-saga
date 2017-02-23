@@ -63,6 +63,15 @@ class BubbleGame {
         gameEngine.startGameLoop()
     }
     
+    // Ends the bubble game
+    func endGame() {
+        // Stop the game loop
+        gameEngine.stopGameLoop()
+        
+        // Clear the canvas
+        gameEngine.renderer.deregisterAllImages()
+    }
+    
     // Setup the game
     private func setupGame() {
         // Setup Walls

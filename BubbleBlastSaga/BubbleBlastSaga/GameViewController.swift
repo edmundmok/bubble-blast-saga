@@ -90,6 +90,15 @@ class GameViewController: UIViewController {
         trajectoryPathLayer.setPathStyle(gameArea: gameArea)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    
     private func updateCurrentCannonBubbleImage() {
         // currentBubbleView.frame.size = bubbleGrid.visibleCells[0].frame.size
         currentBubbleView.frame.size = CGSize(width: bubbleGrid.visibleCells[0].frame.size.width*0.8,
@@ -209,6 +218,31 @@ class GameViewController: UIViewController {
                 self.comboLabel.alpha = 0.0
             })
         })
+    }
+
+    @IBAction func handleBack(_ sender: UIButton) {
+        let _ = self.navigationController?.popViewController(animated: true)
+    }
+    
+    @IBAction func handleRetry(_ sender: UIButton) {
+        // end the current game
+        bubbleGame.endGame()
+        
+        // start a new game
+        guard let modelCopy = bubbleGridModel.copy() as? BubbleGridModel else {
+            return
+        }
+        
+        bubbleGame = BubbleGame(gameSettings: GameSettings(), bubbleGridModel: modelCopy,
+                                bubbleGrid: bubbleGrid, gameArea: gameArea)
+        bubbleGame.startGame()
+        
+        scoreLabel.text = String(0)
+        
+        // Setup the image for the current cannon bubble
+        updateCurrentCannonBubbleImage()
+        updateNextCannonBubbleImage()
+
     }
 }
 
