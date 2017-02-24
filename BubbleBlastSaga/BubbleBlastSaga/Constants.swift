@@ -135,6 +135,20 @@ struct Constants {
         UIImage(named: "explosion_12")!,
     ]
     
+    // Images -- Lightning flash
+    static let lightningImages = [
+        UIImage(named: "lightning_01")!,
+        UIImage(named: "lightning_02")!,
+        UIImage(named: "lightning_03")!,
+        UIImage(named: "lightning_04")!,
+        UIImage(named: "lightning_05")!,
+        UIImage(named: "lightning_06")!,
+        UIImage(named: "lightning_07")!,
+        UIImage(named: "lightning_08")!,
+        UIImage(named: "lightning_09")!,
+        UIImage(named: "lightning_10")!,
+    ]
+    
     static let cannonFireDuration = 0.3
     static let cannonRepeatCount = 1
 }

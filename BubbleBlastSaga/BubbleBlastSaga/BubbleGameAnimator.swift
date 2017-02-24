@@ -67,24 +67,51 @@ class BubbleGameAnimator {
     }
     
     func explodeBomb(_ gameBubble: GameBubble) {
-        // fade the bomb bubble
+        // Get the image for reference
         guard let bubbleImage = renderer.getImage(for: gameBubble) else {
             return
         }
         
+        let explosionImage = UIImageView()
+        
         // render the explosion images
-        bubbleImage.frame.size = CGSize(width: bubbleImage.frame.size.width * 3, height: bubbleImage.frame.size.height * 3)
-        bubbleImage.center = gameBubble.center
-        bubbleImage.animationImages = Constants.bombExplosionImages
-        bubbleImage.animationDuration = 1
-        bubbleImage.animationRepeatCount = 1
-        bubbleImage.startAnimating()
+        explosionImage.frame.size = CGSize(width: bubbleImage.frame.size.width * 3, height: bubbleImage.frame.size.height * 3)
+        explosionImage.center = gameBubble.center
+        explosionImage.animationImages = Constants.bombExplosionImages
+        explosionImage.animationDuration = 1
+        explosionImage.animationRepeatCount = 1
+        renderer.canvas.addSubview(explosionImage)
+        explosionImage.startAnimating()
         
-        Timer.scheduledTimer(withTimeInterval: 0.9 * 1, repeats: false, block: { _ in
-            // remove the bomb bubble completely
-            self.renderer.deregisterImage(for: gameBubble)
-        })
+        Timer.scheduledTimer(withTimeInterval: explosionImage.animationDuration, repeats: false) { _ in
+            // remove the explosion image
+            explosionImage.removeFromSuperview()
+        }
+    }
+    
+    func animateLightning(for indexPath: IndexPath) {
+        guard let cellAtIndexPath = bubbleGrid.cellForItem(at: indexPath) else {
+            return
+        }
         
+        let lightningYPosition = cellAtIndexPath.center.y
+        let lightningXPosition = bubbleGrid.center.x
+        
+        let lightningImage = UIImageView()
+        
+        // render the lightning iamges
+        lightningImage.frame.size = CGSize(width: gameArea.frame.width + 2 * cellAtIndexPath.frame.size.width, height: cellAtIndexPath.frame.size.height * 4)
+        lightningImage.center = CGPoint(x: lightningXPosition, y: lightningYPosition)
+        lightningImage.animationImages = Constants.lightningImages
+        lightningImage.animationDuration = 1
+        lightningImage.animationRepeatCount = 1
+        renderer.canvas.addSubview(lightningImage)
+        lightningImage.startAnimating()
+        
+        Timer.scheduledTimer(withTimeInterval: lightningImage.animationDuration, repeats: false) { _ in
+            // remove the lightning image
+            lightningImage.removeFromSuperview()
+        }
     }
     
     func flashHintLocations(_ indexPath: IndexPath) {

@@ -158,6 +158,8 @@ class BubbleGameLogic {
         // index path to remove is all on the same section
         let indexPathsToRemove = bubbleGridModel.getIndexPathsForSectionContaining(indexPath: indexPath)
         
+        bubbleGameAnimator.animateLightning(for: indexPath)
+        
         // attempt to chain, activating bubble is the lightning bubble
         indexPathsToRemove
             .filter { !bubblesActivated.contains($0) }
@@ -227,11 +229,6 @@ class BubbleGameLogic {
             // remove it from the grid and the game engine
             bubblesToRemove.insert($0)
             bubbleGridModel.remove(at: $0)
-            
-            // don't deregister any image of this bomb or any chained bombs here
-            guard !bubblesActivated.contains($0) else {
-                return
-            }
             
             gameEngine.deregister(gameObject: gameBubble)
         }

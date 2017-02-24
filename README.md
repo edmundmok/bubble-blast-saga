@@ -9,6 +9,10 @@ CS3217 Problem Set 5
 
 # Note to self
 > Also, clean up my code for LogicSim (hint related).
+> 
+Sprites taken from:
+1. Explosion: http://opengameart.org/content/pixel-explosion-12-frames
+2. Lightning: https://www.reddit.com/r/gamedev/comments/2rw8ya/1000_free_2d_sprites_animations_tiles_and_effects/
 
 ### Rules of Your Game
 
