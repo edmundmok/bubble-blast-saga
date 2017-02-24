@@ -139,6 +139,7 @@ extension BubbleGameCollisionHandler: CollisionHandler {
             gameEngine.deregister(gameObject: gameBubble)
             
             bubbleGameLogic.handleBubbleOutOfBounds()
+            return
         }
         
         // Check the type of the collided wall
@@ -234,6 +235,21 @@ extension BubbleGameCollisionHandler: CollisionHandler {
         
         otherCircle.velocity.dx = otherCircleNewDx
         otherCircle.velocity.dy = otherCircleNewDy
+        
+        // Move the circles away from each other so they no longer overlap to prevent repeated collisions
+        
+        // First get their midpoint of the 2 centers
+        let midpointX = (aCircle.center.x + otherCircle.center.x) / 2
+        let midpointY = (aCircle.center.y + otherCircle.center.y) / 2
+        
+        // Set the new centers of the circles to be the radius (R) away from p along the
+        // line that connects the centers of the two radii.
+        aCircle.center.x = midpointX + aCircle.radius * (aCircle.center.x - otherCircle.center.x) / distance
+        aCircle.center.y = midpointY + aCircle.radius * (aCircle.center.y - otherCircle.center.y) / distance
+        
+        otherCircle.center.x = midpointX + otherCircle.radius * (otherCircle.center.x - aCircle.center.x) / distance
+        otherCircle.center.y = midpointY + otherCircle.radius * (otherCircle.center.y - aCircle.center.y) / distance
+        
     }
     
     // Returns a boolean representing if the collision between the two given circles is one

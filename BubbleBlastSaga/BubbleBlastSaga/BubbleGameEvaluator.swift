@@ -32,7 +32,7 @@ class BubbleGameEvaluator {
         case .LimitedShots:
             self.shotsLeft = 20
         case .LimitedTime:
-            self.timeLeft = 60
+            self.timeLeft = 5
         case .SurvivorSolo: return
         case .SurvivorVersus: return
         case .Multiplayer: return
@@ -142,6 +142,7 @@ class BubbleGameEvaluator {
         // First check if bubble in last section, if yes, auto lose.
         guard !hasBubblesInLastSection() else {
             // lose the game
+            timer.invalidate()
             NotificationCenter.default.post(name: .init("GameLost"), object: nil)
             return
         }
@@ -164,6 +165,7 @@ class BubbleGameEvaluator {
             return
         }
         
+        timer.invalidate()
         NotificationCenter.default.post(name: .init("GameLost"), object: nil)
     }
     
@@ -191,6 +193,7 @@ class BubbleGameEvaluator {
             evaluateGameForLimitedTime()
             return
         }
+
         timeLeft = remainingTime - 1
     }
 }

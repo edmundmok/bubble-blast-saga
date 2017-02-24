@@ -93,8 +93,6 @@ class BubbleGameLogic {
             
             // Flying bubble landed
             bubbleGameEvaluator.updateFlyingBubbleLanded()
-            print(bubbleGameEvaluator.flyingBubbles)
-
             bubbleGameEvaluator.evaluateGame()
             return
         }

@@ -93,30 +93,34 @@ class BubbleGame {
     
     // Setup the game walls in the bubble game
     func setupBubbleGameWalls() {
+        // wall size: use 10x bubble speed because some cases the bubbles might bump into each other and
+        // go pass the walls
+        let wallThickness = 10 * Constants.bubbleSpeed
+        
         // Left wall
-        let leftWallPosition = CGPoint(x: gameArea.frame.origin.x, y: gameArea.frame.origin.y)
+        let leftWallPosition = CGPoint(x: gameArea.frame.origin.x - wallThickness, y: gameArea.frame.origin.y)
         let leftWall = GameWall(wallType: .SideWall, position: leftWallPosition,
-            size: CGSize(width: Constants.wallLength, height: gameArea.frame.height))
+            size: CGSize(width: wallThickness, height: gameArea.frame.height * 1.3))
         
         // Right wall
         let rightWallPosition = CGPoint(x: gameArea.frame.origin.x + gameArea.frame.width,
             y: gameArea.frame.origin.y)
         let rightWall = GameWall(wallType: .SideWall, position: rightWallPosition,
-            size: CGSize(width: Constants.wallLength, height: gameArea.frame.height))
+            size: CGSize(width: wallThickness, height: gameArea.frame.height * 1.3))
         
         // Top wall
-        let topWallPosition = CGPoint(x: gameArea.frame.origin.x, y: gameArea.frame.origin.y)
+        let topWallPosition = CGPoint(x: gameArea.frame.origin.x - wallThickness, y: gameArea.frame.origin.y - wallThickness)
         let topWall = GameWall(wallType: .TopWall, position: topWallPosition,
-            size: CGSize(width: gameArea.frame.width, height: Constants.wallLength))
+            size: CGSize(width: gameArea.frame.width + 2 * wallThickness, height: wallThickness))
         
         // Bottom wall - move it SLIGHTLY below the screen, so that the bubble doesnt 
         // immediately trigger the collision at the bottom edge of the screen but rather
         // fly down a little first, so that it looks like it flew to eternity instead of
         // being terminated at the edge (aesthetic purposes)
-        let bottomWallPosition = CGPoint(x: gameArea.frame.origin.x,
+        let bottomWallPosition = CGPoint(x: gameArea.frame.origin.x - wallThickness,
             y: gameArea.frame.maxY + getStandardBubbleSize().width * Constants.bottomWallMultiplier)
         let bottomWall = GameWall(wallType: .BottomWall, position: bottomWallPosition,
-            size: CGSize(width: gameArea.frame.width, height: Constants.wallLength))
+            size: CGSize(width: gameArea.frame.width + 2 * wallThickness, height: wallThickness))
         
         // Add the walls
         gameEngine.register(gameObject: leftWall)

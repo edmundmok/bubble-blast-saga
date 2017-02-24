@@ -343,7 +343,7 @@ class GameViewController: UIViewController {
         endBestComboPlaceholder.text = "Best combo: " + String(bubbleGame.bubbleGameStats.maxCombo)
         endBestChainPlaceholder.text = "Best chain: " + String(bubbleGame.bubbleGameStats.maxChain)
         endLongestStreakPlaceholder.text = "Best streak: " + String(bubbleGame.bubbleGameStats.maxStreak)
-        endAccuracyPlaceholder.text = "Accuracy: " + String(bubbleGame.bubbleGameStats.currentAccuracy)
+        endAccuracyPlaceholder.text = "Accuracy: " + String(Int(bubbleGame.bubbleGameStats.currentAccuracy * 100)) + " %"
 
         
         // fade out existing views
