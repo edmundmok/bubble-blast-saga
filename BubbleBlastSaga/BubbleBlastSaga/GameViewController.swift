@@ -20,7 +20,6 @@ class GameViewController: UIViewController {
     @IBOutlet weak var trajectoryPathView: UIView!
     @IBOutlet weak var scoreLabel: UILabel!
     @IBOutlet weak var comboLabel: UILabel!
-    @IBOutlet weak var streakLabel: UILabel!
     
     private var trajectoryPathLayer = TrajectoryPathLayer()
     
@@ -79,7 +78,6 @@ class GameViewController: UIViewController {
         
         // Hide combo and streak labels
         comboLabel.alpha = 0
-        streakLabel.alpha = 0
         
         // Setup the image for the current cannon bubble
         updateCurrentCannonBubbleImage()
