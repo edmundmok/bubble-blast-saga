@@ -149,6 +149,9 @@ struct Constants {
         UIImage(named: "lightning_10")!,
     ]
     
+    // Image -- starDestroyer
+    static let starDestroyerImage = UIImage(named: "star")
+    
     static let cannonFireDuration = 0.3
     static let cannonRepeatCount = 1
 }

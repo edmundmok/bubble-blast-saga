@@ -114,6 +114,32 @@ class BubbleGameAnimator {
         }
     }
     
+    func animateStarDestroyer(at indexPath: IndexPath) {
+        
+        guard let targetCell = bubbleGrid.cellForItem(at: indexPath) else {
+            return
+        }
+    
+        let starDestroyerImage = UIImageView()
+        starDestroyerImage.image = Constants.starDestroyerImage
+        starDestroyerImage.frame.size = CGSize(width: targetCell.frame.width * 2, height: targetCell.frame.height * 2)
+        starDestroyerImage.center = targetCell.center
+        starDestroyerImage.alpha = 0
+        renderer.canvas.addSubview(starDestroyerImage)
+        
+        UIImageView.animate(withDuration: 0.5, animations: {
+            starDestroyerImage.alpha = 1
+            
+        }) { _ in
+            
+            UIImageView.animate(withDuration: 0.5, animations: {
+                starDestroyerImage.alpha = 0
+            }) { _ in
+                starDestroyerImage.removeFromSuperview()
+            }
+        }
+    }
+    
     func flashHintLocations(_ indexPath: IndexPath) {
         
         guard indexPath != IndexPath() else {

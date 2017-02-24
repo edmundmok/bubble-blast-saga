@@ -238,7 +238,7 @@ class BubbleGameLogic {
     private func activate(starBubble: PowerBubble, at indexPath: IndexPath, with activatingBubble: ColoredBubble) {
         // set itself as activated
         bubblesActivated.insert(indexPath)
-        
+                
         // simply remove all same colored bubbles in the grid
         let presentBubbleIndexPaths = bubbleGridModel.getIndexPathOfBubblesInGrid()
         presentBubbleIndexPaths
@@ -247,6 +247,8 @@ class BubbleGameLogic {
                 guard let gameBubble = bubbleGridModel.getGameBubble(at: $0) else {
                     return
                 }
+                
+                bubbleGameAnimator.animateStarDestroyer(at: $0)
                 
                 bubblesToRemove.insert($0)
                 bubbleGridModel.remove(at: $0)
