@@ -119,6 +119,22 @@ struct Constants {
         UIImage(named: "bubble-burst_04")!
     ]
     
+    // Images -- Bomb explosion
+    static let bombExplosionImages = [
+        UIImage(named: "explosion_01")!,
+        UIImage(named: "explosion_02")!,
+        UIImage(named: "explosion_03")!,
+        UIImage(named: "explosion_04")!,
+        UIImage(named: "explosion_05")!,
+        UIImage(named: "explosion_06")!,
+        UIImage(named: "explosion_07")!,
+        UIImage(named: "explosion_08")!,
+        UIImage(named: "explosion_09")!,
+        UIImage(named: "explosion_10")!,
+        UIImage(named: "explosion_11")!,
+        UIImage(named: "explosion_12")!,
+    ]
+    
     static let cannonFireDuration = 0.3
     static let cannonRepeatCount = 1
 }

@@ -66,6 +66,27 @@ class BubbleGameAnimator {
         })
     }
     
+    func explodeBomb(_ gameBubble: GameBubble) {
+        // fade the bomb bubble
+        guard let bubbleImage = renderer.getImage(for: gameBubble) else {
+            return
+        }
+        
+        // render the explosion images
+        bubbleImage.frame.size = CGSize(width: bubbleImage.frame.size.width * 3, height: bubbleImage.frame.size.height * 3)
+        bubbleImage.center = gameBubble.center
+        bubbleImage.animationImages = Constants.bombExplosionImages
+        bubbleImage.animationDuration = 1
+        bubbleImage.animationRepeatCount = 1
+        bubbleImage.startAnimating()
+        
+        Timer.scheduledTimer(withTimeInterval: 0.9 * 1, repeats: false, block: { _ in
+            // remove the bomb bubble completely
+            self.renderer.deregisterImage(for: gameBubble)
+        })
+        
+    }
+    
     func flashHintLocations(_ indexPath: IndexPath) {
         
         guard indexPath != IndexPath() else {

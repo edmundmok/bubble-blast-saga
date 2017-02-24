@@ -256,11 +256,21 @@ class GameViewController: UIViewController {
     }
 
     @IBAction func handleBack(_ sender: UIButton) {
+        // invalidate the timer
+        bubbleGame.bubbleGameEvaluator.timer.invalidate()
+        
         let _ = self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func handleRetry(_ sender: UIButton) {
+        // invalidate the timer
+        bubbleGame.bubbleGameEvaluator.timer.invalidate()
+        
         // refactor into hide end screen
+        
+        // disable buttons while animating
+        self.retryButton.isEnabled = false
+        self.backButton.isEnabled = false
         
         UIView.animate(withDuration: 1.0, animations: {
             self.endGameStats.forEach { $0.alpha = 0 }
@@ -287,6 +297,9 @@ class GameViewController: UIViewController {
                     self.gameView.alpha = 1
                     self.hintButton.alpha = 1
                     self.fireHintButton.alpha = 1
+                    
+                    self.retryButton.isEnabled = true
+                    self.backButton.isEnabled = true
                 }
                 
             }
@@ -345,6 +358,9 @@ class GameViewController: UIViewController {
         endLongestStreakPlaceholder.text = "Best streak: " + String(bubbleGame.bubbleGameStats.maxStreak)
         endAccuracyPlaceholder.text = "Accuracy: " + String(Int(bubbleGame.bubbleGameStats.currentAccuracy * 100)) + " %"
 
+        // disable buttons while animating
+        self.retryButton.isEnabled = false
+        self.backButton.isEnabled = false
         
         // fade out existing views
         UIView.animate(withDuration: 1.5, animations: {
@@ -363,10 +379,11 @@ class GameViewController: UIViewController {
                 self.scoreLabel.center = self.endGameDetailsPlaceholder.convert(self.endScorePlaceholder.center, to: self.view)
             }) { _ in
                 
-                
                 UIView.animate(withDuration: 1.0) {
                     // fade in stats
                     self.endGameStats.forEach { $0.alpha = 1 }
+                    self.retryButton.isEnabled = true
+                    self.backButton.isEnabled = true
                 }
                 
                 

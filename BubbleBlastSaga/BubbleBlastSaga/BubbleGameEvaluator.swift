@@ -13,7 +13,7 @@ class BubbleGameEvaluator {
     
     // Mode dependent
     let gameMode: BubbleGameMode
-    private(set) var timer = Timer()
+    var timer = Timer()
     private(set) var timeLeft: Int?
     private var timerStarted = false
     private(set) var shotsLeft: Int?
@@ -156,6 +156,7 @@ class BubbleGameEvaluator {
         
         guard remainingCount > 0 else {
             // Remaining count == 0 (game won!)
+            timer.invalidate()
             NotificationCenter.default.post(name: .init("GameWon"), object: nil)
             return
         }

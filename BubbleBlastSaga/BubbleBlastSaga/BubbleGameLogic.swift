@@ -199,6 +199,9 @@ class BubbleGameLogic {
         // add the bomb itself for removal
         neighboursIndexPath.append(indexPath)
         
+        // explode the bomb
+        bubbleGameAnimator.explodeBomb(bombBubble)
+        
         // attempt to chain, activating bubble is the bomb bubble
         let chainableBubbles = getSpecialBubblesIndexPath(from: neighboursIndexPath)
         chainableBubbles
@@ -224,6 +227,12 @@ class BubbleGameLogic {
             // remove it from the grid and the game engine
             bubblesToRemove.insert($0)
             bubbleGridModel.remove(at: $0)
+            
+            // don't deregister any image of this bomb or any chained bombs here
+            guard !bubblesActivated.contains($0) else {
+                return
+            }
+            
             gameEngine.deregister(gameObject: gameBubble)
         }
         
