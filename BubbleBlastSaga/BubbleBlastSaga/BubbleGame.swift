@@ -18,6 +18,7 @@ class BubbleGame {
     let bubbleCannon = BubbleCannon()
     private let bubbleGameAnimator: BubbleGameAnimator
     let bubbleGameStats = BubbleGameStats()
+    let bubbleGameEvaluator: BubbleGameEvaluator
     
     // game engine
     private let gameEngine: GameEngine
@@ -41,9 +42,13 @@ class BubbleGame {
         let bubbleGameAnimator = BubbleGameAnimator(gameArea: gameArea, renderer: renderer,
             bubbleGrid: bubbleGrid)
         
+        let bubbleGameEvaluator = BubbleGameEvaluator(gameMode: gameSettings.gameMode,
+            bubbleGrid: bubbleGrid, bubbleGridModel: bubbleGridModel)
+        
         let bubbleGameLogic = BubbleGameLogic(bubbleGrid: bubbleGrid,
             bubbleGridModel: bubbleGridModel, gameEngine: gameEngine,
-            bubbleGameAnimator: bubbleGameAnimator, bubbleGameStats: bubbleGameStats)
+            bubbleGameAnimator: bubbleGameAnimator, bubbleGameStats: bubbleGameStats,
+            bubbleGameEvaluator: bubbleGameEvaluator)
         
         let collisionHandler = BubbleGameCollisionHandler(bubbleGrid: bubbleGrid,
             bubbleGridModel: bubbleGridModel, bubbleGameLogic: bubbleGameLogic,
@@ -53,6 +58,7 @@ class BubbleGame {
         
         self.gameEngine = gameEngine
         self.bubbleGameAnimator = bubbleGameAnimator
+        self.bubbleGameEvaluator = bubbleGameEvaluator
     }
     
     // Starts the bubble game running
@@ -61,6 +67,10 @@ class BubbleGame {
         setupGame()
         // Start the game engine
         gameEngine.startGameLoop()
+    }
+    
+    func pauseGame() {
+        gameEngine.stopGameLoop()
     }
     
     // Ends the bubble game
@@ -144,7 +154,13 @@ class BubbleGame {
     
     // Fires a bubble from the given start position, with a given angle at a 
     // fixed speed.
-    func fireBubble(from startPosition: CGPoint, at angle: CGFloat) {
+    func fireBubble(from startPosition: CGPoint, at angle: CGFloat) -> Bool {
+        
+        guard bubbleGameEvaluator.useBubbleAmmo() else {
+            return false
+        }
+        
+        bubbleGameStats.incrementBubblesShot()
         
         // TODO: Consider moving the actual firing into the cannon class
     
@@ -171,6 +187,8 @@ class BubbleGame {
         
         // reload
         bubbleCannon.reloadCannon()
+        
+        return true
     }
     
     // Get the trajectory points starting from the given startPosition and 

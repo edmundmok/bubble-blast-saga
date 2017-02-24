@@ -10,6 +10,11 @@ import UIKit
 
 class GameViewController: UIViewController {
     
+    enum GameOutcome {
+        case Win
+        case Lose
+    }
+    
     // Main views
     @IBOutlet weak var bubbleGrid: UICollectionView!
     @IBOutlet weak var cannon: CannonView!
@@ -25,6 +30,11 @@ class GameViewController: UIViewController {
     
     @IBOutlet var longPressGestureRecognizer: UILongPressGestureRecognizer!
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
+    
+    // saved locations for score, retry and fire
+    private var originalScoreLocation: CGPoint?
+    private var originalBackLocation: CGPoint?
+    private var originalRetryLocation: CGPoint?
     
     // BubbleGame
     private var bubbleGame: BubbleGame!
@@ -66,18 +76,27 @@ class GameViewController: UIViewController {
             return
         }
         
-        bubbleGame = BubbleGame(gameSettings: GameSettings(), bubbleGridModel: modelCopy,
+        bubbleGame = BubbleGame(gameSettings: GameSettings(gameMode: .LimitedTime), bubbleGridModel: modelCopy,
                                 bubbleGrid: bubbleGrid, gameArea: gameArea)
         bubbleGame.startGame()
         
         // Setup notification observer
         NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "GameStatsUpdated"), object: nil, queue: nil, using: handleGameStatsUpdated)
-        
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "GameWon"), object: nil, queue: nil, using: handleGameWon)
+        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "GameLost"), object: nil, queue: nil, using: handleGameLost)
+
         // Change cannon anchor point to the hole area
         cannon.layer.anchorPoint = CGPoint(x: 0.5, y: 0.65)
         
         // Hide combo and streak labels
         comboLabel.alpha = 0
+        gameOutcome.alpha = 0
+        endGameStats.forEach{ $0.alpha = 0 }
+        
+        // save score label, retry and back button position so that we can get it back later
+        originalScoreLocation = scoreLabel.center
+        originalBackLocation = backButton.center
+        originalRetryLocation = retryButton.center
         
         // Setup the image for the current cannon bubble
         updateCurrentCannonBubbleImage()
@@ -150,7 +169,14 @@ class GameViewController: UIViewController {
     // Fires the cannon in the bubble game
     private func fireCannon() {
         let angle = getCurrentCannonAngle()
-        bubbleGame.fireBubble(from: cannon.center, at: angle)
+        let canFire = bubbleGame.fireBubble(from: cannon.center, at: angle)
+        
+        guard canFire else {
+            // cannot fire any more bubbles
+            print("cannot fire anymore")
+            return
+        }
+        
         cannon.fireAnimation()
         
         // update image
@@ -212,12 +238,60 @@ class GameViewController: UIViewController {
             })
         })
     }
+    
+    func handleGameWon(notification: Notification) {
+        // pause the game
+        bubbleGame.pauseGame()
+        
+        // render end screen
+        renderEndScreen(outcome: .Win)
+    }
+    
+    func handleGameLost(notification: Notification) {
+        // pause the game
+        bubbleGame.pauseGame()
+
+        // render end screen
+        renderEndScreen(outcome: .Lose)
+    }
 
     @IBAction func handleBack(_ sender: UIButton) {
         let _ = self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func handleRetry(_ sender: UIButton) {
+        // refactor into hide end screen
+        
+        UIView.animate(withDuration: 1.0, animations: {
+            self.endGameStats.forEach { $0.alpha = 0 }
+        }) { _ in
+            
+            UIView.animate(withDuration: 1.0, animations: {
+                
+                guard let retryLocation = self.originalRetryLocation,
+                    let backLocation = self.originalBackLocation,
+                    let scoreLocation = self.originalScoreLocation else {
+                        
+                    return
+                }
+                
+                self.gameOutcome.alpha = 0
+                self.retryButton.center = retryLocation
+                self.backButton.center = backLocation
+                self.scoreLabel.center = scoreLocation
+                
+            }) { _ in
+                
+                UIView.animate(withDuration: 1.5) {
+                    self.scoreLabel.text = String(0)
+                    self.gameView.alpha = 1
+                    self.hintButton.alpha = 1
+                    self.fireHintButton.alpha = 1
+                }
+                
+            }
+        }
+        
         // end the current game
         bubbleGame.endGame()
         
@@ -226,17 +300,85 @@ class GameViewController: UIViewController {
             return
         }
         
-        bubbleGame = BubbleGame(gameSettings: GameSettings(), bubbleGridModel: modelCopy,
+        bubbleGame = BubbleGame(gameSettings: GameSettings(gameMode: .LimitedTime), bubbleGridModel: modelCopy,
                                 bubbleGrid: bubbleGrid, gameArea: gameArea)
         bubbleGame.startGame()
-        
-        scoreLabel.text = String(0)
         
         // Setup the image for the current cannon bubble
         updateCurrentCannonBubbleImage()
         updateNextCannonBubbleImage()
 
     }
+    
+    @IBOutlet weak var gameView: UIView!
+    @IBOutlet weak var hintButton: UIButton!
+    @IBOutlet weak var fireHintButton: UIButton!
+    @IBOutlet weak var retryButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
+    
+    @IBOutlet weak var gameOutcome: UILabel!
+    @IBOutlet weak var endGameDetailsPlaceholder: UIView!
+    @IBOutlet weak var endScorePlaceholder: UIView!
+    @IBOutlet weak var endBackPlaceholder: UIView!
+    @IBOutlet weak var endRetryPlaceholder: UIView!
+    
+    @IBOutlet weak var endLuckyColorPlaceholder: UILabel!
+    @IBOutlet weak var endBestComboPlaceholder: UILabel!
+    @IBOutlet weak var endBestChainPlaceholder: UILabel!
+    @IBOutlet weak var endLongestStreakPlaceholder: UILabel!
+    @IBOutlet weak var endAccuracyPlaceholder: UILabel!
+    @IBOutlet var endGameStats: [UILabel]!
+    
+    
+    private func renderEndScreen(outcome: GameOutcome) {
+        // fill up end screen details first
+        if outcome == .Win {
+            gameOutcome.text = "You win"
+        } else {
+            gameOutcome.text = "You lose"
+        }
+        
+        // game stats
+        endLuckyColorPlaceholder.text = "Your lucky color is " + (bubbleGame.bubbleGameStats.luckyColor?.rawValue ?? " no color")
+        endBestComboPlaceholder.text = "Best combo: " + String(bubbleGame.bubbleGameStats.maxCombo)
+        endBestChainPlaceholder.text = "Best chain: " + String(bubbleGame.bubbleGameStats.maxChain)
+        endLongestStreakPlaceholder.text = "Best streak: " + String(bubbleGame.bubbleGameStats.maxStreak)
+        endAccuracyPlaceholder.text = "Accuracy: " + String(bubbleGame.bubbleGameStats.currentAccuracy)
+
+        
+        // fade out existing views
+        UIView.animate(withDuration: 1.5, animations: {
+            self.gameView.alpha = 0
+            self.hintButton.alpha = 0
+            self.fireHintButton.alpha = 0
+        }) { _ in
+            
+            UIView.animate(withDuration: 1.0, animations: {
+                // game outcome
+                self.gameOutcome.alpha = 1
+                
+                // move stuff that are already on screen
+                self.retryButton.center = self.endGameDetailsPlaceholder.convert(self.endRetryPlaceholder.center, to: self.view)
+                self.backButton.center = self.endGameDetailsPlaceholder.convert(self.endBackPlaceholder.center, to: self.view)
+                self.scoreLabel.center = self.endGameDetailsPlaceholder.convert(self.endScorePlaceholder.center, to: self.view)
+            }) { _ in
+                
+                
+                UIView.animate(withDuration: 1.0) {
+                    // fade in stats
+                    self.endGameStats.forEach { $0.alpha = 1 }
+                }
+                
+                
+            }
+            
+        }
+        
+
+        
+        
+    }
+
 }
 
 // MARK: UIGestureRecognizerDelegate

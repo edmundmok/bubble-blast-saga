@@ -68,17 +68,6 @@ extension BubbleGameCollisionHandler: CollisionHandler {
             return
         }
         
-        // Check if this bubble is in the last section. If yes, the game should end!
-        // But for now, we just print a debug message and remove the moving bubble.
-        guard isBeforeLastSection(indexPath: stationaryBubbleIndexPath) else {
-            // If they were removed, set bubble position at a far location
-            // to prevent future collision checks against this object
-            gameEngine.deregister(gameObject: movingBubble)
-            movingBubble.center = Constants.pointAtFarLocation
-            print("game should end. removing the invalid bubble for now!")
-            return
-        }
-        
         // Get the index path of the neighbours of the stationary bubble
         let neighboursIndexPath = bubbleGridModel.getNeighboursIndexPath(of: stationaryBubbleIndexPath)
         
@@ -114,7 +103,7 @@ extension BubbleGameCollisionHandler: CollisionHandler {
         // path, or a normal cannon bubble shot from the cannon.
         
         // Only handle futher interactions if not trajectory bubble
-        guard let _ = movingBubble as? TrajectoryBubble else {
+        guard movingBubble is TrajectoryBubble else {
             // If not a trajectory bubble, then it is a regular bubble fired from the cannon
             // so we need to handle normal interactions
             bubbleGridModel.set(gameBubble: movingBubble, at: nearestEmptyNeighbourIndexPath)

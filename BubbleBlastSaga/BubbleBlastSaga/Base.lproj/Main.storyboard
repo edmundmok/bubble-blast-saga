@@ -478,16 +478,94 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="FTY-c7-3he">
+                                <rect key="frame" x="0.0" y="679" width="768" height="173"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="100"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="jKx-7V-ZtH" userLabel="End Screen Placement">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="FJ8-X7-yuW" userLabel="Main Details">
+                                        <rect key="frame" x="152" y="150" width="465" height="290"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="Ytl-wb-ILI" userLabel="Game Outcome">
+                                                <rect key="frame" x="20" y="20" width="425" height="100"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="70"/>
+                                                <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gHD-AE-bBO" userLabel="Score Placement">
+                                                <rect key="frame" x="20" y="117" width="425" height="78"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JEc-b0-MWs" userLabel="Back Placement">
+                                                <rect key="frame" x="20" y="195" width="212.5" height="78"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
+                                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ydN-n7-KkK" userLabel="Retry Placement">
+                                                <rect key="frame" x="232" y="195" width="212.5" height="78"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ofu-CV-vbX" userLabel="Achievements Placement">
+                                        <rect key="frame" x="172" y="448" width="425" height="310"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fRY-ad-ZyV" userLabel="Lucky Color">
+                                                <rect key="frame" x="0.0" y="0.0" width="425" height="62"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VAI-wS-qY1" userLabel="Best Combo">
+                                                <rect key="frame" x="0.0" y="62" width="425" height="62"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5vT-pW-IiG" userLabel="Best Chain">
+                                                <rect key="frame" x="0.0" y="124" width="425" height="62"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="W3d-KA-wzl" userLabel="Longest Streak">
+                                                <rect key="frame" x="0.0" y="186" width="425" height="62"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5fi-VH-h4L" userLabel="Accuracy">
+                                                <rect key="frame" x="0.0" y="248" width="425" height="62"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                                <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOC-Xn-23y" userLabel="Game View">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="FTY-c7-3he">
-                                        <rect key="frame" x="0.0" y="686" width="768" height="189"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="100"/>
-                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wJ5-O3-hkW" userLabel="Combo Label">
                                         <rect key="frame" x="0.0" y="830" width="233" height="100"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -520,7 +598,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cannon-base" translatesAutoresizingMaskIntoConstraints="NO" id="AFR-vG-OMV" userLabel="Cannon Base">
-                                        <rect key="frame" x="333.5" y="922" width="102" height="102"/>
+                                        <rect key="frame" x="333" y="922" width="102" height="102"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="AFR-vG-OMV" secondAttribute="height" multiplier="15:15" id="VbI-Kv-cgu"/>
                                         </constraints>
@@ -551,6 +629,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g9g-xX-Nij">
                                 <rect key="frame" x="533" y="883" width="105" height="71"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Hint">
                                     <color key="titleColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -561,6 +640,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Fc-ch-kcl" userLabel="Fire Hint">
                                 <rect key="frame" x="646" y="883" width="122" height="71"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                 <state key="normal" title="Fire">
                                     <color key="titleColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -571,7 +651,10 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7w8-zc-d8f">
                                 <rect key="frame" x="533" y="948" width="105" height="54"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Back"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Back">
+                                    <color key="titleColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="handleBack:" destination="39J-a7-Akb" eventType="touchUpInside" id="cvz-lv-doR"/>
                                 </connections>
@@ -579,7 +662,10 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cVY-A1-Wtg">
                                 <rect key="frame" x="646" y="948" width="122" height="54"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Retry"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <state key="normal" title="Retry">
+                                    <color key="titleColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
                                 <connections>
                                     <action selector="handleRetry:" destination="39J-a7-Akb" eventType="touchUpInside" id="7R9-xl-Xzn"/>
                                 </connections>
@@ -602,17 +688,37 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backButton" destination="7w8-zc-d8f" id="xSW-AE-hzk"/>
                         <outlet property="bubbleGrid" destination="ViU-zX-Cx2" id="wJy-oh-ZrI"/>
                         <outlet property="cannon" destination="aUg-ih-ZZh" id="YKW-hN-QQh"/>
                         <outlet property="cannonBase" destination="AFR-vG-OMV" id="7Ew-xz-MUe"/>
                         <outlet property="comboLabel" destination="wJ5-O3-hkW" id="Jgs-tu-xSO"/>
                         <outlet property="currentBubbleView" destination="vcg-aJ-YFr" id="95z-MO-IFx"/>
+                        <outlet property="endAccuracyPlaceholder" destination="5fi-VH-h4L" id="EuO-Kj-VQp"/>
+                        <outlet property="endBackPlaceholder" destination="JEc-b0-MWs" id="gBG-yV-hp2"/>
+                        <outlet property="endBestChainPlaceholder" destination="5vT-pW-IiG" id="phY-6g-ZkN"/>
+                        <outlet property="endBestComboPlaceholder" destination="VAI-wS-qY1" id="MU7-jy-lyr"/>
+                        <outlet property="endGameDetailsPlaceholder" destination="FJ8-X7-yuW" id="pc9-w5-m3d"/>
+                        <outlet property="endLongestStreakPlaceholder" destination="W3d-KA-wzl" id="vHV-Qy-Fxs"/>
+                        <outlet property="endLuckyColorPlaceholder" destination="fRY-ad-ZyV" id="kr0-Vl-JKn"/>
+                        <outlet property="endRetryPlaceholder" destination="ydN-n7-KkK" id="N6T-k8-9Gc"/>
+                        <outlet property="endScorePlaceholder" destination="gHD-AE-bBO" id="hLw-Q7-e4b"/>
+                        <outlet property="fireHintButton" destination="5Fc-ch-kcl" id="ZHR-C8-ZtQ"/>
                         <outlet property="gameArea" destination="v0J-tn-WL7" id="Mvm-ju-BLb"/>
+                        <outlet property="gameOutcome" destination="Ytl-wb-ILI" id="niK-mR-TYO"/>
+                        <outlet property="gameView" destination="lOC-Xn-23y" id="gcp-NT-5MX"/>
+                        <outlet property="hintButton" destination="g9g-xX-Nij" id="bPL-nu-l56"/>
                         <outlet property="longPressGestureRecognizer" destination="od1-Mh-S3U" id="fa7-nC-GbY"/>
                         <outlet property="nextBubbleView" destination="oaB-Hf-Hk2" id="jyC-Xx-mtK"/>
                         <outlet property="panGestureRecognizer" destination="OOV-5g-Bhh" id="jNl-8p-ceP"/>
+                        <outlet property="retryButton" destination="cVY-A1-Wtg" id="mQV-Sr-aem"/>
                         <outlet property="scoreLabel" destination="FTY-c7-3he" id="OQw-J3-jMY"/>
                         <outlet property="trajectoryPathView" destination="Rqq-Xj-CLf" id="gcf-d7-Sha"/>
+                        <outletCollection property="endGameStats" destination="VAI-wS-qY1" collectionClass="NSMutableArray" id="VLg-p3-4wS"/>
+                        <outletCollection property="endGameStats" destination="fRY-ad-ZyV" collectionClass="NSMutableArray" id="fbg-QS-gJi"/>
+                        <outletCollection property="endGameStats" destination="5vT-pW-IiG" collectionClass="NSMutableArray" id="iwi-3E-djD"/>
+                        <outletCollection property="endGameStats" destination="W3d-KA-wzl" collectionClass="NSMutableArray" id="Pv5-zS-MOH"/>
+                        <outletCollection property="endGameStats" destination="5fi-VH-h4L" collectionClass="NSMutableArray" id="Ih7-3h-rYf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Smo-gG-cYy" sceneMemberID="firstResponder"/>

@@ -14,15 +14,8 @@ import Foundation
  */
 class BubbleGameStats {
     
-    enum GameOutcome {
-        case Win
-        case Lose
-        case InProgress
-    }
-    
     // About the game
     private(set) var currentScore = 0.0
-    private(set) var gameOutcome = GameOutcome.InProgress
     
     // Streak - number of times in a row player shoots a bubble that removes something
     private(set) var currentStreak = 0
@@ -67,6 +60,7 @@ class BubbleGameStats {
         // update current information
         currentCombo = removalCount
         bubblesShotThatLeadToRemovals += 1
+        currentStreak += 1
         
         // update max info if necessary
         if currentStreak > maxStreak {

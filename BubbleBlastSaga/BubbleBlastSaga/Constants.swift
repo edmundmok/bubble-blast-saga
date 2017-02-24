@@ -57,7 +57,7 @@ struct Constants {
     static let bubbleGridNumSections = 12
     static let bubbleGridNumRows = 12
     static let minimumLongPressDuration = 0.0
-    static let bubbleHitBoxSizePercentage = 0.65
+    static let bubbleHitBoxSizePercentage = 0.85
     static let bubbleSpeed: CGFloat = 15
     
     // TrajectoryPathLayer

@@ -15,6 +15,7 @@ class BubbleGameLogic {
     fileprivate let gameEngine: GameEngine
     fileprivate let bubbleGameAnimator: BubbleGameAnimator
     private let bubbleGameStats: BubbleGameStats
+    private let bubbleGameEvaluator: BubbleGameEvaluator
     
     // special data structure for chaining to avoid checking special bubble activation repeatedly
     fileprivate var bubblesActivated = Set<IndexPath>()
@@ -24,13 +25,15 @@ class BubbleGameLogic {
     fileprivate var currentChainCount = 0
     
     init(bubbleGrid: UICollectionView, bubbleGridModel: BubbleGridModel, gameEngine: GameEngine,
-         bubbleGameAnimator: BubbleGameAnimator, bubbleGameStats: BubbleGameStats) {
+        bubbleGameAnimator: BubbleGameAnimator, bubbleGameStats: BubbleGameStats,
+        bubbleGameEvaluator: BubbleGameEvaluator) {
         
         self.bubbleGrid = bubbleGrid
         self.bubbleGridModel = bubbleGridModel
         self.gameEngine = gameEngine
         self.bubbleGameAnimator = bubbleGameAnimator
         self.bubbleGameStats = bubbleGameStats
+        self.bubbleGameEvaluator = bubbleGameEvaluator
     }
     
     func handleBubbleOutOfBounds() {
@@ -39,11 +42,18 @@ class BubbleGameLogic {
         
         // post a notification so that interested parties (e.g. game vc) update
         NotificationCenter.default.post(name: .init("GameStatsUpdated"), object: nil)
+        
+        // Flying bubble landed
+        bubbleGameEvaluator.updateFlyingBubbleLanded()
+        bubbleGameEvaluator.evaluateGame()
     }
     
     // Handle the resulting interactions of the snapped bubble, such as removing connected
     // bubbles and also removing floating bubbles after.
     func handleInteractions(with snappedBubble: GameBubble) {
+        
+        // redraw first to show snapped position
+        gameEngine.renderer.draw([snappedBubble])
         
         // The game only shoots colored bubbles
         guard let coloredBubble = snappedBubble as? ColoredBubble else {
@@ -81,6 +91,11 @@ class BubbleGameLogic {
             // post a notification so that interested parties (e.g. game vc) update
             NotificationCenter.default.post(name: .init("GameStatsUpdated"), object: nil)
             
+            // Flying bubble landed
+            bubbleGameEvaluator.updateFlyingBubbleLanded()
+            print(bubbleGameEvaluator.flyingBubbles)
+
+            bubbleGameEvaluator.evaluateGame()
             return
         }
         
@@ -88,6 +103,9 @@ class BubbleGameLogic {
         // post a notification so that interested parties (e.g. game vc) update
         NotificationCenter.default.post(name: .init("GameStatsUpdated"), object: nil)
         
+        // Flying bubble landed
+        bubbleGameEvaluator.updateFlyingBubbleLanded()
+        bubbleGameEvaluator.evaluateGame()
         return
     }
     

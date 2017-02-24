@@ -100,8 +100,11 @@ Your answer here
 5. **Added game score.** The score is shown at the bottom of the screen, below all the bubbles. Each bubble removed will contribute to the score with a base score, and the score will be boosted based on the current streak of the player and the combo of the player.
 6. **Added retry and back button in game view.** *Retry button* allows the player to restart the level and attempt the level again from the start. *Back button* allows the player to go back to the previous screen he came from (e.g. he started from Level Designer, so go back to Level Designer).
 6. **Added game end conditions depending on game modes.**
-	* 
-7. **Added end game screen.**
+	* Limited shots
+		* Player starts out with a limited amount of bubbles to shoot. The game ends when the player runs out of bubbles to shoot - if there still exists bubbles in the grid, he loses, else he wins; or if the bubble grid becomes empty at any point in the game. Furthermore, If a bubble reaches the bottom section of the grid at any point in the game, player will lose.
+	* Limited time
+		* Player has unlimited shots to fire, but can only play for a certain time limit for the level. After the time limit expires, the game will end, and depending on whether there are still bubbles in the grid, the player wins or loses. If the bubble grid becomes empty at any point in the game, the player will win.
+7. **Added end game screen.** The end game screen displays the game outcome and the game score. The retry and back button also move to the center of the screen for easy access. The end game screen also shows some simple statistics for the player for that level. These include the best combo the player achieved, the lucky color for the player (the colored bubble which led to the best combo), the best chain count achieved, the best removal streak and the accuracy of the player.
 
 
 ### Problem 10: Final Reflection
