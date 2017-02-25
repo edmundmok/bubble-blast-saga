@@ -14,6 +14,10 @@ Sprites taken from:
 1. Explosion: http://opengameart.org/content/pixel-explosion-12-frames
 2. Lightning: https://www.reddit.com/r/gamedev/comments/2rw8ya/1000_free_2d_sprites_animations_tiles_and_effects/
 3. Star image: http://opengameart.org/content/star
+> Sounds:
+> 1. Thunder: http://freesound.org/people/Erdie/sounds/24003/
+> 2. Explosion:
+> 3. Star: 
 
 ### Rules of Your Game
 
@@ -110,7 +114,7 @@ Your answer here
 	* Limited time
 		* Player has unlimited shots to fire, but can only play for a certain time limit for the level. After the time limit expires, the game will end, and depending on whether there are still bubbles in the grid, the player wins or loses. If the bubble grid becomes empty at any point in the game, the player will win.
 7. **Added end game screen.** The end game screen displays the game outcome and the game score. The retry and back button also move to the center of the screen for easy access. The end game screen also shows some simple statistics for the player for that level. These include the best combo the player achieved, the lucky color for the player (the colored bubble which led to the best combo), the best chain count achieved, the best removal streak and the accuracy of the player.
-8. **Added lightning and bomb explosion animation.**
+8. **Added effects for lightning, bomb and star bubble.** For lightning, a lightning bolt will be flashed across the screen along the section of the grid where the lightning bubble was. For bomb bubble, an explosion effect will be generated around the location of the bomb bubble. For the star bubble, a glowing star will be generated at the locations of all colored bubbles to be removed due to the star.
 
 
 ### Problem 10: Final Reflection
