@@ -437,15 +437,22 @@ class GameViewController: UIViewController {
         
     }
 
+    private var canSwap = true
     @IBAction func handleSwap(_ sender: UIButton) {
+        guard canSwap else {
+            return
+        }
+        
         // execute swap animation
+        // do not allow swap while in progress
+        canSwap = false
         
         // animate transition from next cannon bubble to current cannon bubble
         
         // create a replica of the current and move it just out of the hole
         let fakeCurrentBubbleView = UIImageView()
         fakeCurrentBubbleView.image = currentBubbleView.image
-        fakeCurrentBubbleView.frame.size = currentBubbleView.frame.size
+        fakeCurrentBubbleView.frame.size = nextBubbleView.frame.size
         fakeCurrentBubbleView.center = currentBubbleView.center
         
         let fakeNextBubbleView = UIImageView()
@@ -471,6 +478,8 @@ class GameViewController: UIViewController {
             
             fakeCurrentBubbleView.removeFromSuperview()
             fakeNextBubbleView.removeFromSuperview()
+            
+            self.canSwap = true
             
         }
         

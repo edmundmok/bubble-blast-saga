@@ -117,7 +117,7 @@ Your answer here
 7. **Added end game screen.** The end game screen displays the game outcome and the game score. The retry and back button also move to the center of the screen for easy access. The end game screen also shows some simple statistics for the player for that level. These include the best combo the player achieved, the lucky color for the player (the colored bubble which led to the best combo), the best chain count achieved, the best removal streak and the accuracy of the player.
 8. **Added effects for lightning, bomb and star bubble.** For lightning, a lightning bolt will be flashed across the screen along the section of the grid where the lightning bubble was. For bomb bubble, an explosion effect will be generated around the location of the bomb bubble. For the star bubble, a glowing star will be generated at the locations of all colored bubbles to be removed due to the star.
 9. **Added validation check for level designer.** User will not be allowed to start or save the level unless it is valid.
-10. **Added button to swap the current and next bubbles.** Player can swap current bubble and next bubble, allowing the player to have more options to shoot if he cannot find a satisfactory location to fire with the current bubble.
+10. **Added button to swap the current and next bubbles.** Player can swap current bubble and next bubble, allowing the player to have more options to shoot if he cannot find a satisfactory location to fire with the current bubble. Player cannot swap while swap is in progress, have to wait until the previous swap completes first.
 
 
 ### Problem 10: Final Reflection
