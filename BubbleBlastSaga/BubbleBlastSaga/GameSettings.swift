@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ Game related settings.
+ */
 struct GameSettings {
     
     var timeStep: Double = Constants.defaultTimeStep

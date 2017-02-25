@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ The GameObject class that will be manipulated by the Game Engine.
+ */
 class GameObject: NSObject, NSCoding, PhysicsBody {
 
     let uuid: UUID

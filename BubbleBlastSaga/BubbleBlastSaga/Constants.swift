@@ -41,10 +41,14 @@ struct Constants {
     static let filledCellBorderWidth = CGFloat(0)
     
     // BubbleGame
-    static let wallLength = CGFloat(0)
+    static let wallThickness = 10 * Constants.bubbleSpeed
+    static let sideWallHeightMultiplier = CGFloat(1.3)
+    static let horizontalWallWidthMultiplier = CGFloat(2)
     static let numberOfBubbles = UInt32(4)
     static let bottomWallMultiplier = CGFloat(1.2)
     static let trajectoryPointsCount = 100
+    static let widthToRadiusMultiplier = CGFloat(0.5)
+    static let bubbleHitBoxSizePercentage = CGFloat(0.85)
     
     // BubbleGameLogic / BubbleGameCollisionHandler
     static let infiniteDistance = CGFloat(-1)
@@ -57,7 +61,6 @@ struct Constants {
     static let bubbleGridNumSections = 12
     static let bubbleGridNumRows = 12
     static let minimumLongPressDuration = 0.0
-    static let bubbleHitBoxSizePercentage = 0.85
     static let bubbleSpeed: CGFloat = 15
     
     // TrajectoryPathLayer

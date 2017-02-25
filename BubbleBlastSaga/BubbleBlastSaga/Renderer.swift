@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ The renderer class that draws game objects onto the given canvas.
+ */
 class Renderer {
     
     var canvas: UIView
@@ -31,14 +34,16 @@ class Renderer {
         imageMap[gameObject.uuid] = nil
     }
     
+    // Deregisters all images from internal imagemap.
     func deregisterAllImages() {
-        imageMap
-            .forEach {
-                $0.value.removeFromSuperview()
-                imageMap[$0.key] = nil
-            }
+        imageMap.forEach { (uuid, image) in
+            image.removeFromSuperview()
+            imageMap[uuid] = nil
+        }
     }
     
+    // Retrieve the associated image for the given game object.
+    // Returns nil if there is no associated image.
     func getImage(for gameObject: GameObject) -> UIImageView? {
         return imageMap[gameObject.uuid]
     }

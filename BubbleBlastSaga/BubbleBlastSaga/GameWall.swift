@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ This class represents a wall object in the bubble game.
+ */
 class GameWall: GameObject, PhysicsBox {
     
     enum WallType {
@@ -20,12 +23,11 @@ class GameWall: GameObject, PhysicsBox {
     init(wallType: WallType, position: CGPoint, size: CGSize) {
         self.wallType = wallType
         self.size = size
-        super.init(position: position, velocity: CGVector.zero)
+        super.init(position: position, velocity: .zero)
     }
     
     
     // MARK: NSCoding
-    // TODO: Implement when I have the time, not really necessary
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }

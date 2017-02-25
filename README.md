@@ -21,7 +21,7 @@ Sprites taken from:
 
 ### Rules of Your Game
 
-Your answer here
+Although you will lose if your bubble lands at the last section, if you manage to pop it (i.e. your bubble does not stay there permanently, immediately is destroyed by interactions after snapping), then you won't lose. This is an intended feature to make the game more forgiving!
 
 
 ### Problem 1: Cannon Direction
