@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ The physics body protocol that the physics engine manipulates.
+ */
 protocol PhysicsBody: class {
     
     var position: CGPoint { get set }

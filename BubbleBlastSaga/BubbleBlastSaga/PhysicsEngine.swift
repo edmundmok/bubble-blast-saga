@@ -8,14 +8,18 @@
 
 import UIKit
 
+/**
+ The physics engine.
+ */
 class PhysicsEngine {
     
     var collisionHandler: CollisionHandler?
     private var physicsBodies = [PhysicsBody]()
     
+    // Updates only the given physics body.
     func updateState(for physicsBody: PhysicsBody) {
         // Update the positions of all physics bodies
-        let didUpdate = update(physicsBody)
+        let didUpdate = updatePosition(physicsBody)
         
         // If body did not update, can just continue
         guard didUpdate else {
@@ -24,7 +28,7 @@ class PhysicsEngine {
         
         // Otherwise if body did update, we need to check
         // for collisions
-        checkCollisions(for: physicsBody, with: physicsBodies)
+        checkCollisions(for: physicsBody)
     }
     
     // Update the state of all objects in the entire physics world.
@@ -39,32 +43,33 @@ class PhysicsEngine {
 
     }
     
-    private func update(_ physicsBody: PhysicsBody) -> Bool {
+    // Update the position of the physics body, according to the velocity of the physics body.
+    // Returns a boolean that represents whether the body did move.
+    private func updatePosition(_ physicsBody: PhysicsBody) -> Bool {
         // If no velocity, not moving so won't be updated
-        guard physicsBody.velocity != CGVector.zero else {
+        guard physicsBody.velocity != .zero else {
             return false
         }
         
         // Update position according to velocity
         physicsBody.position.x += physicsBody.velocity.dx
         physicsBody.position.y += physicsBody.velocity.dy
-        
         return true
     }
     
     // Checks if the given physics body is colliding with any other 
     // physics body in the current physics world.
-    private func checkCollisions(for physicsBody: PhysicsBody, with physicsBodies: [PhysicsBody]) {
+    private func checkCollisions(for physicsBody: PhysicsBody) {
         
         // Check collision for given physics circle
         if let physicsCircle = physicsBody as? PhysicsCircle {
-            checkCollisions(for: physicsCircle, with: physicsBodies)
+            checkCollisions(for: physicsCircle)
             return
         }
         
         // Check collision for given physics box
         if let physicsBox = physicsBody as? PhysicsBox {
-            checkCollisions(for: physicsBox, with: physicsBodies)
+            checkCollisions(for: physicsBox)
             return
         }
         
@@ -75,18 +80,20 @@ class PhysicsEngine {
 
     // Checks if the given physics circle is colliding with any other
     // physics body in the current physics world.
-    private func checkCollisions(for physicsCircle: PhysicsCircle, with physicsBodies: [PhysicsBody]) {
+    private func checkCollisions(for physicsCircle: PhysicsCircle) {
         
         for otherPhysicsBody in physicsBodies {
             
             // Check collision between circle and circle
             if let otherPhysicsCircle = otherPhysicsBody as? PhysicsCircle {
                 checkCollisions(for: physicsCircle, with: otherPhysicsCircle)
+                continue
             }
             
             // Check collision between circle and box
             if let otherPhysicsBox = otherPhysicsBody as? PhysicsBox {
                 checkCollisions(for: physicsCircle, with: otherPhysicsBox)
+                continue
             }
             
             // No collision detection is defined for any other PhysicsBody
@@ -97,18 +104,20 @@ class PhysicsEngine {
     
     // Checks if the given physics box is colliding with any other
     // physics body in the current physics world.
-    private func checkCollisions(for physicsBox: PhysicsBox, with physicsBodies: [PhysicsBody]) {
+    private func checkCollisions(for physicsBox: PhysicsBox) {
         
         for otherPhysicsBody in physicsBodies {
             
             // Check collision between box and circle
             if let otherPhysicsCircle = otherPhysicsBody as? PhysicsCircle {
                 checkCollisions(for: otherPhysicsCircle, with: physicsBox)
+                continue
             }
             
             // Check collision between box and box
             if let otherPhysicsBox = otherPhysicsBody as? PhysicsBox {
                 checkCollisions(for: physicsBox, with: otherPhysicsBox)
+                continue
             }
             
             // No collision detection is defined for any other PhysicsBody
@@ -130,12 +139,12 @@ class PhysicsEngine {
         // Collision detection algorithm for two circles:
         
         // Calculate difference between centres
-        let distX = physicsCircle.center.x - otherPhysicsCircle.center.x
-        let distY = physicsCircle.center.y - otherPhysicsCircle.center.y
+        let distX = Double(physicsCircle.center.x - otherPhysicsCircle.center.x)
+        let distY = Double(physicsCircle.center.y - otherPhysicsCircle.center.y)
         
         // Get distance with Pythagoras
-        let dist = sqrt(Double((distX * distX)) + Double((distY * distY)))
-        let radiusSum = Double(physicsCircle.radius) + Double(otherPhysicsCircle.radius)
+        let dist = sqrt((distX * distX) + (distY * distY))
+        let radiusSum = Double(physicsCircle.radius + otherPhysicsCircle.radius)
         
         // The circles are colliding if the distance between their centers
         // is greater than the sum of their radii.
@@ -154,9 +163,6 @@ class PhysicsEngine {
     private func checkCollisions(for physicsCircle: PhysicsCircle, with otherPhysicsBox: PhysicsBox) {
         
         // Collision detection algorithm for circle and box (rectangle):
-        
-        
-        
         // Finds closest point to the circle within the rectangle.
         // Assumes axis alignment.
         let closestX = clamp(val: physicsCircle.center.x, rangeMin: otherPhysicsBox.position.x,

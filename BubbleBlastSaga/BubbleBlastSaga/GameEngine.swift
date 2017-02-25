@@ -50,7 +50,8 @@ class GameEngine {
         renderer.draw(gameObjects)
     }
     
-    // Registers the given GameObject into the game engine.
+    // Registers the given GameObject into the game engine,
+    // without an associated image.
     func register(gameObject: GameObject) {
         // Add to gameObjects array
         gameObjects.append(gameObject)
@@ -66,17 +67,19 @@ class GameEngine {
         renderer.register(image: image, for: gameObject)
     }
     
-    // Deregisters the given GameObject from the game engine.
+    // Deregisters the given GameObject from the game engine, 
+    // and also removes it from the renderer if possible.
     func deregister(gameObject: GameObject) {
         // remove the given gameObject from gameObjects
         removeFromGameObjects(gameObject: gameObject)
+        
         // Inform the renderer
         renderer.deregisterImage(for: gameObject)
     }
     
     // Deregisters the given GameObject from the game engine for an animation on the
     // image associated with the given gameObject. 
-    // So it does not remove the given gameObject's associated image from the renderer.
+    // As such, it does not remove the given gameObject's associated image from the renderer.
     func deregisterForAnimation(gameObject: GameObject) {
         // remove the given gameObject from gameObjects
         removeFromGameObjects(gameObject: gameObject)

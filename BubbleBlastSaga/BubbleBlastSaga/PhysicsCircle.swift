@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ A protocol for representing a physics body that has a circle shape.
+ */
 protocol PhysicsCircle: PhysicsBody {
     
     var radius: CGFloat { get set }

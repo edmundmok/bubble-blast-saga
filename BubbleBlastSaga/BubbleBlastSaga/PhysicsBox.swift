@@ -8,6 +8,9 @@
 
 import UIKit
 
+/**
+ A protocol for representing a physics body that has a box shape.
+ */
 protocol PhysicsBox: PhysicsBody {
     
     var size: CGSize { get set }
