@@ -11,54 +11,6 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Saved Levels-->
-        <scene sceneID="3Pg-I2-SaZ">
-            <objects>
-                <viewController id="PAJ-iE-q1d" customClass="LevelDesignerLoadViewController" customModule="BubbleBlastSaga" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="QP4-Zy-4iS"/>
-                        <viewControllerLayoutGuide type="bottom" id="aDe-uQ-wdl"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="QaY-cR-57R">
-                        <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Hab-Pm-9tV">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="loadLevelCell" id="fPZ-tN-XRu">
-                                        <rect key="frame" x="0.0" y="28" width="768" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="fPZ-tN-XRu" id="SMp-e9-mVk">
-                                            <rect key="frame" x="0.0" y="0.0" width="702" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                        <connections>
-                                            <segue destination="5nF-Wm-JrB" kind="unwind" unwindAction="goBackToLevelDesignerWithSegue:" id="qY4-ue-TrY"/>
-                                        </connections>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="aDe-uQ-wdl" firstAttribute="top" secondItem="Hab-Pm-9tV" secondAttribute="bottom" id="DJb-e2-gPw"/>
-                            <constraint firstItem="Hab-Pm-9tV" firstAttribute="top" secondItem="QaY-cR-57R" secondAttribute="top" id="DiE-Xg-3P0"/>
-                            <constraint firstItem="Hab-Pm-9tV" firstAttribute="leading" secondItem="QaY-cR-57R" secondAttribute="leading" id="Qzq-Nl-fR7"/>
-                            <constraint firstAttribute="trailing" secondItem="Hab-Pm-9tV" secondAttribute="trailing" id="hH9-Uv-Frm"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Saved Levels" id="0FC-nw-fNI"/>
-                    <connections>
-                        <outlet property="savedLevels" destination="Hab-Pm-9tV" id="zCk-iz-xMF"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lco-4g-5Hl" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <exit id="5nF-Wm-JrB" userLabel="Exit" sceneMemberID="exit"/>
-            </objects>
-            <point key="canvasLocation" x="1564" y="2206"/>
-        </scene>
         <!--Level Designer View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
@@ -290,7 +242,7 @@
                                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                                         </state>
                                                         <connections>
-                                                            <segue destination="PAJ-iE-q1d" kind="show" id="u7v-eB-GK1"/>
+                                                            <segue destination="KAm-4v-Fdu" kind="show" id="Q1b-8V-dJh"/>
                                                         </connections>
                                                     </button>
                                                 </subviews>
@@ -407,7 +359,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="1564.84375" y="42.7734375"/>
+            <point key="canvasLocation" x="1565" y="336"/>
         </scene>
         <!--Main Menu View Controller-->
         <scene sceneID="0Ax-uW-lac">
@@ -474,7 +426,7 @@
         <!--Game View Controller-->
         <scene sceneID="VTw-QU-kbf">
             <objects>
-                <viewController id="39J-a7-Akb" customClass="GameViewController" customModule="BubbleBlastSaga" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GameViewController" id="39J-a7-Akb" customClass="GameViewController" customModule="BubbleBlastSaga" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Hfd-kT-Mo1"/>
                         <viewControllerLayoutGuide type="bottom" id="FOK-7H-Cyo"/>
@@ -761,7 +713,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3230.46875" y="41.6015625"/>
+            <point key="canvasLocation" x="3395" y="336"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="nLB-9f-39C">
@@ -800,52 +752,58 @@
                                 <rect key="frame" x="0.0" y="82" width="768" height="884"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="9Uz-L1-H6h">
-                                    <size key="itemSize" width="358" height="435"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="9Uz-L1-H6h">
+                                    <size key="itemSize" width="317" height="435"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <inset key="sectionInset" minX="40" minY="20" maxX="40" maxY="20"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LevelSelectCell" id="gE5-EH-C4U" customClass="LevelSelectCell" customModule="BubbleBlastSaga" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="358" height="435"/>
+                                        <rect key="frame" x="40" y="20" width="317" height="435"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="358" height="435"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="317" height="435"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="a4D-oz-wqj">
-                                                    <rect key="frame" x="0.0" y="37" width="358" height="248"/>
+                                                    <rect key="frame" x="0.0" y="39" width="317" height="246"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Level Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="inB-xD-Ypu">
-                                                    <rect key="frame" x="0.0" y="0.0" width="358" height="38"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="317" height="38"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <color key="backgroundColor" red="0.0" green="0.20000000000000001" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YRC-ZW-7ON" customClass="LevelSelectDeleteButton" customModule="BubbleBlastSaga" customModuleProvider="target">
+                                                    <rect key="frame" x="280" y="4" width="25" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <state key="normal" image="trash"/>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="adz-j6-5jN" customClass="LevelSelectPlayLoadButton" customModule="BubbleBlastSaga" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="381" width="317" height="54"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                                    <state key="normal" title="Play / Load">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Highscore" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="64k-Ip-6gy">
-                                                    <rect key="frame" x="137" y="145" width="84" height="21"/>
+                                                    <rect key="frame" x="116" y="134" width="84" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OCz-Bx-8vF">
-                                                    <rect key="frame" x="137" y="177" width="84" height="21"/>
+                                                    <rect key="frame" x="116" y="166" width="84" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Play / Load" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QQj-Ch-q37">
-                                                    <rect key="frame" x="0.0" y="381" width="358" height="54"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -853,8 +811,10 @@
                                         </view>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                                         <connections>
+                                            <outlet property="deleteButton" destination="YRC-ZW-7ON" id="D37-NQ-QjK"/>
                                             <outlet property="levelImage" destination="a4D-oz-wqj" id="x8d-Jl-3U3"/>
                                             <outlet property="levelName" destination="inB-xD-Ypu" id="AFe-Ku-4rk"/>
+                                            <outlet property="playLoadButton" destination="adz-j6-5jN" id="7ze-4d-01b"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -888,10 +848,13 @@
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
-                        <outlet property="levelSelect" destination="Ksa-Dy-TcN" id="ehB-kR-X1O"/>
+                        <outlet property="savedLevels" destination="Ksa-Dy-TcN" id="en7-py-Wm1"/>
+                        <segue destination="39J-a7-Akb" kind="show" identifier="loadToGame" id="eWt-6T-xS8"/>
+                        <segue destination="u3b-u8-H1Q" kind="unwind" identifier="loadToLevelDesigner" unwindAction="goBackToLevelDesignerWithSegue:" id="YXq-u0-zei"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gXH-dh-SJX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="u3b-u8-H1Q" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3229.6875" y="-889.45312499999989"/>
         </scene>
@@ -909,5 +872,10 @@
         <image name="cannon-base" width="133" height="139"/>
         <image name="erase" width="168" height="168"/>
         <image name="swap" width="183" height="146"/>
+        <image name="trash" width="1000" height="1251"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="Q1b-8V-dJh"/>
+        <segue reference="eWt-6T-xS8"/>
+    </inferredMetricsTieBreakers>
 </document>

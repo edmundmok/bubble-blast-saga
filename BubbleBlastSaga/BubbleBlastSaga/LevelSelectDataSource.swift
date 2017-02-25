@@ -16,9 +16,13 @@ import UIKit
 class LevelSelectDataSource: NSObject {
     
     fileprivate let savedLevelsModel: SavedLevelsModel
+    fileprivate let savedLevels: UICollectionView
+    weak fileprivate var levelSelectViewController: LevelSelectViewController?
     
-    init(savedLevels: UICollectionView, savedLevelsModel: SavedLevelsModel) {
+    init(savedLevels: UICollectionView, savedLevelsModel: SavedLevelsModel, levelSelectViewController: LevelSelectViewController) {
         self.savedLevelsModel = savedLevelsModel
+        self.savedLevels = savedLevels
+        self.levelSelectViewController = levelSelectViewController
         super.init()
         savedLevels.dataSource = self
     }
@@ -59,7 +63,7 @@ extension LevelSelectDataSource: UICollectionViewDataSource {
         cell.layer.cornerRadius = cell.frame.width / 15
         cell.layer.masksToBounds = true
         cell.levelImage.frame.size.width = cell.frame.width
-        cell.levelImage.frame.size.height = cell.levelImage.frame.width
+        cell.levelImage.frame.size.height = (cell.levelImage.frame.width * 4) / 3
         
         let levelName = savedLevelsModel.savedLevels[indexPath.section * 2 + indexPath.row]
         
@@ -79,6 +83,30 @@ extension LevelSelectDataSource: UICollectionViewDataSource {
         cell.levelImage.alpha = 0.4
         cell.levelName.text = levelName
         
+        cell.deleteButton.indexPath = indexPath
+        cell.playLoadButton.indexPath = indexPath
+
+        cell.deleteButton.addTarget(self, action: #selector(handleDeleteLevel(_:)), for: .touchUpInside)
+        cell.playLoadButton.addTarget(self, action: #selector(handlePlayLoadLevel(_:)), for: .touchUpInside)
+        
         return cell
+    }
+    
+    @objc private func handleDeleteLevel(_ sender: UIButton) {
+        
+        guard let indexPathToDelete = (sender as? LevelSelectDeleteButton)?.indexPath else {
+            return
+        }
+        
+        levelSelectViewController?.deleteLevel(at: indexPathToDelete)
+    }
+    
+    @objc private func handlePlayLoadLevel(_ sender: UIButton) {
+        
+        guard let indexPathToLoad = (sender as? LevelSelectPlayLoadButton)?.indexPath else {
+            return
+        }
+        
+        levelSelectViewController?.playLoadLevel(at: indexPathToLoad)
     }
 }

@@ -17,6 +17,8 @@
 		F19313C11E6162510046E05B /* LevelSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19313C01E6162510046E05B /* LevelSelectCell.swift */; };
 		F19313C31E6164B10046E05B /* LevelSelectDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19313C21E6164B10046E05B /* LevelSelectDataSource.swift */; };
 		F19313C51E617B760046E05B /* LevelSelectDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19313C41E617B760046E05B /* LevelSelectDelegate.swift */; };
+		F19313C71E61BA250046E05B /* LevelSelectDeleteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19313C61E61BA250046E05B /* LevelSelectDeleteButton.swift */; };
+		F19313C91E61C1C20046E05B /* LevelSelectPlayLoadButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19313C81E61C1C20046E05B /* LevelSelectPlayLoadButton.swift */; };
 		F1C748731E55954C0080A4B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748721E55954C0080A4B2 /* AppDelegate.swift */; };
 		F1C748751E55954C0080A4B2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748741E55954C0080A4B2 /* ViewController.swift */; };
 		F1C7487A1E55954C0080A4B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1C748791E55954C0080A4B2 /* Assets.xcassets */; };
@@ -100,6 +102,8 @@
 		F19313C01E6162510046E05B /* LevelSelectCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSelectCell.swift; sourceTree = "<group>"; };
 		F19313C21E6164B10046E05B /* LevelSelectDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSelectDataSource.swift; sourceTree = "<group>"; };
 		F19313C41E617B760046E05B /* LevelSelectDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSelectDelegate.swift; sourceTree = "<group>"; };
+		F19313C61E61BA250046E05B /* LevelSelectDeleteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSelectDeleteButton.swift; sourceTree = "<group>"; };
+		F19313C81E61C1C20046E05B /* LevelSelectPlayLoadButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSelectPlayLoadButton.swift; sourceTree = "<group>"; };
 		F1C7486F1E55954C0080A4B2 /* BubbleBlastSaga.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BubbleBlastSaga.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1C748721E55954C0080A4B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1C748741E55954C0080A4B2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -307,6 +311,8 @@
 				F1F821DF1E568EC1006DD5C3 /* CannonView.swift */,
 				F12266C81E594B54004A3971 /* TrajectoryPathLayer.swift */,
 				F19313C01E6162510046E05B /* LevelSelectCell.swift */,
+				F19313C61E61BA250046E05B /* LevelSelectDeleteButton.swift */,
+				F19313C81E61C1C20046E05B /* LevelSelectPlayLoadButton.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -534,6 +540,7 @@
 				F1F821EE1E58718C006DD5C3 /* MainMenuViewController.swift in Sources */,
 				F1F821E81E57F738006DD5C3 /* PowerBubble.swift in Sources */,
 				F1F821E01E568EC1006DD5C3 /* CannonView.swift in Sources */,
+				F19313C91E61C1C20046E05B /* LevelSelectPlayLoadButton.swift in Sources */,
 				F1C748FC1E559E6D0080A4B2 /* PhysicsBody.swift in Sources */,
 				F1C748FE1E559E6D0080A4B2 /* PhysicsCircle.swift in Sources */,
 				F19313B11E5EC8C30046E05B /* BubbleGameStats.swift in Sources */,
@@ -574,6 +581,7 @@
 				F1C748C21E5596010080A4B2 /* LevelDesignerLoadViewController.swift in Sources */,
 				F1C748F11E559E6D0080A4B2 /* BubbleGameUtility.swift in Sources */,
 				F1C748F81E559E6D0080A4B2 /* GameViewController.swift in Sources */,
+				F19313C71E61BA250046E05B /* LevelSelectDeleteButton.swift in Sources */,
 				F1C748B81E5596010080A4B2 /* BubbleColor.swift in Sources */,
 				F1C748FF1E559E6D0080A4B2 /* PhysicsEngine.swift in Sources */,
 			);

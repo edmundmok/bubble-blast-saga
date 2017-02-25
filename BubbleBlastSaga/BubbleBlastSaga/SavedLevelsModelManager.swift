@@ -50,6 +50,10 @@ class SavedLevelsModelManager: SavedLevelsModel {
         // remove from directory and the model
         try? FileManager.default.removeItem(at:fileUrl)
         savedLevels.remove(at: index)
+        
+        // also remove the png image associated
+        let imageUrl = documentsUrl.appendingPathComponent(fileName).appendingPathExtension("png")
+        try? FileManager.default.removeItem(at: imageUrl)
     }
     
     // Checks if the given index is valid.
