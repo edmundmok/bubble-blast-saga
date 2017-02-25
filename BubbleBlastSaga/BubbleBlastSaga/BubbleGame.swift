@@ -15,7 +15,7 @@ class BubbleGame {
     private let bubbleGridModel: BubbleGridModel
     private let bubbleGrid: UICollectionView
     private let gameArea: UIView
-    let bubbleCannon = BubbleCannon()
+    let bubbleCannon: BubbleCannon
     private let bubbleGameAnimator: BubbleGameAnimator
     let bubbleGameStats = BubbleGameStats()
     let bubbleGameEvaluator: BubbleGameEvaluator
@@ -56,6 +56,7 @@ class BubbleGame {
         
         physicsEngine.collisionHandler = collisionHandler
         
+        self.bubbleCannon = BubbleCannon(bubbleGridModel: bubbleGridModel)
         self.gameEngine = gameEngine
         self.bubbleGameAnimator = bubbleGameAnimator
         self.bubbleGameEvaluator = bubbleGameEvaluator

@@ -128,7 +128,10 @@ class GameViewController: UIViewController {
         nextBubbleView.frame.size = bubbleGrid.visibleCells[0].frame.size
         let nextBubble = bubbleGame.bubbleCannon.nextBubble
         let nextBubbleImage = BubbleGameUtility.getBubbleImage(for: nextBubble)
-        nextBubbleView.image = nextBubbleImage.image
+        
+        UIView.animate(withDuration: 0.5) {
+            self.nextBubbleView.image = nextBubbleImage.image
+        }
     }
 
     @IBAction func handleLongPress(_ sender: UILongPressGestureRecognizer) {
@@ -173,15 +176,53 @@ class GameViewController: UIViewController {
         
         guard canFire else {
             // cannot fire any more bubbles
-            print("cannot fire anymore")
             return
         }
         
         cannon.fireAnimation()
         
-        // update image
-        updateCurrentCannonBubbleImage()
-        updateNextCannonBubbleImage()
+        // animate transition from next cannon bubble to current cannon bubble
+        
+        // create a replica of the current and move it just out of the hole
+        let fakeCurrentBubbleView = UIImageView()
+        fakeCurrentBubbleView.image = currentBubbleView.image
+        fakeCurrentBubbleView.frame.size = currentBubbleView.frame.size
+        fakeCurrentBubbleView.center = currentBubbleView.center
+        
+        let fakeNextBubbleView = UIImageView()
+        fakeNextBubbleView.image = nextBubbleView.image
+        fakeNextBubbleView.frame.size = nextBubbleView.frame.size
+        fakeNextBubbleView.center = nextBubbleView.center
+        
+        // remove current bubble
+        gameArea.addSubview(fakeCurrentBubbleView)
+        currentBubbleView.image = nil
+
+        // move it a little
+        UIView.animate(withDuration: 0.5, animations: {
+            fakeCurrentBubbleView.frame.offsetBy(dx: 0, dy: CGFloat(-1) * fakeCurrentBubbleView.frame.size.height)
+        }) { _ in
+            fakeCurrentBubbleView.removeFromSuperview()
+            
+            // move next to current position
+            // by creating an exact replica of next and moving it, then removing this replica on
+            // completion
+            self.gameArea.addSubview(fakeNextBubbleView)
+            self.nextBubbleView.image = nil
+            
+            UIView.animate(withDuration: 0.5, animations: {
+                fakeNextBubbleView.center = self.currentBubbleView.center
+            }) { _ in
+                
+                // display the "current"
+                self.updateCurrentCannonBubbleImage()
+                fakeNextBubbleView.removeFromSuperview()
+                
+                // fade in the next
+                self.updateNextCannonBubbleImage()
+            }
+            
+        }
     }
     
     private func updateTrajectoryPath(_ sender: UIGestureRecognizer) {

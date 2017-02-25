@@ -17,4 +17,6 @@ enum BubbleColor: String {
     case Red
     case Orange
     case Green
+    
+    static let allColors = [Blue, Red, Orange, Green]
 }
