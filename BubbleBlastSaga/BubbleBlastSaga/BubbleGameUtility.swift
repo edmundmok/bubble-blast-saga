@@ -80,6 +80,54 @@ class BubbleGameUtility {
         return nearestEmptyIndexPath
     }
     
+    static func getFloatingBubblesIndexPath(of bubbleGridModel: BubbleGridModel) -> Set<IndexPath> {
+        
+        // Initialize BFS queue and a set of bubble grid indexpaths to remove
+        var queue = Queue<IndexPath>()
+        // Initially we assume we all index paths are floating bubbles
+        // Then as we do BFS we remove from this set
+        // This set is also a way to track "visited"
+        var floatingBubblesIndexPaths = bubbleGridModel.getIndexPathOfBubblesInGrid()
+        
+        // We will carry out BFS with the top section already "visited"
+        BubbleGameUtility.getIndexPathsForTopSection(of: bubbleGridModel).forEach {
+            // Check if there is indeed a game bubble at the current index path
+            guard let _ = bubbleGridModel.getGameBubble(at: $0) else {
+                return
+            }
+            
+            // If there is, eliminate them from being floating bubble candidates
+            // And enqueue into our queue for BFS
+            floatingBubblesIndexPaths.remove($0)
+            queue.enqueue($0)
+        }
+        
+        // Run BFS
+        while !queue.isEmpty {
+            // Dequeue the next index path
+            guard let nextIndexPath = try? queue.dequeue() else {
+                break
+            }
+            
+            // For each neighbour of the current index path
+            let neighbours = bubbleGridModel.getNeighboursIndexPath(of: nextIndexPath)
+            neighbours.forEach {
+                // Check if floating bubbles still contains the neighbour
+                // If does not contain already means it was already visited!
+                guard floatingBubblesIndexPaths.contains($0) else {
+                    return
+                }
+                
+                // Enqueue for further BFS and remove as a candidate of floating bubble
+                // since it was able to be visited from the top bubbles
+                queue.enqueue($0)
+                floatingBubblesIndexPaths.remove($0)
+            }
+        }
+        
+        return floatingBubblesIndexPaths
+    }
+    
     // Returns the bubble image associated with the given game bubble.
     static func getBubbleImage(for gameBubble: GameBubble) -> UIImageView {
         switch gameBubble {

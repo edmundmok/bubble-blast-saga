@@ -242,8 +242,18 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="aIc-Ne-jAG">
                                                 <rect key="frame" x="17" y="88.5" width="735" height="58"/>
                                                 <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="209-KO-JyU" userLabel="Back Button">
+                                                        <rect key="frame" x="0.0" y="0.0" width="147" height="58"/>
+                                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                        <state key="normal" title="BACK">
+                                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="menuButtonPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BLi-PA-um0"/>
+                                                        </connections>
+                                                    </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K9b-A4-Xf7">
-                                                        <rect key="frame" x="0.0" y="0.0" width="184" height="58"/>
+                                                        <rect key="frame" x="147" y="0.0" width="147" height="58"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                         <state key="normal" title="RESET">
                                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -253,7 +263,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3qI-sz-XRH">
-                                                        <rect key="frame" x="184" y="0.0" width="183.5" height="58"/>
+                                                        <rect key="frame" x="294" y="0.0" width="147" height="58"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                         <state key="normal" title="START">
                                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -264,7 +274,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d0j-zK-Xvw">
-                                                        <rect key="frame" x="367.5" y="0.0" width="184" height="58"/>
+                                                        <rect key="frame" x="441" y="0.0" width="147" height="58"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                         <state key="normal" title="SAVE">
                                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -274,7 +284,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IpT-YF-Xnt">
-                                                        <rect key="frame" x="551.5" y="0.0" width="183.5" height="58"/>
+                                                        <rect key="frame" x="588" y="0.0" width="147" height="58"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                         <state key="normal" title="LOAD">
                                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -316,6 +326,13 @@
                                             <constraint firstItem="aIc-Ne-jAG" firstAttribute="height" secondItem="clp-WR-blE" secondAttribute="height" multiplier="0.35" id="tkk-as-a0z"/>
                                         </constraints>
                                     </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Invalid level" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NG6-1n-VNc">
+                                        <rect key="frame" x="0.0" y="791" width="768" height="70"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
+                                        <color key="textColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <gestureRecognizers/>
@@ -347,12 +364,14 @@
                     </view>
                     <navigationItem key="navigationItem" id="jN8-sR-n24"/>
                     <connections>
+                        <outlet property="backButton" destination="209-KO-JyU" id="c3U-lr-kG4"/>
                         <outlet property="bluePaletteBubble" destination="E6X-ud-AKf" id="JC9-O2-1bE"/>
                         <outlet property="bombPaletteBubble" destination="kaF-3M-P65" id="93d-wo-zcq"/>
                         <outlet property="bubbleGrid" destination="0jJ-SO-5Mo" id="Rpq-F7-A3z"/>
                         <outlet property="erasePaletteBubble" destination="lqc-LS-GOD" id="wXZ-Uz-js2"/>
                         <outlet property="greenPaletteBubble" destination="TqX-to-d0r" id="hFZ-NA-tmg"/>
                         <outlet property="indestructiblePaletteBubble" destination="dxS-42-ehQ" id="vZR-8u-21g"/>
+                        <outlet property="invalidMessage" destination="NG6-1n-VNc" id="Bm4-Az-EAG"/>
                         <outlet property="lightningPaletteBubble" destination="tnV-9x-SVX" id="d1r-kn-9Rz"/>
                         <outlet property="orangePaletteBubble" destination="1Kr-Cs-49m" id="ua9-Ub-Ygq"/>
                         <outlet property="redPaletteBubble" destination="d88-ct-9Of" id="yRO-xV-FsZ"/>

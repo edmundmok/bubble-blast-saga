@@ -32,6 +32,9 @@ class LevelDesignerViewController: UIViewController {
         // set style of blue palette bubble to be selected
         setPaletteBubblesStyleToSelected(for: bluePaletteBubble)
         
+        // set invalid message to hide
+        invalidMessage.alpha = 0
+        
         // add the save alert controller as a child
         self.addChildViewController(saveAlertController)
         
@@ -50,25 +53,61 @@ class LevelDesignerViewController: UIViewController {
     
     // ------------- Menu Buttons -------------
     
+    @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var resetButton: UIButton!
     @IBOutlet weak var startButton: UIButton!
     @IBOutlet weak var saveButton: UIButton!
     
     @IBAction func menuButtonPressed(_ sender: UIButton) {
         switch sender {
+        case backButton:
+            handleBackButtonPressed()
         case resetButton:
             handleResetButtonPressed()
         case saveButton:
-            presentSaveAlert()
+            handleSaveButtonPressed()
         default:
             return
         }
+    }
+    
+    // Handles the back button by going back to the previous screen.
+    private func handleBackButtonPressed() {
+        let _ = self.navigationController?.popViewController(animated: true)
     }
     
     // Handles the reset button by resetting the bubble grid.
     private func handleResetButtonPressed() {
         bubbleGridModel.reset()
         bubbleGrid.reloadData()
+    }
+    
+    // Handles the save button pressed by first validating the grid,
+    // and if successful, present the save alert.
+    private func handleSaveButtonPressed() {
+        guard validateLevel() else {
+            presentValidationFailAlert()
+            return
+        }
+        
+        presentSaveAlert()
+    }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        
+        // Check that it is the start level segue
+        guard identifier == Constants.startLevelSegue else {
+            return true
+        }
+        
+        // For this start level segue, validate the level first.
+        // If validation fail, don't start the level
+        guard validateLevel() else {
+            presentValidationFailAlert()
+            return false
+        }
+        
+        return true
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -246,5 +285,44 @@ class LevelDesignerViewController: UIViewController {
         
         cell.type = nextTypeToCycleTo
         bubbleGridModel.set(bubbleType: nextTypeToCycleTo, at: indexPath)
+    }
+    
+    // Validates the level.
+    // A valid level must have at least one bubble in the grid, and should not have any
+    // free hanging bubbles floating in the air.
+    // Also, it should not have any bubbles in the last section of the grid.
+    private func validateLevel() -> Bool {
+        // check last section
+        let indexPathsOfLastSection = BubbleGameUtility.getIndexPathsForBottomSection(of: bubbleGridModel)
+        for indexPathOfLastSection in indexPathsOfLastSection {
+            guard bubbleGridModel.getBubbleType(at: indexPathOfLastSection) == .Empty else {
+                // validation fail
+                return false
+            }
+            continue
+        }
+        
+        // Check has at least one bubble
+        guard bubbleGridModel.getIndexPathOfBubblesInGrid().count > 0 else {
+            return false
+        }
+        
+        // Check for floating bubbles
+        guard BubbleGameUtility.getFloatingBubblesIndexPath(of: bubbleGridModel).count == 0 else {
+            return false
+        }
+        
+        return true
+    }
+    
+    @IBOutlet weak var invalidMessage: UILabel!
+    private func presentValidationFailAlert() {
+        UIView.animate(withDuration: 0.5, animations: {
+            self.invalidMessage.alpha = 1
+        }) { _ in
+            UIView.animate(withDuration: 5) {
+                self.invalidMessage.alpha = 0
+            }
+        }
     }
 }
