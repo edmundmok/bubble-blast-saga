@@ -14,6 +14,9 @@
 		F19313B11E5EC8C30046E05B /* BubbleGameStats.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19313B01E5EC8C30046E05B /* BubbleGameStats.swift */; };
 		F19313B31E5FCCAA0046E05B /* BubbleGameMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19313B21E5FCCAA0046E05B /* BubbleGameMode.swift */; };
 		F19313B91E5FCD3A0046E05B /* BubbleGameEvaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19313B81E5FCD3A0046E05B /* BubbleGameEvaluator.swift */; };
+		F19313C11E6162510046E05B /* LevelSelectCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19313C01E6162510046E05B /* LevelSelectCell.swift */; };
+		F19313C31E6164B10046E05B /* LevelSelectDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19313C21E6164B10046E05B /* LevelSelectDataSource.swift */; };
+		F19313C51E617B760046E05B /* LevelSelectDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F19313C41E617B760046E05B /* LevelSelectDelegate.swift */; };
 		F1C748731E55954C0080A4B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748721E55954C0080A4B2 /* AppDelegate.swift */; };
 		F1C748751E55954C0080A4B2 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748741E55954C0080A4B2 /* ViewController.swift */; };
 		F1C7487A1E55954C0080A4B2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F1C748791E55954C0080A4B2 /* Assets.xcassets */; };
@@ -94,6 +97,9 @@
 		F19313B01E5EC8C30046E05B /* BubbleGameStats.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleGameStats.swift; sourceTree = "<group>"; };
 		F19313B21E5FCCAA0046E05B /* BubbleGameMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleGameMode.swift; sourceTree = "<group>"; };
 		F19313B81E5FCD3A0046E05B /* BubbleGameEvaluator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleGameEvaluator.swift; sourceTree = "<group>"; };
+		F19313C01E6162510046E05B /* LevelSelectCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSelectCell.swift; sourceTree = "<group>"; };
+		F19313C21E6164B10046E05B /* LevelSelectDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSelectDataSource.swift; sourceTree = "<group>"; };
+		F19313C41E617B760046E05B /* LevelSelectDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSelectDelegate.swift; sourceTree = "<group>"; };
 		F1C7486F1E55954C0080A4B2 /* BubbleBlastSaga.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BubbleBlastSaga.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F1C748721E55954C0080A4B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F1C748741E55954C0080A4B2 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -257,6 +263,8 @@
 				F1C748D21E5597EB0080A4B2 /* LevelDesignerLoad */,
 				F1F821ED1E58718C006DD5C3 /* MainMenuViewController.swift */,
 				F1F821EF1E587590006DD5C3 /* LevelSelectViewController.swift */,
+				F19313C21E6164B10046E05B /* LevelSelectDataSource.swift */,
+				F19313C41E617B760046E05B /* LevelSelectDelegate.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -298,6 +306,7 @@
 				F1C748B21E5596000080A4B2 /* PaletteBubble.swift */,
 				F1F821DF1E568EC1006DD5C3 /* CannonView.swift */,
 				F12266C81E594B54004A3971 /* TrajectoryPathLayer.swift */,
+				F19313C01E6162510046E05B /* LevelSelectCell.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -532,6 +541,8 @@
 				F1C748BA1E5596010080A4B2 /* BubbleGridModel.swift in Sources */,
 				F1F821F21E587E3C006DD5C3 /* GameBubbleCell.swift in Sources */,
 				F1C749011E559E6D0080A4B2 /* Renderer.swift in Sources */,
+				F19313C51E617B760046E05B /* LevelSelectDelegate.swift in Sources */,
+				F19313C31E6164B10046E05B /* LevelSelectDataSource.swift in Sources */,
 				F1C748EE1E559E6D0080A4B2 /* BubbleGame.swift in Sources */,
 				F1C748B91E5596010080A4B2 /* BubbleGrid.swift in Sources */,
 				F19313B91E5FCD3A0046E05B /* BubbleGameEvaluator.swift in Sources */,
@@ -549,6 +560,7 @@
 				F1C748EF1E559E6D0080A4B2 /* BubbleGameCollisionHandler.swift in Sources */,
 				F12266CB1E59927D004A3971 /* BubbleGameAnimator.swift in Sources */,
 				F1C748C31E5596010080A4B2 /* LevelDesignerSaveAlertController.swift in Sources */,
+				F19313C11E6162510046E05B /* LevelSelectCell.swift in Sources */,
 				F1F821E21E56A8A9006DD5C3 /* BubbleCannon.swift in Sources */,
 				F1C748C51E5596010080A4B2 /* PaletteBubble.swift in Sources */,
 				F1C748BE1E5596010080A4B2 /* GameBubble.swift in Sources */,

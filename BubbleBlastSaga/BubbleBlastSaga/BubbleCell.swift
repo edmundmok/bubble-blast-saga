@@ -23,7 +23,7 @@ class BubbleCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.layer.cornerRadius = min(self.frame.width, self.frame.height) / 2
-        self.layer.backgroundColor = UIColor.lightGray
+        self.layer.borderColor = UIColor.white
             .withAlphaComponent(Constants.emptyCellAlpha).cgColor
     }
     

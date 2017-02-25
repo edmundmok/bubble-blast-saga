@@ -19,9 +19,11 @@ import UIKit
 class LevelDesignerSaveAlertController: UIViewController {
     
     private let bubbleGridModel: BubbleGridModel?
+    private let bubbleGrid: UICollectionView?
     
-    init(bubbleGridModel: BubbleGridModel) {
+    init(bubbleGridModel: BubbleGridModel, bubbleGrid: UICollectionView) {
         self.bubbleGridModel = bubbleGridModel
+        self.bubbleGrid = bubbleGrid
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -29,6 +31,7 @@ class LevelDesignerSaveAlertController: UIViewController {
     // but will not be used
     required init?(coder aDecoder: NSCoder) {
         self.bubbleGridModel = nil
+        self.bubbleGrid = nil
         super.init(coder: aDecoder)
     }
     
@@ -130,6 +133,38 @@ class LevelDesignerSaveAlertController: UIViewController {
         // attempt to save the bubble grid model
         let isSaveSuccessful = self.bubbleGridModel?.save(as: levelName) ?? false
         
+        guard let currentGrid = self.bubbleGrid else {
+            presentAlertForSaveFailure(for: levelName)
+            return
+        }
+        
+        // save a picture of the current grid also
+        UIGraphicsBeginImageContext(currentGrid.frame.size)
+        
+        guard let currentContext = UIGraphicsGetCurrentContext() else {
+            presentAlertForSaveFailure(for: levelName)
+            return
+        }
+        
+        currentGrid.layer.render(in: currentContext)
+        guard let image = UIGraphicsGetImageFromCurrentImageContext() else {
+            presentAlertForSaveFailure(for: levelName)
+            return
+        }
+        
+        UIGraphicsEndImageContext()
+        let imageData = UIImagePNGRepresentation(image)
+        
+        // Get the URL of the Documents Directory
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        
+        // Get the URL for a file in the Documents Directory
+        let fileURL = documentDirectory.appendingPathComponent(levelName).appendingPathExtension("png")
+        
+        try? imageData?.write(to: fileURL, options: .atomic)
+        
+        
+        // Present alert on whether save is successful
         guard isSaveSuccessful else {
             presentAlertForSaveFailure(for: levelName)
             return

@@ -20,9 +20,7 @@ class LevelDesignerViewController: UIViewController {
     // delegates
     private var levelDesignerDataSource: LevelDesignerDataSource?
     private var levelDesignerDelegate: LevelDesignerDelegate?
-    private lazy var saveAlertController: LevelDesignerSaveAlertController = {
-        return LevelDesignerSaveAlertController(bubbleGridModel: self.bubbleGridModel)
-    }()
+    private var saveAlertController: LevelDesignerSaveAlertController!
     
     // ----------- ViewController related stuff -------------
     
@@ -36,6 +34,7 @@ class LevelDesignerViewController: UIViewController {
         invalidMessage.alpha = 0
         
         // add the save alert controller as a child
+        self.saveAlertController = LevelDesignerSaveAlertController(bubbleGridModel: bubbleGridModel, bubbleGrid: bubbleGrid)
         self.addChildViewController(saveAlertController)
         
         // setup delegates
