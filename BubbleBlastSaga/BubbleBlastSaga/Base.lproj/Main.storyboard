@@ -645,6 +645,14 @@
                                     <outletCollection property="gestureRecognizers" destination="OOV-5g-Bhh" appends="YES" id="74n-nq-lzW"/>
                                 </connections>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xF6-TG-xJs" userLabel="Swap Button">
+                                <rect key="frame" x="222" y="958" width="83" height="58"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="swap"/>
+                                <connections>
+                                    <action selector="handleSwap:" destination="39J-a7-Akb" eventType="touchUpInside" id="YuH-Lp-Ut0"/>
+                                </connections>
+                            </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7w8-zc-d8f">
                                 <rect key="frame" x="8" y="962" width="105" height="54"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -732,6 +740,7 @@
                         <outlet property="panGestureRecognizer" destination="OOV-5g-Bhh" id="jNl-8p-ceP"/>
                         <outlet property="retryButton" destination="cVY-A1-Wtg" id="mQV-Sr-aem"/>
                         <outlet property="scoreLabel" destination="FTY-c7-3he" id="OQw-J3-jMY"/>
+                        <outlet property="swapButton" destination="xF6-TG-xJs" id="A1g-7u-cLf"/>
                         <outlet property="trajectoryPathView" destination="Rqq-Xj-CLf" id="gcf-d7-Sha"/>
                         <outletCollection property="endGameStats" destination="VAI-wS-qY1" collectionClass="NSMutableArray" id="VLg-p3-4wS"/>
                         <outletCollection property="endGameStats" destination="fRY-ad-ZyV" collectionClass="NSMutableArray" id="fbg-QS-gJi"/>
@@ -814,5 +823,6 @@
         <image name="bubble-star" width="168" height="168"/>
         <image name="cannon-base" width="133" height="139"/>
         <image name="erase" width="168" height="168"/>
+        <image name="swap" width="183" height="146"/>
     </resources>
 </document>

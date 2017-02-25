@@ -338,6 +338,7 @@ class GameViewController: UIViewController {
                     self.gameView.alpha = 1
                     self.hintButton.alpha = 1
                     self.fireHintButton.alpha = 1
+                    self.swapButton.alpha = 1
                     
                     self.retryButton.isEnabled = true
                     self.backButton.isEnabled = true
@@ -369,6 +370,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var fireHintButton: UIButton!
     @IBOutlet weak var retryButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var swapButton: UIButton!
     
     @IBOutlet weak var gameOutcome: UILabel!
     @IBOutlet weak var endGameDetailsPlaceholder: UIView!
@@ -408,6 +410,7 @@ class GameViewController: UIViewController {
             self.gameView.alpha = 0
             self.hintButton.alpha = 0
             self.fireHintButton.alpha = 0
+            self.swapButton.alpha = 0
         }) { _ in
             
             UIView.animate(withDuration: 1.0, animations: {
@@ -432,11 +435,49 @@ class GameViewController: UIViewController {
             
         }
         
-
-        
-        
     }
 
+    @IBAction func handleSwap(_ sender: UIButton) {
+        // execute swap animation
+        
+        // animate transition from next cannon bubble to current cannon bubble
+        
+        // create a replica of the current and move it just out of the hole
+        let fakeCurrentBubbleView = UIImageView()
+        fakeCurrentBubbleView.image = currentBubbleView.image
+        fakeCurrentBubbleView.frame.size = currentBubbleView.frame.size
+        fakeCurrentBubbleView.center = currentBubbleView.center
+        
+        let fakeNextBubbleView = UIImageView()
+        fakeNextBubbleView.image = nextBubbleView.image
+        fakeNextBubbleView.frame.size = nextBubbleView.frame.size
+        fakeNextBubbleView.center = nextBubbleView.center
+        
+        // remove current bubble
+        gameArea.addSubview(fakeCurrentBubbleView)
+        currentBubbleView.image = nil
+        
+        // remove next
+        gameArea.addSubview(fakeNextBubbleView)
+        nextBubbleView.image = nil
+        
+        // swap the images
+        UIView.animate(withDuration: 0.5, animations: {
+            fakeCurrentBubbleView.center = self.nextBubbleView.center
+            fakeNextBubbleView.center = self.currentBubbleView.center
+        }) { _ in
+            self.updateCurrentCannonBubbleImage()
+            self.updateNextCannonBubbleImage()
+            
+            fakeCurrentBubbleView.removeFromSuperview()
+            fakeNextBubbleView.removeFromSuperview()
+            
+        }
+        
+        
+        // swap the actual thing
+        bubbleGame.bubbleCannon.swapCurrentWithNextBubble()
+    }
 }
 
 // MARK: UIGestureRecognizerDelegate
