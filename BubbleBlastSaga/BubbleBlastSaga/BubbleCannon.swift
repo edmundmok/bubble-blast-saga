@@ -55,7 +55,7 @@ class BubbleCannon {
         let chanceNumber = arc4random() % 10
         
         // assume easy rating for now
-        guard chanceNumber < 6 else {
+        guard chanceNumber < 4 else {
             // get the random color as number falls outside luck range
             return getRandomBubble()
         }
