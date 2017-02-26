@@ -473,7 +473,8 @@ class BubbleGame {
         }
         
         // don't lose the game
-        return candidates.filter { $0.section < bubbleGridModel.numSections - 1 }
+        // return candidates.filter { $0.section < bubbleGridModel.numSections - 1 }
+        return candidates
     }
     
     // ------------------------ HINT RELATED ------------------------

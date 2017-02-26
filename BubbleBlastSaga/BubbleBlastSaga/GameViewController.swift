@@ -59,16 +59,23 @@ class GameViewController: UIViewController {
         gameViewControllerDelegate = GameViewControllerDelegate(bubbleGrid: bubbleGrid,
             bubbleGridModel: bubbleGridModel)
                         
-        // Configure gestures
+        configureGestureRecognizers()
+        
+        // Request to layout and adjust constraints for game setup
+        view.subviews.forEach { $0.layoutIfNeeded() }
+        
+        startGame()
+        setupNotificationObservers()
+        configureGameUI()
+    }
+    
+    private func configureGestureRecognizers() {
         panGestureRecognizer.delegate = self
         longPressGestureRecognizer.delegate = self
         longPressGestureRecognizer.minimumPressDuration = Constants.minimumLongPressDuration
-        
-        // Request to layout and adjust constraints for game setup
-        self.view.subviews.forEach { $0.layoutIfNeeded() }
-        
-        // Setup the game and start the game
-        
+    }
+    
+    private func startGame() {
         // Create a copy of the model, so that any changes due to gameplay
         // do not affect the level designer's model
         // Plus, can reset the game state to original state easily.
@@ -79,19 +86,25 @@ class GameViewController: UIViewController {
         bubbleGame = BubbleGame(gameSettings: GameSettings(gameMode: .LimitedTime), bubbleGridModel: modelCopy,
                                 bubbleGrid: bubbleGrid, gameArea: gameArea)
         bubbleGame.startGame()
-        
-        // Setup notification observer
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "GameStatsUpdated"), object: nil, queue: nil, using: handleGameStatsUpdated)
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "GameWon"), object: nil, queue: nil, using: handleGameWon)
-        NotificationCenter.default.addObserver(forName: NSNotification.Name(rawValue: "GameLost"), object: nil, queue: nil, using: handleGameLost)
-
+    }
+    
+    private func setupNotificationObservers() {
+        NotificationCenter.default.addObserver(forName: Constants.gameStatsUpdatedNotificationName,
+            object: nil, queue: nil, using: handleGameStatsUpdated)
+        NotificationCenter.default.addObserver(forName: Constants.gameWonNotificationName,
+            object: nil, queue: nil, using: handleGameWon)
+        NotificationCenter.default.addObserver(forName: Constants.gameLostNotificationName,
+            object: nil, queue: nil, using: handleGameLost)
+    }
+    
+    private func configureGameUI() {
         // Change cannon anchor point to the hole area
-        cannon.layer.anchorPoint = CGPoint(x: 0.5, y: 0.65)
+        cannon.layer.anchorPoint = CGPoint(x: Constants.cannonAnchorX, y: Constants.cannonAnchorY)
         
         // Hide combo and streak labels
-        comboLabel.alpha = 0
-        gameOutcome.alpha = 0
-        endGameStats.forEach{ $0.alpha = 0 }
+        comboLabel.alpha = Constants.hiddenAlpha
+        gameOutcome.alpha = Constants.hiddenAlpha
+        endGameStats.forEach { $0.alpha = Constants.hiddenAlpha }
         
         // save score label, retry and back button position so that we can get it back later
         originalScoreLocation = scoreLabel.center
@@ -103,7 +116,7 @@ class GameViewController: UIViewController {
         updateNextCannonBubbleImage()
         
         // Trajectory path (aiming guide)
-        self.trajectoryPathView.layer.addSublayer(trajectoryPathLayer)
+        trajectoryPathView.layer.addSublayer(trajectoryPathLayer)
         trajectoryPathLayer.setPathStyle(gameArea: gameArea)
     }
     
@@ -111,25 +124,33 @@ class GameViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
+    private func getStandardBubbleSize() -> CGSize {
+        return bubbleGrid.visibleCells[0].frame.size
+    }
+    
     private func updateCurrentCannonBubbleImage() {
-        // currentBubbleView.frame.size = bubbleGrid.visibleCells[0].frame.size
-        currentBubbleView.frame.size = CGSize(width: bubbleGrid.visibleCells[0].frame.size.width*0.8,
-            height: bubbleGrid.visibleCells[0].frame.size.height*0.8)
+        let currentBubbleWidth = getStandardBubbleSize().width
+            * Constants.currentBubbleViewSizeMultiplier
+        let currentBubbleHeight = getStandardBubbleSize().height
+            * Constants.currentBubbleViewSizeMultiplier
         
-        // TODO: This thing may not work for all screen sizes
-        // Bubble size should scale with the base, not the cell size.
-        currentBubbleView.center = CGPoint(x: cannon.center.x, y: cannon.center.y + cannon.frame.height * 0.1)
+        currentBubbleView.frame.size = CGSize(width: currentBubbleWidth,
+            height: currentBubbleHeight)
+        
+        currentBubbleView.center = CGPoint(x: cannon.center.x,
+            y: cannon.center.y + cannon.frame.height * Constants.currentBubbleViewYMultiplier)
+        
         let currentBubble = bubbleGame.bubbleCannon.currentBubble
         let currentBubbleImage = BubbleGameUtility.getBubbleImage(for: currentBubble)
         currentBubbleView.image = currentBubbleImage.image
     }
     
     private func updateNextCannonBubbleImage() {
-        nextBubbleView.frame.size = bubbleGrid.visibleCells[0].frame.size
+        nextBubbleView.frame.size = getStandardBubbleSize()
         let nextBubble = bubbleGame.bubbleCannon.nextBubble
         let nextBubbleImage = BubbleGameUtility.getBubbleImage(for: nextBubble)
         
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: Constants.updateNextBubbleFadeDuration) {
             self.nextBubbleView.image = nextBubbleImage.image
         }
     }
@@ -179,46 +200,60 @@ class GameViewController: UIViewController {
             return
         }
         
+        animateForCannonFire()
+    }
+    
+    // Returns an animatable replica of the current bubble
+    private func generateAnimatableCurrentBubble() -> UIImageView {
+        let animatableCurrentBubble = UIImageView()
+        animatableCurrentBubble.image = currentBubbleView.image
+        animatableCurrentBubble.frame.size = currentBubbleView.frame.size
+        animatableCurrentBubble.center = currentBubbleView.center
+        return animatableCurrentBubble
+    }
+    
+    // Returns an animatable replica of the next bubble
+    private func generateAnimatableNextBubble() -> UIImageView {
+        let animatableNextBubble = UIImageView()
+        animatableNextBubble.image = nextBubbleView.image
+        animatableNextBubble.frame.size = nextBubbleView.frame.size
+        animatableNextBubble.center = nextBubbleView.center
+        return animatableNextBubble
+    }
+    
+    private func animateForCannonFire() {
         cannon.fireAnimation()
         
-        // animate transition from next cannon bubble to current cannon bubble
+        // Animate transition from next cannon bubble to current cannon bubble
+        // First, create a replica of the current and move it just out of the hole
+        let fakeCurrentBubbleView = generateAnimatableCurrentBubble()
+        let fakeNextBubbleView = generateAnimatableNextBubble()
         
-        // create a replica of the current and move it just out of the hole
-        let fakeCurrentBubbleView = UIImageView()
-        fakeCurrentBubbleView.image = currentBubbleView.image
-        fakeCurrentBubbleView.frame.size = currentBubbleView.frame.size
-        fakeCurrentBubbleView.center = currentBubbleView.center
-        
-        let fakeNextBubbleView = UIImageView()
-        fakeNextBubbleView.image = nextBubbleView.image
-        fakeNextBubbleView.frame.size = nextBubbleView.frame.size
-        fakeNextBubbleView.center = nextBubbleView.center
-        
-        // remove current bubble
+        // Add the generated view before remove current bubble
         gameArea.addSubview(fakeCurrentBubbleView)
         currentBubbleView.image = nil
-
-        // move it a little
-        UIView.animate(withDuration: 0.5, animations: {
-            fakeCurrentBubbleView.frame.offsetBy(dx: 0, dy: CGFloat(-1) * fakeCurrentBubbleView.frame.size.height)
+        
+        // Move the fake current bubble up a little
+        UIView.animate(withDuration: Constants.currentBubbleMoveUpDuration, animations: {
+            fakeCurrentBubbleView.frame.offsetBy(dx: Constants.currentBubbleXOffset,
+                dy: Constants.currentBubbleYOffsetMultiplier * fakeCurrentBubbleView.frame.size.height)
         }) { _ in
+            // Remove the fake current bubble once out of sight
             fakeCurrentBubbleView.removeFromSuperview()
             
-            // move next to current position
-            // by creating an exact replica of next and moving it, then removing this replica on
-            // completion
+            // Move the next bubble to the cannon for "reloading"
             self.gameArea.addSubview(fakeNextBubbleView)
             self.nextBubbleView.image = nil
             
-            UIView.animate(withDuration: 0.5, animations: {
+            UIView.animate(withDuration: Constants.reloadDuration, animations: {
                 fakeNextBubbleView.center = self.currentBubbleView.center
             }) { _ in
                 
-                // display the "current"
+                // Display the "current" and remove the fake current bubble
                 self.updateCurrentCannonBubbleImage()
                 fakeNextBubbleView.removeFromSuperview()
                 
-                // fade in the next
+                // Fade in the new next bubble
                 self.updateNextCannonBubbleImage()
             }
             
@@ -226,7 +261,6 @@ class GameViewController: UIViewController {
     }
     
     private func updateTrajectoryPath(_ sender: UIGestureRecognizer) {
-        
         let angle = getCurrentCannonAngle()
         let trajectoryPoints = bubbleGame.getTrajectoryPoints(from: cannon.center, at: angle)
         trajectoryPathLayer.drawPath(from: trajectoryPoints, start: cannon.center)
@@ -248,7 +282,8 @@ class GameViewController: UIViewController {
                 let angleChange = hintAngle + CGFloat(M_PI_2)
                 self.cannon.transform = CGAffineTransform(rotationAngle: angleChange)
                 
-                let trajectoryPoints = self.bubbleGame.getTrajectoryPoints(from: self.cannon.center, at: hintAngle)
+                let trajectoryPoints = self.bubbleGame.getTrajectoryPoints(from: self.cannon.center,
+                    at: hintAngle)
                 self.trajectoryPathLayer.drawPath(from: trajectoryPoints, start: self.cannon.center)
                 
                 // update image
@@ -264,18 +299,20 @@ class GameViewController: UIViewController {
     
     func handleGameStatsUpdated(notification: Notification) {
         // update stats to show on screen
+        let currentCombo = bubbleGame.bubbleGameStats.currentCombo
         scoreLabel.text = String(Int(bubbleGame.bubbleGameStats.currentScore))
-        comboLabel.text = "x" + String(bubbleGame.bubbleGameStats.currentCombo) + "!"
+        comboLabel.text = Constants.comboPrefix + String(currentCombo)
+            + Constants.comboPostfix
         
-        guard bubbleGame.bubbleGameStats.currentCombo > 0 else {
+        guard currentCombo > Constants.minimumCombo else {
             return
         }
         
-        UIView.animate(withDuration: 0.2, animations: {
-            self.comboLabel.alpha = 1.0
+        UIView.animate(withDuration: Constants.comboEnterDuration, animations: {
+            self.comboLabel.alpha = Constants.shownAlpha
         }, completion: { _ in
-            UIView.animate(withDuration: 0.8, animations: {
-                self.comboLabel.alpha = 0.0
+            UIView.animate(withDuration: Constants.comboExitDuration, animations: {
+                self.comboLabel.alpha = Constants.hiddenAlpha
             })
         })
     }
@@ -297,48 +334,63 @@ class GameViewController: UIViewController {
     }
 
     @IBAction func handleBack(_ sender: UIButton) {
-        // invalidate the timer
+        // Invalidate the timer in case game was still running
         bubbleGame.bubbleGameEvaluator.timer.invalidate()
         
         let _ = self.navigationController?.popViewController(animated: true)
     }
     
     @IBAction func handleRetry(_ sender: UIButton) {
-        // invalidate the timer
+        // Invalidate the timer for the current game
         bubbleGame.bubbleGameEvaluator.timer.invalidate()
         
-        // refactor into hide end screen
+        // end the current game
+        bubbleGame.endGame()
         
+        hideEndScreen()
+        
+        // start a new game
+        startGame()
+        
+        // Setup the image for the current cannon bubble
+        updateCurrentCannonBubbleImage()
+        updateNextCannonBubbleImage()
+    }
+    
+    private func hideEndScreen() {
         // disable buttons while animating
         self.retryButton.isEnabled = false
         self.backButton.isEnabled = false
         
-        UIView.animate(withDuration: 1.0, animations: {
-            self.endGameStats.forEach { $0.alpha = 0 }
+        UIView.animate(withDuration: Constants.hideGameStatsDuration, animations: {
+            // hide the end game stats
+            self.endGameStats.forEach { $0.alpha = Constants.hiddenAlpha }
         }) { _ in
             
-            UIView.animate(withDuration: 1.0, animations: {
+            UIView.animate(withDuration: Constants.moveUIBackDuration, animations: {
                 
                 guard let retryLocation = self.originalRetryLocation,
                     let backLocation = self.originalBackLocation,
                     let scoreLocation = self.originalScoreLocation else {
                         
-                    return
+                        return
                 }
                 
-                self.gameOutcome.alpha = 0
+                // move ui items back to their game positions
+                self.gameOutcome.alpha = Constants.hiddenAlpha
                 self.retryButton.center = retryLocation
                 self.backButton.center = backLocation
                 self.scoreLabel.center = scoreLocation
                 
             }) { _ in
                 
-                UIView.animate(withDuration: 1.5) {
-                    self.scoreLabel.text = String(0)
-                    self.gameView.alpha = 1
-                    self.hintButton.alpha = 1
-                    self.fireHintButton.alpha = 1
-                    self.swapButton.alpha = 1
+                UIView.animate(withDuration: Constants.redisplayUIDuration) {
+                    // redisplay hidden game ui
+                    self.scoreLabel.text = Constants.initialScoreString
+                    self.gameView.alpha = Constants.shownAlpha
+                    self.hintButton.alpha = Constants.shownAlpha
+                    self.fireHintButton.alpha = Constants.shownAlpha
+                    self.swapButton.alpha = Constants.shownAlpha
                     
                     self.retryButton.isEnabled = true
                     self.backButton.isEnabled = true
@@ -346,23 +398,6 @@ class GameViewController: UIViewController {
                 
             }
         }
-        
-        // end the current game
-        bubbleGame.endGame()
-        
-        // start a new game
-        guard let modelCopy = bubbleGridModel.copy() as? BubbleGridModel else {
-            return
-        }
-        
-        bubbleGame = BubbleGame(gameSettings: GameSettings(gameMode: .LimitedTime), bubbleGridModel: modelCopy,
-                                bubbleGrid: bubbleGrid, gameArea: gameArea)
-        bubbleGame.startGame()
-        
-        // Setup the image for the current cannon bubble
-        updateCurrentCannonBubbleImage()
-        updateNextCannonBubbleImage()
-
     }
     
     @IBOutlet weak var gameView: UIView!
@@ -385,47 +420,60 @@ class GameViewController: UIViewController {
     @IBOutlet weak var endAccuracyPlaceholder: UILabel!
     @IBOutlet var endGameStats: [UILabel]!
     
+    private func updateEndGameStats() {
+        endLuckyColorPlaceholder.text = Constants.luckyColorPrefix
+            + (bubbleGame.bubbleGameStats.luckyColor?.rawValue ?? Constants.noLuckyColor)
+        endBestComboPlaceholder.text = Constants.bestComboPrefix
+            + String(bubbleGame.bubbleGameStats.maxCombo)
+        endBestChainPlaceholder.text = Constants.bestChainPrefix
+            + String(bubbleGame.bubbleGameStats.maxChain)
+        endLongestStreakPlaceholder.text = Constants.bestStreakPrefix
+            + String(bubbleGame.bubbleGameStats.maxStreak)
+        endAccuracyPlaceholder.text = Constants.accuracyPrefix
+            + String(Int(bubbleGame.bubbleGameStats.currentAccuracy * Constants.accuracyToPercentage))
+            + Constants.accuracyPostfix
+    }
     
     private func renderEndScreen(outcome: GameOutcome) {
         // fill up end screen details first
         if outcome == .Win {
-            gameOutcome.text = "You win"
+            gameOutcome.text = Constants.winString
         } else {
-            gameOutcome.text = "You lose"
+            gameOutcome.text = Constants.loseString
         }
         
-        // game stats
-        endLuckyColorPlaceholder.text = "Your lucky color is " + (bubbleGame.bubbleGameStats.luckyColor?.rawValue ?? " no color")
-        endBestComboPlaceholder.text = "Best combo: " + String(bubbleGame.bubbleGameStats.maxCombo)
-        endBestChainPlaceholder.text = "Best chain: " + String(bubbleGame.bubbleGameStats.maxChain)
-        endLongestStreakPlaceholder.text = "Best streak: " + String(bubbleGame.bubbleGameStats.maxStreak)
-        endAccuracyPlaceholder.text = "Accuracy: " + String(Int(bubbleGame.bubbleGameStats.currentAccuracy * 100)) + " %"
+        updateEndGameStats()
 
         // disable buttons while animating
         self.retryButton.isEnabled = false
         self.backButton.isEnabled = false
         
+        // compute placeholder positions
+        let retryFinalCenter = endGameDetailsPlaceholder.convert(endRetryPlaceholder.center, to: view)
+        let backFinalCenter = endGameDetailsPlaceholder.convert(endBackPlaceholder.center, to: view)
+        let scoreFinalCenter = endGameDetailsPlaceholder.convert(endScorePlaceholder.center, to: view)
+        
         // fade out existing views
-        UIView.animate(withDuration: 1.5, animations: {
-            self.gameView.alpha = 0
-            self.hintButton.alpha = 0
-            self.fireHintButton.alpha = 0
-            self.swapButton.alpha = 0
+        UIView.animate(withDuration: Constants.hideUIDuration, animations: {
+            self.gameView.alpha = Constants.hiddenAlpha
+            self.hintButton.alpha = Constants.hiddenAlpha
+            self.fireHintButton.alpha = Constants.hiddenAlpha
+            self.swapButton.alpha = Constants.hiddenAlpha
         }) { _ in
             
-            UIView.animate(withDuration: 1.0, animations: {
+            UIView.animate(withDuration: Constants.moveUIDuration, animations: {
                 // game outcome
-                self.gameOutcome.alpha = 1
+                self.gameOutcome.alpha = Constants.shownAlpha
                 
                 // move stuff that are already on screen
-                self.retryButton.center = self.endGameDetailsPlaceholder.convert(self.endRetryPlaceholder.center, to: self.view)
-                self.backButton.center = self.endGameDetailsPlaceholder.convert(self.endBackPlaceholder.center, to: self.view)
-                self.scoreLabel.center = self.endGameDetailsPlaceholder.convert(self.endScorePlaceholder.center, to: self.view)
+                self.retryButton.center = retryFinalCenter
+                self.backButton.center = backFinalCenter
+                self.scoreLabel.center = scoreFinalCenter
             }) { _ in
                 
-                UIView.animate(withDuration: 1.0) {
+                UIView.animate(withDuration: Constants.showGameStatsDuration) {
                     // fade in stats
-                    self.endGameStats.forEach { $0.alpha = 1 }
+                    self.endGameStats.forEach { $0.alpha = Constants.shownAlpha }
                     self.retryButton.isEnabled = true
                     self.backButton.isEnabled = true
                 }
@@ -450,15 +498,9 @@ class GameViewController: UIViewController {
         // animate transition from next cannon bubble to current cannon bubble
         
         // create a replica of the current and move it just out of the hole
-        let fakeCurrentBubbleView = UIImageView()
-        fakeCurrentBubbleView.image = currentBubbleView.image
-        fakeCurrentBubbleView.frame.size = nextBubbleView.frame.size
-        fakeCurrentBubbleView.center = currentBubbleView.center
+        let fakeCurrentBubbleView = generateAnimatableCurrentBubble()
         
-        let fakeNextBubbleView = UIImageView()
-        fakeNextBubbleView.image = nextBubbleView.image
-        fakeNextBubbleView.frame.size = nextBubbleView.frame.size
-        fakeNextBubbleView.center = nextBubbleView.center
+        let fakeNextBubbleView = generateAnimatableNextBubble()
         
         // remove current bubble
         gameArea.addSubview(fakeCurrentBubbleView)
@@ -469,7 +511,7 @@ class GameViewController: UIViewController {
         nextBubbleView.image = nil
         
         // swap the images
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: Constants.swapDuration, animations: {
             fakeCurrentBubbleView.center = self.nextBubbleView.center
             fakeNextBubbleView.center = self.currentBubbleView.center
         }) { _ in
@@ -491,7 +533,10 @@ class GameViewController: UIViewController {
 
 // MARK: UIGestureRecognizerDelegate
 extension GameViewController: UIGestureRecognizerDelegate {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        return (gestureRecognizer == longPressGestureRecognizer && otherGestureRecognizer == panGestureRecognizer)
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+        
+        return (gestureRecognizer == longPressGestureRecognizer
+            && otherGestureRecognizer == panGestureRecognizer)
     }
 }
