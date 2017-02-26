@@ -21,6 +21,21 @@ struct Constants {
     static let limitedTimeQuota = 20
     static let initialFlyingBubblesCount = 0
     
+    // BubbleGameStats
+    static let initialScore = 0.0
+    static let initialStreak = 0
+    static let initialCombo = 0
+    static let initialChain = 0
+    static let initialBubblesShot = 0
+    static let initialAccuracy = 0.0
+    static let resetValue = 0
+    static let scorePerRemoval = 50
+    static let scoreMultiplierPerChain = 0.5
+    static let scoreMultiplierPerStreak = 0.5
+    static let baseValue = 1.0
+    
+    // BubbleCannon
+    
     // BubbleGrid
     static let bubblesKey = "bubbles"
     static let numSectionsKey = "numSections"
@@ -94,6 +109,20 @@ struct Constants {
     static let dropDurationMultiplier = 0.002
     static let dropDistanceMultiplier = CGFloat(5)
     static let dropHorizontalOffset = CGFloat(0)
+    static let explosionSizeMultiplier = CGFloat(3)
+    static let explosionRepeatCount = 1
+    static let explosionDuration = 1.0
+    static let lightningWidthMultiplier = CGFloat(2)
+    static let lightningHeightMultiplier = CGFloat(4)
+    static let lightningDuration = 1.0
+    static let lightningRepeatCount = 1
+    static let starSizeMultiplier = CGFloat(2)
+    static let starInitialAlpha = CGFloat(0.0)
+    static let starPresentAlpha = CGFloat(1.0)
+    static let starFadeInDuration = 0.5
+    static let starFadeOutDuration = 0.5
+    static let hintEnterDuration = 1.0
+    static let hintExitDuration = 1.0
     
     // LevelDesignerViewController
     static let startLevelSegue = "StartLevelDesignerLevel"

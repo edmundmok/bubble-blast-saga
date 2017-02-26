@@ -15,34 +15,35 @@ import Foundation
 class BubbleGameStats {
     
     // About the game
-    private(set) var currentScore = 0.0
+    private(set) var currentScore = Constants.initialScore
     
     // Streak - number of times in a row player shoots a bubble that removes something
-    private(set) var currentStreak = 0
-    private(set) var maxStreak = 0
+    private(set) var currentStreak = Constants.initialStreak
+    private(set) var maxStreak = Constants.initialStreak
     
     // Combo - total number of bubbles removed in 1 shot 
     // (includes special bubble removals, connected bubble removals, and bubbles dropped)
-    private(set) var currentCombo = 0
-    private(set) var maxCombo = 0
+    private(set) var currentCombo = Constants.initialCombo
+    private(set) var maxCombo = Constants.initialCombo
     
     // best chaining count
-    private(set) var maxChain = 0
+    private(set) var maxChain = Constants.initialChain
     
     // Lucky color is the color of the bubble that led to the best combo
     private(set) var luckyColor: BubbleColor?
     
     // Shots and accuracy
-    private(set) var bubblesShot = 0
-    private(set) var bubblesShotThatLeadToRemovals = 0
+    private(set) var bubblesShot = Constants.initialBubblesShot
+    private(set) var bubblesShotThatLeadToRemovals = Constants.initialBubblesShot
     var currentAccuracy: Double {
-        guard bubblesShot != 0 else {
-            return 0.0
+        guard bubblesShot != Constants.initialBubblesShot else {
+            return Constants.initialAccuracy
         }
         
         return Double(bubblesShotThatLeadToRemovals) / Double(bubblesShot)
     }
     
+    // Update the stats by increasing the numble of bubbles shot.
     func incrementBubblesShot() {
         bubblesShot += 1
     }
@@ -50,13 +51,15 @@ class BubbleGameStats {
     // Updates the stats with the knowledge that the latest shot was a failed shot
     // and did not remove any bubbles.
     func updateStatsWithFailedShot() {
-        currentStreak = 0
-        currentCombo = 0
+        currentStreak = Constants.resetValue
+        currentCombo = Constants.resetValue
     }
     
     // Updates the stats with the knowledge that the latest shot was a successful
     // shot and remove at non-zero number of bubble.
-    func updateStatsWithSuccessfulShot(removalCount: Int, chainCount: Int, with coloredBubble: ColoredBubble) {
+    func updateStatsWithSuccessfulShot(removalCount: Int, chainCount: Int,
+        with coloredBubble: ColoredBubble) {
+        
         // update current information
         currentCombo = removalCount
         bubblesShotThatLeadToRemovals += 1
@@ -77,11 +80,11 @@ class BubbleGameStats {
         }
         
         // update the total score
-        let removalScore = removalCount * 50
-        let chainCountBonus = Double(chainCount) * 0.5
-        let streakBonus = Double(currentStreak) * 0.5
+        let removalScore = removalCount * Constants.scorePerRemoval
+        let chainCountBonus = Double(chainCount) * Constants.scoreMultiplierPerChain
+        let streakBonus = Double(currentStreak) * Constants.scoreMultiplierPerStreak
         
-        currentScore += Double(removalScore) * (1 + chainCountBonus + streakBonus)
+        currentScore += Double(removalScore) * (Constants.baseValue + chainCountBonus + streakBonus)
         
         // update streak only after updating score
         currentStreak += 1

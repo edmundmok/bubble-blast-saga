@@ -22,11 +22,14 @@ class BubbleGameUtility {
         return indexPaths
     }
     
+    // Returns an array of the index paths for the bottom (last) section of the bubble grid.
     static func getIndexPathsForBottomSection(of bubbleGridModel: BubbleGridModel) -> [IndexPath] {
         var indexPaths = [IndexPath]()
         
         let bottomSectionNum = bubbleGridModel.numSections - 1
-        let numRowsInBottomSection = bottomSectionNum % 2 == 0 ? bubbleGridModel.numRowsPerEvenSection : bubbleGridModel.numRowsPerOddSection
+        let numRowsInBottomSection = (bottomSectionNum % 2 == 0)
+            ? bubbleGridModel.numRowsPerEvenSection
+            : bubbleGridModel.numRowsPerOddSection
         
         // Add from index 0 to the last index in the first section of the grid (section 0 is even)
         for index in 0..<numRowsInBottomSection {

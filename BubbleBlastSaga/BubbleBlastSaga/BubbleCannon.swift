@@ -10,31 +10,30 @@ import Foundation
 
 class BubbleCannon {
     
-    // current bubble
+    // Current bubble to shoot
     private(set) lazy var currentBubble: GameBubble = {
         return self.getNextCannonBubble()
     }()
     
-    // next bubble
+    // Next bubble to shoot, after the current bubble
     private(set) lazy var nextBubble: GameBubble = {
         return self.getNextCannonBubble()
     }()
     
-    // current bubble grid model
     private let bubbleGridModel: BubbleGridModel
     
     init(bubbleGridModel: BubbleGridModel) {
         self.bubbleGridModel = bubbleGridModel
     }
     
-    // swap current and next
+    // Swap the current with the next bubble
     func swapCurrentWithNextBubble() {
-        // swap the bubbles
         let temp = currentBubble
         currentBubble = nextBubble
         nextBubble = temp
     }
     
+    // Reload the cannon
     func reloadCannon() {
         // replace current with next
         currentBubble = nextBubble
@@ -43,16 +42,14 @@ class BubbleCannon {
         nextBubble = getNextCannonBubble()
     }
     
+    // Simple algorithm to decide next cannon bubble
+    // (Luck rating) % chance of getting most common color
+    // (1 - luck rating) % chance of getting random color
+    //
+    // Easy: 60%
+    // Medium: 50%
+    // Hard: 40%
     private func getNextCannonBubble() -> GameBubble {
-        // Simple algorithm to decide next cannon bubble
-        // (Luck rating) % chance of getting most common color
-        // (1 - luck rating) % chance of getting random color
-        
-        // Easy: 60%
-        // Medium: 50%
-        // Hard: 40%
-        
-        
         // 0..<(luck rating), get the common color
         // luck rating..9, get the random color
         let chanceNumber = arc4random() % 10
@@ -87,7 +84,7 @@ class BubbleCannon {
         
         var colorFrequencyDictionary = [BubbleColor : Int]()
         
-        // Init all to 0
+        // Initialize frequeuncy count of all colors to 0
         for color in BubbleColor.allColors {
             colorFrequencyDictionary[color] = 0
         }

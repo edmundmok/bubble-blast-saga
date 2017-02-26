@@ -75,11 +75,14 @@ class BubbleGameAnimator {
         let explosionImage = UIImageView()
         
         // render the explosion images
-        explosionImage.frame.size = CGSize(width: bubbleImage.frame.size.width * 3, height: bubbleImage.frame.size.height * 3)
+        let explosionWidth = bubbleImage.frame.size.width * Constants.explosionSizeMultiplier
+        let explosionHeight = bubbleImage.frame.size.height * Constants.explosionSizeMultiplier
+        
+        explosionImage.frame.size = CGSize(width: explosionWidth, height: explosionHeight)
         explosionImage.center = gameBubble.center
         explosionImage.animationImages = Constants.bombExplosionImages
-        explosionImage.animationDuration = 1
-        explosionImage.animationRepeatCount = 1
+        explosionImage.animationDuration = Constants.explosionDuration
+        explosionImage.animationRepeatCount = Constants.explosionRepeatCount
         renderer.canvas.addSubview(explosionImage)
         explosionImage.startAnimating()
         
@@ -99,12 +102,16 @@ class BubbleGameAnimator {
         
         let lightningImage = UIImageView()
         
-        // render the lightning iamges
-        lightningImage.frame.size = CGSize(width: gameArea.frame.width + 2 * cellAtIndexPath.frame.size.width, height: cellAtIndexPath.frame.size.height * 4)
+        // render the lightning images
+        let lightningWidth = gameArea.frame.width
+            + Constants.lightningWidthMultiplier * cellAtIndexPath.frame.size.width
+        let lightningHeight = cellAtIndexPath.frame.size.height * Constants.lightningHeightMultiplier
+        
+        lightningImage.frame.size = CGSize(width: lightningWidth, height: lightningHeight)
         lightningImage.center = CGPoint(x: lightningXPosition, y: lightningYPosition)
         lightningImage.animationImages = Constants.lightningImages
-        lightningImage.animationDuration = 1
-        lightningImage.animationRepeatCount = 1
+        lightningImage.animationDuration = Constants.lightningDuration
+        lightningImage.animationRepeatCount = Constants.lightningRepeatCount
         renderer.canvas.addSubview(lightningImage)
         lightningImage.startAnimating()
         
@@ -121,19 +128,21 @@ class BubbleGameAnimator {
         }
     
         let starDestroyerImage = UIImageView()
+        let starWidth = targetCell.frame.width * Constants.starSizeMultiplier
+        let starHeight = targetCell.frame.height * Constants.starSizeMultiplier
+        
         starDestroyerImage.image = Constants.starDestroyerImage
-        starDestroyerImage.frame.size = CGSize(width: targetCell.frame.width * 2, height: targetCell.frame.height * 2)
+        starDestroyerImage.frame.size = CGSize(width: starWidth, height: starHeight)
         starDestroyerImage.center = targetCell.center
-        starDestroyerImage.alpha = 0
+        starDestroyerImage.alpha = Constants.starInitialAlpha
         renderer.canvas.addSubview(starDestroyerImage)
         
-        UIImageView.animate(withDuration: 0.5, animations: {
-            starDestroyerImage.alpha = 1
-            
+        UIImageView.animate(withDuration: Constants.starFadeInDuration, animations: {
+            starDestroyerImage.alpha = Constants.starPresentAlpha
         }) { _ in
             
-            UIImageView.animate(withDuration: 0.5, animations: {
-                starDestroyerImage.alpha = 0
+            UIImageView.animate(withDuration: Constants.starFadeOutDuration, animations: {
+                starDestroyerImage.alpha = Constants.starInitialAlpha
             }) { _ in
                 starDestroyerImage.removeFromSuperview()
             }
@@ -142,18 +151,17 @@ class BubbleGameAnimator {
     
     func flashHintLocations(_ indexPath: IndexPath) {
         
-        guard indexPath != IndexPath() else {
+        // Make sure that given index path is non empty
+        // and there is a valid cell for the index path in the grid
+        guard indexPath != IndexPath(),
+            let cell = bubbleGrid.cellForItem(at: indexPath) else {
             return
         }
         
-        guard let cell = bubbleGrid.cellForItem(at: indexPath) else {
-            return
-        }
-        
-        UIView.animate(withDuration: 1.0, animations: {
+        UIView.animate(withDuration: Constants.hintEnterDuration, animations: {
             cell.backgroundColor = UIColor.yellow
         }, completion: { _ in
-            UIView.animate(withDuration: 1.0, animations: {
+            UIView.animate(withDuration: Constants.hintExitDuration, animations: {
                 cell.backgroundColor = UIColor.clear
             })
         })
