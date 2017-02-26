@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PhysicsEngine
 
 /**
  The renderer class that draws game objects onto the given canvas.

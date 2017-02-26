@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PhysicsEngine
 
 /**
  This class represents a wall object in the bubble game.

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PhysicsEngine
 
 class BubbleGameCollisionHandler {
     

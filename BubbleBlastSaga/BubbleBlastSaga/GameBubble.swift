@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PhysicsEngine
 
 /**
  `GameBubble` represents an abstract game bubble in the game.

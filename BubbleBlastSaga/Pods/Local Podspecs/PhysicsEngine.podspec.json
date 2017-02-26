@@ -1,0 +1,20 @@
+{
+  "name": "PhysicsEngine",
+  "version": "0.1.5",
+  "summary": "Simplest physics engine in the world!!",
+  "description": "\"Simplest physics engine in the world!!\"",
+  "homepage": "https://bitbucket.org/cs3217/2017-ps4-a0093960x/overview",
+  "license": "MIT",
+  "authors": {
+    "Edmund Mok": "edmundmok@outlook.com"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source": {
+    "git": "https://edmundmok@bitbucket.org/cs3217/2017-ps4-a0093960x.git",
+    "tag": "0.1.5"
+  },
+  "source_files": "Pod/Classes",
+  "exclude_files": "Pod/Classes/Exclude"
+}

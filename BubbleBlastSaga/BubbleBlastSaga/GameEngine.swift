@@ -8,6 +8,7 @@
 
 import UIKit
 import Foundation
+import PhysicsEngine
 
 class GameEngine {
     

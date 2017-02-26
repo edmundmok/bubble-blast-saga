@@ -11,13 +11,15 @@ import UIKit
 /**
  The physics engine.
  */
-class PhysicsEngine {
+public class PhysicsEngine {
     
-    var collisionHandler: CollisionHandler?
+    public var collisionHandler: CollisionHandler?
     private var physicsBodies = [PhysicsBody]()
     
+    public init() { }
+    
     // Updates only the given physics body.
-    func updateState(for physicsBody: PhysicsBody) {
+    public func updateState(for physicsBody: PhysicsBody) {
         // Update the positions of all physics bodies
         let didUpdate = updatePosition(physicsBody)
         
@@ -32,15 +34,15 @@ class PhysicsEngine {
     }
     
     // Update the state of all objects in the entire physics world.
-    func updateState(for physicsBodies: [PhysicsBody]) {
+    public func updateState(for physicsBodies: [PhysicsBody]) {
         
-        // Update the latest set of physics bodies to be 
+        // Update the latest set of physics bodies to be
         // updated by the physics engine.
         self.physicsBodies = physicsBodies
         
         // Update each body
         physicsBodies.forEach { updateState(for: $0) }
-
+        
     }
     
     // Update the position of the physics body, according to the velocity of the physics body.
@@ -57,7 +59,7 @@ class PhysicsEngine {
         return true
     }
     
-    // Checks if the given physics body is colliding with any other 
+    // Checks if the given physics body is colliding with any other
     // physics body in the current physics world.
     private func checkCollisions(for physicsBody: PhysicsBody) {
         
@@ -77,7 +79,7 @@ class PhysicsEngine {
         // types for now.
         return
     }
-
+    
     // Checks if the given physics circle is colliding with any other
     // physics body in the current physics world.
     private func checkCollisions(for physicsCircle: PhysicsCircle) {
@@ -166,11 +168,11 @@ class PhysicsEngine {
         // Finds closest point to the circle within the rectangle.
         // Assumes axis alignment.
         let closestX = clamp(val: physicsCircle.center.x, rangeMin: otherPhysicsBox.position.x,
-            rangeMax: otherPhysicsBox.position.x + otherPhysicsBox.size.width)
+                             rangeMax: otherPhysicsBox.position.x + otherPhysicsBox.size.width)
         
         let closestY = clamp(val: physicsCircle.center.y, rangeMin: otherPhysicsBox.position.y,
-            rangeMax: otherPhysicsBox.position.y + otherPhysicsBox.size.height)
-    
+                             rangeMax: otherPhysicsBox.position.y + otherPhysicsBox.size.height)
+        
         // Calculates the distance between the circle's center and this closest point
         let distanceX = physicsCircle.center.x - closestX
         let distanceY = physicsCircle.center.y - closestY

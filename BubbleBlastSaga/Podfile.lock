@@ -1,0 +1,22 @@
+PODS:
+  - PhysicsEngine (0.1.5)
+
+DEPENDENCIES:
+  - PhysicsEngine (from `https://edmundmok@bitbucket.org/cs3217/2017-ps4-a0093960x.git`, tag `0.1.5`)
+
+EXTERNAL SOURCES:
+  PhysicsEngine:
+    :git: https://edmundmok@bitbucket.org/cs3217/2017-ps4-a0093960x.git
+    :tag: 0.1.5
+
+CHECKOUT OPTIONS:
+  PhysicsEngine:
+    :git: https://edmundmok@bitbucket.org/cs3217/2017-ps4-a0093960x.git
+    :tag: 0.1.5
+
+SPEC CHECKSUMS:
+  PhysicsEngine: eee69e6631a99e1086142cd96d653795c1222739
+
+PODFILE CHECKSUM: a89e4e05ca65a3287eb8340b93f15f0722580c91
+
+COCOAPODS: 1.1.1

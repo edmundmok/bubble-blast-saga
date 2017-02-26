@@ -11,7 +11,7 @@ import Foundation
 /**
  The protocol for the collision handler of the physics engine.
  */
-protocol CollisionHandler {
+public protocol CollisionHandler {
     
     func handleCollisionBetween(_ aCircle: PhysicsCircle, and otherCircle: PhysicsCircle)
     

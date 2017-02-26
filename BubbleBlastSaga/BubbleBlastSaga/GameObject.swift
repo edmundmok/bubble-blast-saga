@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import PhysicsEngine
 
 /**
  The GameObject class that will be manipulated by the Game Engine.

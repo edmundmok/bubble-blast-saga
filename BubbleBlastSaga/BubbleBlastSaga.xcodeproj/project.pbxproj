@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		523545675B738724136BBF17 /* Pods_BubbleBlastSagaUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D03B0651027D5070E56427FE /* Pods_BubbleBlastSagaUITests.framework */; };
+		7C8AE1C4AFB664405F49BB0D /* Pods_BubbleBlastSaga.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A7D17E4FB9C9CCB7FB96650 /* Pods_BubbleBlastSaga.framework */; };
 		F12266C71E593182004A3971 /* TrajectoryBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12266C61E593182004A3971 /* TrajectoryBubble.swift */; };
 		F12266C91E594B54004A3971 /* TrajectoryPathLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12266C81E594B54004A3971 /* TrajectoryPathLayer.swift */; };
 		F12266CB1E59927D004A3971 /* BubbleGameAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12266CA1E59927D004A3971 /* BubbleGameAnimator.swift */; };
@@ -48,7 +50,6 @@
 		F1C748F01E559E6D0080A4B2 /* BubbleGameLogic.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748DB1E559E6D0080A4B2 /* BubbleGameLogic.swift */; };
 		F1C748F11E559E6D0080A4B2 /* BubbleGameUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748DC1E559E6D0080A4B2 /* BubbleGameUtility.swift */; };
 		F1C748F21E559E6D0080A4B2 /* CGPoint+Distance.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748DD1E559E6D0080A4B2 /* CGPoint+Distance.swift */; };
-		F1C748F31E559E6D0080A4B2 /* CollisionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748DE1E559E6D0080A4B2 /* CollisionHandler.swift */; };
 		F1C748F41E559E6D0080A4B2 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748DF1E559E6D0080A4B2 /* Constants.swift */; };
 		F1C748F51E559E6D0080A4B2 /* GameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748E01E559E6D0080A4B2 /* GameEngine.swift */; };
 		F1C748F61E559E6D0080A4B2 /* GameObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748E11E559E6D0080A4B2 /* GameObject.swift */; };
@@ -57,10 +58,6 @@
 		F1C748F91E559E6D0080A4B2 /* GameViewControllerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748E41E559E6D0080A4B2 /* GameViewControllerDataSource.swift */; };
 		F1C748FA1E559E6D0080A4B2 /* GameViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748E51E559E6D0080A4B2 /* GameViewControllerDelegate.swift */; };
 		F1C748FB1E559E6D0080A4B2 /* GameWall.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748E61E559E6D0080A4B2 /* GameWall.swift */; };
-		F1C748FC1E559E6D0080A4B2 /* PhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748E71E559E6D0080A4B2 /* PhysicsBody.swift */; };
-		F1C748FD1E559E6D0080A4B2 /* PhysicsBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748E81E559E6D0080A4B2 /* PhysicsBox.swift */; };
-		F1C748FE1E559E6D0080A4B2 /* PhysicsCircle.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748E91E559E6D0080A4B2 /* PhysicsCircle.swift */; };
-		F1C748FF1E559E6D0080A4B2 /* PhysicsEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748EA1E559E6D0080A4B2 /* PhysicsEngine.swift */; };
 		F1C749001E559E6D0080A4B2 /* Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748EB1E559E6D0080A4B2 /* Queue.swift */; };
 		F1C749011E559E6D0080A4B2 /* Renderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748EC1E559E6D0080A4B2 /* Renderer.swift */; };
 		F1F821E01E568EC1006DD5C3 /* CannonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F821DF1E568EC1006DD5C3 /* CannonView.swift */; };
@@ -70,6 +67,7 @@
 		F1F821EE1E58718C006DD5C3 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F821ED1E58718C006DD5C3 /* MainMenuViewController.swift */; };
 		F1F821F01E587590006DD5C3 /* LevelSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F821EF1E587590006DD5C3 /* LevelSelectViewController.swift */; };
 		F1F821F21E587E3C006DD5C3 /* GameBubbleCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F821F11E587E3C006DD5C3 /* GameBubbleCell.swift */; };
+		FD6C175F61C20D76DE70F0D9 /* Pods_BubbleBlastSagaTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2FC91C0D05D1E707E402A7E /* Pods_BubbleBlastSagaTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,6 +88,13 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4A0ED41FC45D7CF583DBFCC6 /* Pods-BubbleBlastSaga.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BubbleBlastSaga.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BubbleBlastSaga/Pods-BubbleBlastSaga.debug.xcconfig"; sourceTree = "<group>"; };
+		602DB7AF383B9D4994F88059 /* Pods-BubbleBlastSagaTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BubbleBlastSagaTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BubbleBlastSagaTests/Pods-BubbleBlastSagaTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6A7D17E4FB9C9CCB7FB96650 /* Pods_BubbleBlastSaga.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BubbleBlastSaga.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		6B4FE7D7BEC8D694ABE80377 /* Pods-BubbleBlastSaga.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BubbleBlastSaga.release.xcconfig"; path = "Pods/Target Support Files/Pods-BubbleBlastSaga/Pods-BubbleBlastSaga.release.xcconfig"; sourceTree = "<group>"; };
+		8BC34BD207E30B4513B9DD09 /* Pods-BubbleBlastSagaUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BubbleBlastSagaUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BubbleBlastSagaUITests/Pods-BubbleBlastSagaUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		D03B0651027D5070E56427FE /* Pods_BubbleBlastSagaUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BubbleBlastSagaUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E026EB7D2CA69ED29E70592C /* Pods-BubbleBlastSagaUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BubbleBlastSagaUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BubbleBlastSagaUITests/Pods-BubbleBlastSagaUITests.release.xcconfig"; sourceTree = "<group>"; };
 		F12266C61E593182004A3971 /* TrajectoryBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrajectoryBubble.swift; sourceTree = "<group>"; };
 		F12266C81E594B54004A3971 /* TrajectoryPathLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrajectoryPathLayer.swift; sourceTree = "<group>"; };
 		F12266CA1E59927D004A3971 /* BubbleGameAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleGameAnimator.swift; sourceTree = "<group>"; };
@@ -137,7 +142,6 @@
 		F1C748DB1E559E6D0080A4B2 /* BubbleGameLogic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleGameLogic.swift; sourceTree = "<group>"; };
 		F1C748DC1E559E6D0080A4B2 /* BubbleGameUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleGameUtility.swift; sourceTree = "<group>"; };
 		F1C748DD1E559E6D0080A4B2 /* CGPoint+Distance.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGPoint+Distance.swift"; sourceTree = "<group>"; };
-		F1C748DE1E559E6D0080A4B2 /* CollisionHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollisionHandler.swift; sourceTree = "<group>"; };
 		F1C748DF1E559E6D0080A4B2 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F1C748E01E559E6D0080A4B2 /* GameEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEngine.swift; sourceTree = "<group>"; };
 		F1C748E11E559E6D0080A4B2 /* GameObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameObject.swift; sourceTree = "<group>"; };
@@ -146,10 +150,6 @@
 		F1C748E41E559E6D0080A4B2 /* GameViewControllerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewControllerDataSource.swift; sourceTree = "<group>"; };
 		F1C748E51E559E6D0080A4B2 /* GameViewControllerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameViewControllerDelegate.swift; sourceTree = "<group>"; };
 		F1C748E61E559E6D0080A4B2 /* GameWall.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameWall.swift; sourceTree = "<group>"; };
-		F1C748E71E559E6D0080A4B2 /* PhysicsBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsBody.swift; sourceTree = "<group>"; };
-		F1C748E81E559E6D0080A4B2 /* PhysicsBox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsBox.swift; sourceTree = "<group>"; };
-		F1C748E91E559E6D0080A4B2 /* PhysicsCircle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsCircle.swift; sourceTree = "<group>"; };
-		F1C748EA1E559E6D0080A4B2 /* PhysicsEngine.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhysicsEngine.swift; sourceTree = "<group>"; };
 		F1C748EB1E559E6D0080A4B2 /* Queue.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Queue.swift; sourceTree = "<group>"; };
 		F1C748EC1E559E6D0080A4B2 /* Renderer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Renderer.swift; sourceTree = "<group>"; };
 		F1F821DF1E568EC1006DD5C3 /* CannonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CannonView.swift; sourceTree = "<group>"; };
@@ -159,6 +159,8 @@
 		F1F821ED1E58718C006DD5C3 /* MainMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
 		F1F821EF1E587590006DD5C3 /* LevelSelectViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelSelectViewController.swift; sourceTree = "<group>"; };
 		F1F821F11E587E3C006DD5C3 /* GameBubbleCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBubbleCell.swift; sourceTree = "<group>"; };
+		F2D599872D2E86622F9DF013 /* Pods-BubbleBlastSagaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BubbleBlastSagaTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BubbleBlastSagaTests/Pods-BubbleBlastSagaTests.release.xcconfig"; sourceTree = "<group>"; };
+		F2FC91C0D05D1E707E402A7E /* Pods_BubbleBlastSagaTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BubbleBlastSagaTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -166,6 +168,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7C8AE1C4AFB664405F49BB0D /* Pods_BubbleBlastSaga.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -173,6 +176,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FD6C175F61C20D76DE70F0D9 /* Pods_BubbleBlastSagaTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -180,12 +184,36 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				523545675B738724136BBF17 /* Pods_BubbleBlastSagaUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9E4801A5F93E8D3E1FE9E830 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				4A0ED41FC45D7CF583DBFCC6 /* Pods-BubbleBlastSaga.debug.xcconfig */,
+				6B4FE7D7BEC8D694ABE80377 /* Pods-BubbleBlastSaga.release.xcconfig */,
+				602DB7AF383B9D4994F88059 /* Pods-BubbleBlastSagaTests.debug.xcconfig */,
+				F2D599872D2E86622F9DF013 /* Pods-BubbleBlastSagaTests.release.xcconfig */,
+				8BC34BD207E30B4513B9DD09 /* Pods-BubbleBlastSagaUITests.debug.xcconfig */,
+				E026EB7D2CA69ED29E70592C /* Pods-BubbleBlastSagaUITests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		ECBA895A4A659B61788E34CF /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6A7D17E4FB9C9CCB7FB96650 /* Pods_BubbleBlastSaga.framework */,
+				F2FC91C0D05D1E707E402A7E /* Pods_BubbleBlastSagaTests.framework */,
+				D03B0651027D5070E56427FE /* Pods_BubbleBlastSagaUITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		F19313CA1E6283A70046E05B /* LevelSelect */ = {
 			isa = PBXGroup;
 			children = (
@@ -203,6 +231,8 @@
 				F1C748861E55954C0080A4B2 /* BubbleBlastSagaTests */,
 				F1C748911E55954C0080A4B2 /* BubbleBlastSagaUITests */,
 				F1C748701E55954C0080A4B2 /* Products */,
+				9E4801A5F93E8D3E1FE9E830 /* Pods */,
+				ECBA895A4A659B61788E34CF /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -219,7 +249,6 @@
 		F1C748711E55954C0080A4B2 /* BubbleBlastSaga */ = {
 			isa = PBXGroup;
 			children = (
-				F1C749061E55A07F0080A4B2 /* PhysicsEngine */,
 				F1C748D71E559E630080A4B2 /* Game */,
 				F1C748D01E5597CC0080A4B2 /* Controllers */,
 				F1C748D31E55981E0080A4B2 /* Models */,
@@ -359,18 +388,6 @@
 			name = Levels;
 			sourceTree = "<group>";
 		};
-		F1C749061E55A07F0080A4B2 /* PhysicsEngine */ = {
-			isa = PBXGroup;
-			children = (
-				F1C748DE1E559E6D0080A4B2 /* CollisionHandler.swift */,
-				F1C748E71E559E6D0080A4B2 /* PhysicsBody.swift */,
-				F1C748E81E559E6D0080A4B2 /* PhysicsBox.swift */,
-				F1C748E91E559E6D0080A4B2 /* PhysicsCircle.swift */,
-				F1C748EA1E559E6D0080A4B2 /* PhysicsEngine.swift */,
-			);
-			name = PhysicsEngine;
-			sourceTree = "<group>";
-		};
 		F1C7490A1E55A0C80080A4B2 /* BubbleGame */ = {
 			isa = PBXGroup;
 			children = (
@@ -388,9 +405,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1C748971E55954C0080A4B2 /* Build configuration list for PBXNativeTarget "BubbleBlastSaga" */;
 			buildPhases = (
+				E515F8088505C527BF02536B /* [CP] Check Pods Manifest.lock */,
 				F1C7486B1E55954C0080A4B2 /* Sources */,
 				F1C7486C1E55954C0080A4B2 /* Frameworks */,
 				F1C7486D1E55954C0080A4B2 /* Resources */,
+				93BAFC21C8F12A2CD23954DE /* [CP] Embed Pods Frameworks */,
+				630DAE6DB170434F0AC16E1B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -405,9 +425,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1C7489A1E55954C0080A4B2 /* Build configuration list for PBXNativeTarget "BubbleBlastSagaTests" */;
 			buildPhases = (
+				DB46E5C29B6570BD88C1C65B /* [CP] Check Pods Manifest.lock */,
 				F1C7487F1E55954C0080A4B2 /* Sources */,
 				F1C748801E55954C0080A4B2 /* Frameworks */,
 				F1C748811E55954C0080A4B2 /* Resources */,
+				6765665CE07C49B610901CB4 /* [CP] Embed Pods Frameworks */,
+				382A1FA20F87330703387B65 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -423,9 +446,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = F1C7489D1E55954C0080A4B2 /* Build configuration list for PBXNativeTarget "BubbleBlastSagaUITests" */;
 			buildPhases = (
+				A1122296C507CFC1822373BF /* [CP] Check Pods Manifest.lock */,
 				F1C7488A1E55954C0080A4B2 /* Sources */,
 				F1C7488B1E55954C0080A4B2 /* Frameworks */,
 				F1C7488C1E55954C0080A4B2 /* Resources */,
+				0C8706D6BE734968FE50043B /* [CP] Embed Pods Frameworks */,
+				C1876E5CB43A2AAA05AB514F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -513,6 +539,144 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		0C8706D6BE734968FE50043B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BubbleBlastSagaUITests/Pods-BubbleBlastSagaUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		382A1FA20F87330703387B65 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BubbleBlastSagaTests/Pods-BubbleBlastSagaTests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		630DAE6DB170434F0AC16E1B /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BubbleBlastSaga/Pods-BubbleBlastSaga-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		6765665CE07C49B610901CB4 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BubbleBlastSagaTests/Pods-BubbleBlastSagaTests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		93BAFC21C8F12A2CD23954DE /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BubbleBlastSaga/Pods-BubbleBlastSaga-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A1122296C507CFC1822373BF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		C1876E5CB43A2AAA05AB514F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BubbleBlastSagaUITests/Pods-BubbleBlastSagaUITests-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DB46E5C29B6570BD88C1C65B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		E515F8088505C527BF02536B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		F1C7486B1E55954C0080A4B2 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -525,7 +689,6 @@
 				F1C748BF1E5596010080A4B2 /* LevelDesignerDataSource.swift in Sources */,
 				F1C748C61E5596010080A4B2 /* PaletteMode.swift in Sources */,
 				F1C748FA1E559E6D0080A4B2 /* GameViewControllerDelegate.swift in Sources */,
-				F1C748FD1E559E6D0080A4B2 /* PhysicsBox.swift in Sources */,
 				F1C748F61E559E6D0080A4B2 /* GameObject.swift in Sources */,
 				F1C748F41E559E6D0080A4B2 /* Constants.swift in Sources */,
 				F1C748BC1E5596010080A4B2 /* BubbleType.swift in Sources */,
@@ -534,8 +697,6 @@
 				F1F821E81E57F738006DD5C3 /* PowerBubble.swift in Sources */,
 				F1F821E01E568EC1006DD5C3 /* CannonView.swift in Sources */,
 				F19313C91E61C1C20046E05B /* LevelSelectPlayLoadButton.swift in Sources */,
-				F1C748FC1E559E6D0080A4B2 /* PhysicsBody.swift in Sources */,
-				F1C748FE1E559E6D0080A4B2 /* PhysicsCircle.swift in Sources */,
 				F19313B11E5EC8C30046E05B /* BubbleGameStats.swift in Sources */,
 				F1C748C81E5596010080A4B2 /* SavedLevelsModelManager.swift in Sources */,
 				F1C748BA1E5596010080A4B2 /* BubbleGridModel.swift in Sources */,
@@ -554,7 +715,6 @@
 				F1C748B71E5596000080A4B2 /* BubbleCell.swift in Sources */,
 				F1C748C91E5596010080A4B2 /* String+Alphanumeric.swift in Sources */,
 				F1C749001E559E6D0080A4B2 /* Queue.swift in Sources */,
-				F1C748F31E559E6D0080A4B2 /* CollisionHandler.swift in Sources */,
 				F19313AF1E5AA6900046E05B /* BubbleGameLogicSimulator.swift in Sources */,
 				F1C748F21E559E6D0080A4B2 /* CGPoint+Distance.swift in Sources */,
 				F1C748EF1E559E6D0080A4B2 /* BubbleGameCollisionHandler.swift in Sources */,
@@ -575,7 +735,6 @@
 				F1C748F81E559E6D0080A4B2 /* GameViewController.swift in Sources */,
 				F19313C71E61BA250046E05B /* LevelSelectDeleteButton.swift in Sources */,
 				F1C748B81E5596010080A4B2 /* BubbleColor.swift in Sources */,
-				F1C748FF1E559E6D0080A4B2 /* PhysicsEngine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -725,7 +884,9 @@
 		};
 		F1C748981E55954C0080A4B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4A0ED41FC45D7CF583DBFCC6 /* Pods-BubbleBlastSaga.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 93J5N959FE;
 				INFOPLIST_FILE = BubbleBlastSaga/Info.plist;
@@ -738,7 +899,9 @@
 		};
 		F1C748991E55954C0080A4B2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6B4FE7D7BEC8D694ABE80377 /* Pods-BubbleBlastSaga.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				DEVELOPMENT_TEAM = 93J5N959FE;
 				INFOPLIST_FILE = BubbleBlastSaga/Info.plist;
@@ -751,6 +914,7 @@
 		};
 		F1C7489B1E55954C0080A4B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 602DB7AF383B9D4994F88059 /* Pods-BubbleBlastSagaTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -766,6 +930,7 @@
 		};
 		F1C7489C1E55954C0080A4B2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F2D599872D2E86622F9DF013 /* Pods-BubbleBlastSagaTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -781,6 +946,7 @@
 		};
 		F1C7489E1E55954C0080A4B2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8BC34BD207E30B4513B9DD09 /* Pods-BubbleBlastSagaUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 93J5N959FE;
@@ -795,6 +961,7 @@
 		};
 		F1C7489F1E55954C0080A4B2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E026EB7D2CA69ED29E70592C /* Pods-BubbleBlastSagaUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = 93J5N959FE;
