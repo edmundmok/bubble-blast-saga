@@ -790,6 +790,11 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1vU-gN-30G" userLabel="Level Info">
+                                                    <rect key="frame" x="0.0" y="271" width="317" height="108"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                                                </view>
                                             </subviews>
                                         </view>
                                         <color key="backgroundColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -859,6 +864,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="Q1b-8V-dJh"/>
-        <segue reference="KmX-tc-qxE"/>
+        <segue reference="eWt-6T-xS8"/>
     </inferredMetricsTieBreakers>
 </document>

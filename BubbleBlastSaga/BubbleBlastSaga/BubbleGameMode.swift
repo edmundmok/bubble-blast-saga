@@ -11,7 +11,4 @@ import Foundation
 enum BubbleGameMode {
     case LimitedShots
     case LimitedTime
-    case SurvivorSolo
-    case SurvivorVersus
-    case Multiplayer
 }

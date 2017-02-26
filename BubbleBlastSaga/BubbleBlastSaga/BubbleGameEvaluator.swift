@@ -33,9 +33,6 @@ class BubbleGameEvaluator {
             self.shotsLeft = Constants.limitedShotsAmmo
         case .LimitedTime:
             self.timeLeft = Constants.limitedTimeQuota
-        case .SurvivorSolo: return
-        case .SurvivorVersus: return
-        case .Multiplayer: return
         }
     }
     
@@ -47,11 +44,7 @@ class BubbleGameEvaluator {
         case .LimitedShots:
             return useBubbleAmmoForLimitedShotsMode()
         case .LimitedTime:
-            fallthrough
-        case .Multiplayer:
             return useBubbleAmmoForTimedMode()
-        default:
-            return true
         }
         
     }
@@ -110,12 +103,6 @@ class BubbleGameEvaluator {
             evaluateGameForLimitedShots()
         case .LimitedTime:
             evaluateGameForLimitedTime()
-        case .SurvivorSolo:
-            return
-        case .SurvivorVersus:
-            return
-        case .Multiplayer:
-            return
         }
     }
     
