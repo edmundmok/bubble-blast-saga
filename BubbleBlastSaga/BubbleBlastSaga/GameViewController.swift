@@ -90,11 +90,20 @@ class GameViewController: UIViewController {
     
     private func setupNotificationObservers() {
         NotificationCenter.default.addObserver(forName: Constants.gameStatsUpdatedNotificationName,
-            object: nil, queue: nil, using: handleGameStatsUpdated)
+            object: nil, queue: nil)  { [weak self] notification in
+            
+            self?.handleGameStatsUpdated(notification: notification)
+        }
         NotificationCenter.default.addObserver(forName: Constants.gameWonNotificationName,
-            object: nil, queue: nil, using: handleGameWon)
+            object: nil, queue: nil) { [weak self] notification in
+            
+            self?.handleGameWon(notification: notification)
+        }
         NotificationCenter.default.addObserver(forName: Constants.gameLostNotificationName,
-            object: nil, queue: nil, using: handleGameLost)
+            object: nil, queue: nil) { [weak self] notification in
+           
+            self?.handleGameLost(notification: notification)
+        }
     }
     
     private func configureGameUI() {
