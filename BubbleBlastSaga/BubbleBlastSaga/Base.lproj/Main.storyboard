@@ -30,7 +30,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <subviews>
                                     <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="0jJ-SO-5Mo" userLabel="Bubble Grid">
-                                        <rect key="frame" x="0.0" y="0.0" width="768" height="861"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="860"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <gestureRecognizers/>
                                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="Jhz-Dd-VkK">
@@ -66,10 +66,10 @@
                                         </connections>
                                     </collectionView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="clp-WR-blE">
-                                        <rect key="frame" x="0.0" y="861" width="768" height="163"/>
+                                        <rect key="frame" x="0.0" y="860" width="768" height="164"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="qeh-iU-MBZ">
-                                                <rect key="frame" x="17" y="16" width="592" height="74"/>
+                                                <rect key="frame" x="16" y="16" width="590" height="74"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E6X-ud-AKf" userLabel="Blue Bubble" customClass="PaletteBubble" customModule="BubbleBlastSaga" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="74" height="74"/>
@@ -102,7 +102,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TqX-to-d0r" userLabel="Green Bubble" customClass="PaletteBubble" customModule="BubbleBlastSaga" customModuleProvider="target">
-                                                        <rect key="frame" x="222" y="0.0" width="74" height="74"/>
+                                                        <rect key="frame" x="222" y="0.0" width="73" height="74"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="TqX-to-d0r" secondAttribute="height" multiplier="1:1" id="JXx-Vv-Xbw"/>
                                                         </constraints>
@@ -112,7 +112,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dxS-42-ehQ" userLabel="Indestructible Bubble" customClass="PaletteBubble" customModule="BubbleBlastSaga" customModuleProvider="target">
-                                                        <rect key="frame" x="296" y="0.0" width="74" height="74"/>
+                                                        <rect key="frame" x="295" y="0.0" width="74" height="74"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="dxS-42-ehQ" secondAttribute="height" multiplier="1:1" id="0dc-61-7SR"/>
                                                         </constraints>
@@ -122,7 +122,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tnV-9x-SVX" userLabel="Lightning Bubble" customClass="PaletteBubble" customModule="BubbleBlastSaga" customModuleProvider="target">
-                                                        <rect key="frame" x="370" y="0.0" width="74" height="74"/>
+                                                        <rect key="frame" x="369" y="0.0" width="74" height="74"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="tnV-9x-SVX" secondAttribute="height" multiplier="1:1" id="JZx-pu-1er"/>
                                                         </constraints>
@@ -132,7 +132,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kaF-3M-P65" userLabel="Bomb Bubble" customClass="PaletteBubble" customModule="BubbleBlastSaga" customModuleProvider="target">
-                                                        <rect key="frame" x="444" y="0.0" width="74" height="74"/>
+                                                        <rect key="frame" x="443" y="0.0" width="73" height="74"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="kaF-3M-P65" secondAttribute="height" multiplier="1:1" id="PCF-Kw-s80"/>
                                                         </constraints>
@@ -142,7 +142,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hs2-eh-xwO" userLabel="Star Bubble" customClass="PaletteBubble" customModule="BubbleBlastSaga" customModuleProvider="target">
-                                                        <rect key="frame" x="518" y="0.0" width="74" height="74"/>
+                                                        <rect key="frame" x="516" y="0.0" width="74" height="74"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="hs2-eh-xwO" secondAttribute="height" multiplier="1:1" id="Y17-DT-rhk"/>
                                                         </constraints>
@@ -170,19 +170,19 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jni-iS-HX0" userLabel="Left Palette Placeholder">
-                                                <rect key="frame" x="0.0" y="0.0" width="17" height="163"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="16" height="164"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wRo-jh-CFo" userLabel="Right Palette Placeholder">
-                                                <rect key="frame" x="752" y="0.0" width="16" height="163"/>
+                                                <rect key="frame" x="753" y="0.0" width="15" height="164"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sEh-1h-WeV" userLabel="Bottom Palette Placeholder">
-                                                <rect key="frame" x="0.0" y="146.5" width="768" height="16.5"/>
+                                                <rect key="frame" x="0.0" y="147" width="768" height="17"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lqc-LS-GOD" userLabel="Erase Bubble" customClass="PaletteBubble" customModule="BubbleBlastSaga" customModuleProvider="target">
-                                                <rect key="frame" x="686" y="16" width="66" height="66"/>
+                                                <rect key="frame" x="687" y="16" width="66" height="66"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="lqc-LS-GOD" secondAttribute="height" multiplier="1:1" id="V9f-BI-Bpv"/>
                                                 </constraints>
@@ -192,10 +192,10 @@
                                                 </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="aIc-Ne-jAG">
-                                                <rect key="frame" x="17" y="88.5" width="735" height="58"/>
+                                                <rect key="frame" x="16" y="89" width="737" height="58"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="209-KO-JyU" userLabel="Back Button">
-                                                        <rect key="frame" x="0.0" y="0.0" width="147" height="58"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="148" height="58"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                         <state key="normal" title="BACK">
                                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -205,7 +205,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="K9b-A4-Xf7">
-                                                        <rect key="frame" x="147" y="0.0" width="147" height="58"/>
+                                                        <rect key="frame" x="148" y="0.0" width="147" height="58"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                         <state key="normal" title="RESET">
                                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -215,7 +215,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3qI-sz-XRH">
-                                                        <rect key="frame" x="294" y="0.0" width="147" height="58"/>
+                                                        <rect key="frame" x="295" y="0.0" width="147" height="58"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                         <state key="normal" title="START">
                                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -226,7 +226,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d0j-zK-Xvw">
-                                                        <rect key="frame" x="441" y="0.0" width="147" height="58"/>
+                                                        <rect key="frame" x="442" y="0.0" width="147" height="58"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                         <state key="normal" title="SAVE">
                                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -236,7 +236,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IpT-YF-Xnt">
-                                                        <rect key="frame" x="588" y="0.0" width="147" height="58"/>
+                                                        <rect key="frame" x="589" y="0.0" width="148" height="58"/>
                                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                                         <state key="normal" title="LOAD">
                                                             <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -377,7 +377,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zkk-23-k7Q">
-                                <rect key="frame" x="345" y="482.5" width="79" height="60"/>
+                                <rect key="frame" x="345" y="482" width="79" height="60"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="40"/>
                                 <state key="normal" title="Play">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -387,7 +387,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ec2-r3-sGL">
-                                <rect key="frame" x="320" y="550.5" width="129" height="60"/>
+                                <rect key="frame" x="320" y="550" width="129" height="60"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="40"/>
                                 <state key="normal" title="Design">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -397,7 +397,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Bubble Blast Saga" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MAQ-bs-dqi">
-                                <rect key="frame" x="79" y="390.5" width="610" height="84"/>
+                                <rect key="frame" x="79" y="390" width="610" height="84"/>
                                 <fontDescription key="fontDescription" type="system" weight="heavy" pointSize="70"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -452,7 +452,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="FTY-c7-3he">
                                 <rect key="frame" x="0.0" y="679" width="768" height="173"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="100"/>
+                                <fontDescription key="fontDescription" type="system" weight="thin" pointSize="100"/>
                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -537,13 +537,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lOC-Xn-23y" userLabel="Game View">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wJ5-O3-hkW" userLabel="Combo Label">
-                                        <rect key="frame" x="450" y="830" width="233" height="100"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="60"/>
-                                        <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v0J-tn-WL7" userLabel="Game Area">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                                         <subviews>
@@ -556,19 +549,10 @@
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rqq-Xj-CLf" userLabel="Trajectory Path">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
-                                        <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Resources" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ih3-hY-68J">
-                                                <rect key="frame" x="141" y="922" width="163" height="96"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
-                                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aUg-ih-ZZh" userLabel="Cannon" customClass="CannonView" customModule="BubbleBlastSaga" customModuleProvider="target">
-                                        <rect key="frame" x="334" y="871" width="100" height="153"/>
+                                        <rect key="frame" x="333.5" y="870" width="101" height="154"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="aUg-ih-ZZh" secondAttribute="height" multiplier="80:122" id="QJH-Q8-hG3"/>
                                         </constraints>
@@ -637,7 +621,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="g9g-xX-Nij">
-                                <rect key="frame" x="646" y="883" width="122" height="71"/>
+                                <rect key="frame" x="526" y="950" width="122" height="71"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                 <state key="normal" title="Hint">
@@ -645,17 +629,6 @@
                                 </state>
                                 <connections>
                                     <action selector="getHint:" destination="39J-a7-Akb" eventType="touchUpInside" id="Ufy-OS-s6m"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Fc-ch-kcl" userLabel="Fire Hint">
-                                <rect key="frame" x="526" y="950" width="122" height="71"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
-                                <state key="normal" title="Fire">
-                                    <color key="titleColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="tempFire:" destination="39J-a7-Akb" eventType="touchUpInside" id="hac-Tg-s6S"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -680,7 +653,6 @@
                         <outlet property="bubbleGrid" destination="ViU-zX-Cx2" id="wJy-oh-ZrI"/>
                         <outlet property="cannon" destination="aUg-ih-ZZh" id="YKW-hN-QQh"/>
                         <outlet property="cannonBase" destination="AFR-vG-OMV" id="7Ew-xz-MUe"/>
-                        <outlet property="comboLabel" destination="wJ5-O3-hkW" id="Jgs-tu-xSO"/>
                         <outlet property="currentBubbleView" destination="vcg-aJ-YFr" id="95z-MO-IFx"/>
                         <outlet property="endAccuracyPlaceholder" destination="5fi-VH-h4L" id="EuO-Kj-VQp"/>
                         <outlet property="endBackPlaceholder" destination="JEc-b0-MWs" id="gBG-yV-hp2"/>
@@ -691,7 +663,6 @@
                         <outlet property="endLuckyColorPlaceholder" destination="fRY-ad-ZyV" id="kr0-Vl-JKn"/>
                         <outlet property="endRetryPlaceholder" destination="ydN-n7-KkK" id="N6T-k8-9Gc"/>
                         <outlet property="endScorePlaceholder" destination="gHD-AE-bBO" id="hLw-Q7-e4b"/>
-                        <outlet property="fireHintButton" destination="5Fc-ch-kcl" id="ZHR-C8-ZtQ"/>
                         <outlet property="gameArea" destination="v0J-tn-WL7" id="Mvm-ju-BLb"/>
                         <outlet property="gameOutcome" destination="Ytl-wb-ILI" id="niK-mR-TYO"/>
                         <outlet property="gameView" destination="lOC-Xn-23y" id="gcp-NT-5MX"/>
@@ -708,6 +679,9 @@
                         <outletCollection property="endGameStats" destination="5vT-pW-IiG" collectionClass="NSMutableArray" id="iwi-3E-djD"/>
                         <outletCollection property="endGameStats" destination="W3d-KA-wzl" collectionClass="NSMutableArray" id="Pv5-zS-MOH"/>
                         <outletCollection property="endGameStats" destination="5fi-VH-h4L" collectionClass="NSMutableArray" id="Ih7-3h-rYf"/>
+                        <outletCollection property="gameMenuButtons" destination="g9g-xX-Nij" collectionClass="NSMutableArray" id="QZT-7h-hm8"/>
+                        <outletCollection property="gameMenuButtons" destination="cVY-A1-Wtg" collectionClass="NSMutableArray" id="TDK-9U-UBI"/>
+                        <outletCollection property="gameMenuButtons" destination="7w8-zc-d8f" collectionClass="NSMutableArray" id="lLA-AW-ecw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Smo-gG-cYy" sceneMemberID="firstResponder"/>

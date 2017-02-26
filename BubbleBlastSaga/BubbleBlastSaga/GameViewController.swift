@@ -24,7 +24,6 @@ class GameViewController: UIViewController {
     @IBOutlet weak var nextBubbleView: UIImageView!
     @IBOutlet weak var trajectoryPathView: UIView!
     @IBOutlet weak var scoreLabel: UILabel!
-    @IBOutlet weak var comboLabel: UILabel!
     
     private var trajectoryPathLayer = TrajectoryPathLayer()
     
@@ -90,19 +89,19 @@ class GameViewController: UIViewController {
     
     private func setupNotificationObservers() {
         NotificationCenter.default.addObserver(forName: Constants.gameStatsUpdatedNotificationName,
-            object: nil, queue: nil)  { [weak self] notification in
+            object: nil, queue: nil)  { [weak self] _ in
             
-            self?.handleGameStatsUpdated(notification: notification)
+            self?.handleGameStatsUpdated()
         }
         NotificationCenter.default.addObserver(forName: Constants.gameWonNotificationName,
-            object: nil, queue: nil) { [weak self] notification in
+            object: nil, queue: nil) { [weak self] _ in
             
-            self?.handleGameWon(notification: notification)
+            self?.handleGameWon()
         }
         NotificationCenter.default.addObserver(forName: Constants.gameLostNotificationName,
-            object: nil, queue: nil) { [weak self] notification in
+            object: nil, queue: nil) { [weak self] _ in
            
-            self?.handleGameLost(notification: notification)
+            self?.handleGameLost()
         }
     }
     
@@ -111,18 +110,12 @@ class GameViewController: UIViewController {
         cannon.layer.anchorPoint = CGPoint(x: Constants.cannonAnchorX, y: Constants.cannonAnchorY)
         
         // border around buttons
-        backButton.layer.borderWidth = 3
-        fireHintButton.layer.borderWidth = 3
-        retryButton.layer.borderWidth = 3
-        hintButton.layer.borderWidth = 3
-
-        backButton.layer.borderColor = backButton.titleLabel?.textColor.cgColor
-        fireHintButton.layer.borderColor = fireHintButton.titleLabel?.textColor.cgColor
-        retryButton.layer.borderColor = retryButton.titleLabel?.textColor.cgColor
-        hintButton.layer.borderColor = retryButton.titleLabel?.textColor.cgColor
+        gameMenuButtons.forEach {
+            $0.layer.borderWidth = Constants.gameMenuButtonsBorderWidth
+            $0.layer.borderColor = $0.titleLabel?.textColor.cgColor
+        }
         
-        // Hide combo and streak labels
-        comboLabel.alpha = Constants.hiddenAlpha
+        // Hide end screen info
         gameOutcome.alpha = Constants.hiddenAlpha
         endGameStats.forEach { $0.alpha = Constants.hiddenAlpha }
         
@@ -249,32 +242,32 @@ class GameViewController: UIViewController {
         
         // Animate transition from next cannon bubble to current cannon bubble
         // First, create a replica of the current and move it just out of the hole
-        let fakeCurrentBubbleView = generateAnimatableCurrentBubble()
-        let fakeNextBubbleView = generateAnimatableNextBubble()
+        let animatableCurrentBubbleView = generateAnimatableCurrentBubble()
+        let animatableNextBubbleView = generateAnimatableNextBubble()
         
         // Add the generated view before remove current bubble
-        gameArea.addSubview(fakeCurrentBubbleView)
+        gameArea.addSubview(animatableCurrentBubbleView)
         currentBubbleView.image = nil
         
         // Move the fake current bubble up a little
         UIView.animate(withDuration: Constants.currentBubbleMoveUpDuration, animations: {
-            fakeCurrentBubbleView.frame.offsetBy(dx: Constants.currentBubbleXOffset,
-                dy: Constants.currentBubbleYOffsetMultiplier * fakeCurrentBubbleView.frame.size.height)
+            animatableCurrentBubbleView.frame.offsetBy(dx: Constants.currentBubbleXOffset,
+                dy: Constants.currentBubbleYOffsetMultiplier * animatableCurrentBubbleView.frame.size.height)
         }) { _ in
             // Remove the fake current bubble once out of sight
-            fakeCurrentBubbleView.removeFromSuperview()
+            animatableCurrentBubbleView.removeFromSuperview()
             
             // Move the next bubble to the cannon for "reloading"
-            self.gameArea.addSubview(fakeNextBubbleView)
+            self.gameArea.addSubview(animatableNextBubbleView)
             self.nextBubbleView.image = nil
             
             UIView.animate(withDuration: Constants.reloadDuration, animations: {
-                fakeNextBubbleView.center = self.currentBubbleView.center
+                animatableNextBubbleView.center = self.currentBubbleView.center
             }) { _ in
                 
                 // Display the "current" and remove the fake current bubble
                 self.updateCurrentCannonBubbleImage()
-                fakeNextBubbleView.removeFromSuperview()
+                animatableNextBubbleView.removeFromSuperview()
                 
                 // Fade in the new next bubble
                 self.updateNextCannonBubbleImage()
@@ -316,31 +309,12 @@ class GameViewController: UIViewController {
         }
     }
     
-    @IBAction func tempFire(_ sender: UIButton) {
-        fireCannon()
-    }
-    
-    func handleGameStatsUpdated(notification: Notification) {
+    private func handleGameStatsUpdated() {
         // update stats to show on screen
-        let currentCombo = bubbleGame.bubbleGameStats.currentCombo
         scoreLabel.text = String(Int(bubbleGame.bubbleGameStats.currentScore))
-        comboLabel.text = Constants.comboPrefix + String(currentCombo)
-            + Constants.comboPostfix
-        
-        guard currentCombo > Constants.minimumCombo else {
-            return
-        }
-        
-        UIView.animate(withDuration: Constants.comboEnterDuration, animations: {
-            self.comboLabel.alpha = Constants.shownAlpha
-        }, completion: { _ in
-            UIView.animate(withDuration: Constants.comboExitDuration, animations: {
-                self.comboLabel.alpha = Constants.hiddenAlpha
-            })
-        })
     }
     
-    func handleGameWon(notification: Notification) {
+    private func handleGameWon() {
         // pause the game
         bubbleGame.pauseGame()
         
@@ -348,7 +322,7 @@ class GameViewController: UIViewController {
         renderEndScreen(outcome: .Win)
     }
     
-    func handleGameLost(notification: Notification) {
+    private func handleGameLost() {
         // pause the game
         bubbleGame.pauseGame()
 
@@ -382,8 +356,8 @@ class GameViewController: UIViewController {
     
     private func hideEndScreen() {
         // disable buttons while animating
-        self.retryButton.isEnabled = false
-        self.backButton.isEnabled = false
+        retryButton.isEnabled = false
+        backButton.isEnabled = false
         
         UIView.animate(withDuration: Constants.hideGameStatsDuration, animations: {
             // hide the end game stats
@@ -412,7 +386,6 @@ class GameViewController: UIViewController {
                     self.scoreLabel.text = Constants.initialScoreString
                     self.gameView.alpha = Constants.shownAlpha
                     self.hintButton.alpha = Constants.shownAlpha
-                    self.fireHintButton.alpha = Constants.shownAlpha
                     self.swapButton.alpha = Constants.shownAlpha
                     
                     self.retryButton.isEnabled = true
@@ -425,10 +398,10 @@ class GameViewController: UIViewController {
     
     @IBOutlet weak var gameView: UIView!
     @IBOutlet weak var hintButton: UIButton!
-    @IBOutlet weak var fireHintButton: UIButton!
     @IBOutlet weak var retryButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
     @IBOutlet weak var swapButton: UIButton!
+    @IBOutlet var gameMenuButtons: [UIButton]!
     
     @IBOutlet weak var gameOutcome: UILabel!
     @IBOutlet weak var endGameDetailsPlaceholder: UIView!
@@ -480,7 +453,6 @@ class GameViewController: UIViewController {
         UIView.animate(withDuration: Constants.hideUIDuration, animations: {
             self.gameView.alpha = Constants.hiddenAlpha
             self.hintButton.alpha = Constants.hiddenAlpha
-            self.fireHintButton.alpha = Constants.hiddenAlpha
             self.swapButton.alpha = Constants.hiddenAlpha
         }) { _ in
             
@@ -521,32 +493,32 @@ class GameViewController: UIViewController {
         // animate transition from next cannon bubble to current cannon bubble
         
         // create a replica of the current and move it just out of the hole
-        let fakeCurrentBubbleView = generateAnimatableCurrentBubble()
+        let animatableCurrentBubbleView = generateAnimatableCurrentBubble()
         
-        let fakeNextBubbleView = generateAnimatableNextBubble()
+        let animatableNextBubbleView = generateAnimatableNextBubble()
         
         // adjust current bubble size to fit next bubble size
         // since it is a little smaller to fit in the cannon usually
-        fakeCurrentBubbleView.frame.size = fakeNextBubbleView.frame.size
+        animatableCurrentBubbleView.frame.size = animatableNextBubbleView.frame.size
         
         // remove current bubble
-        gameArea.addSubview(fakeCurrentBubbleView)
+        gameArea.addSubview(animatableCurrentBubbleView)
         currentBubbleView.image = nil
         
         // remove next
-        gameArea.addSubview(fakeNextBubbleView)
+        gameArea.addSubview(animatableNextBubbleView)
         nextBubbleView.image = nil
         
         // swap the images
         UIView.animate(withDuration: Constants.swapDuration, animations: {
-            fakeCurrentBubbleView.center = self.nextBubbleView.center
-            fakeNextBubbleView.center = self.currentBubbleView.center
+            animatableCurrentBubbleView.center = self.nextBubbleView.center
+            animatableNextBubbleView.center = self.currentBubbleView.center
         }) { _ in
             self.updateCurrentCannonBubbleImage()
             self.updateNextCannonBubbleImage()
             
-            fakeCurrentBubbleView.removeFromSuperview()
-            fakeNextBubbleView.removeFromSuperview()
+            animatableCurrentBubbleView.removeFromSuperview()
+            animatableNextBubbleView.removeFromSuperview()
             
             self.canSwap = true
             

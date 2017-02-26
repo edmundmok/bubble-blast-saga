@@ -105,11 +105,6 @@ struct Constants {
     static let currentBubbleXOffset = CGFloat(0)
     static let currentBubbleYOffsetMultiplier = CGFloat(-1)
     static let reloadDuration = 0.5
-    static let comboPrefix = "x"
-    static let comboPostfix = "!"
-    static let minimumCombo = 0
-    static let comboEnterDuration = 0.2
-    static let comboExitDuration = 0.8
     static let hideGameStatsDuration = 1.0
     static let moveUIBackDuration = 1.0
     static let redisplayUIDuration = 1.5
@@ -128,6 +123,7 @@ struct Constants {
     static let moveUIDuration = 1.0
     static let showGameStatsDuration = 1.0
     static let swapDuration = 0.5
+    static let gameMenuButtonsBorderWidth = CGFloat(3)
     
     // TrajectoryPathLayer
     static let lineWidthMultiplier = CGFloat(0.005)
