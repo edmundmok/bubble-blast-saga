@@ -101,6 +101,17 @@ class GameViewController: UIViewController {
         // Change cannon anchor point to the hole area
         cannon.layer.anchorPoint = CGPoint(x: Constants.cannonAnchorX, y: Constants.cannonAnchorY)
         
+        // border around buttons
+        backButton.layer.borderWidth = 3
+        fireHintButton.layer.borderWidth = 3
+        retryButton.layer.borderWidth = 3
+        hintButton.layer.borderWidth = 3
+
+        backButton.layer.borderColor = backButton.titleLabel?.textColor.cgColor
+        fireHintButton.layer.borderColor = fireHintButton.titleLabel?.textColor.cgColor
+        retryButton.layer.borderColor = retryButton.titleLabel?.textColor.cgColor
+        hintButton.layer.borderColor = retryButton.titleLabel?.textColor.cgColor
+        
         // Hide combo and streak labels
         comboLabel.alpha = Constants.hiddenAlpha
         gameOutcome.alpha = Constants.hiddenAlpha
@@ -114,6 +125,9 @@ class GameViewController: UIViewController {
         // Setup the image for the current cannon bubble
         updateCurrentCannonBubbleImage()
         updateNextCannonBubbleImage()
+        
+        // adjust the swap button onto the next bubble view
+        swapButton.center = nextBubbleView.center
         
         // Trajectory path (aiming guide)
         trajectoryPathView.layer.addSublayer(trajectoryPathLayer)
@@ -501,6 +515,10 @@ class GameViewController: UIViewController {
         let fakeCurrentBubbleView = generateAnimatableCurrentBubble()
         
         let fakeNextBubbleView = generateAnimatableNextBubble()
+        
+        // adjust current bubble size to fit next bubble size
+        // since it is a little smaller to fit in the cannon usually
+        fakeCurrentBubbleView.frame.size = fakeNextBubbleView.frame.size
         
         // remove current bubble
         gameArea.addSubview(fakeCurrentBubbleView)
