@@ -420,4 +420,8 @@ Please save your diagram as `class-diagram.png` in the root directory of the rep
 
 ### Problem 10: Final Reflection
 
-Your answer here
+My original design for the MVC architecture was quite good as the model, view and controllers were clearly separated into distinct groups, so they were all very cohesive and had little coupling among each other. The communication between them is also ideal, following the MVC's recommended pattern.
+
+My original game engine design was not very good as I did not really understand what the best way of implementing the game engine was, unlike the previous one where we were just supposed to follow MVC architecture. 
+
+In order to improve the design of 
