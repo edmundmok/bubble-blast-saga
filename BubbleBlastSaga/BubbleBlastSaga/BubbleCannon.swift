@@ -79,6 +79,7 @@ class BubbleCannon {
     }
     
     // Returns a colored bubble of the most common color in the grid.
+    // If there is not colored bubble in the grid, returns a random colored bubble.
     private func getMostCommonColoredBubble() -> GameBubble {
         let indexPaths = bubbleGridModel.getIndexPathOfBubblesInGrid()
         
@@ -116,6 +117,12 @@ class BubbleCannon {
                 maxColor = color
             }
             
+        }
+        
+        // If the max frequency is still -1, means all are special bubbles.
+        // Return a random bubble
+        guard maxFrequency != -1 else {
+            return getRandomBubble()
         }
         
         return ColoredBubble(color: maxColor)

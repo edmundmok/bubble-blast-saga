@@ -42,7 +42,7 @@ class BubbleGameLogic {
         bubbleGameStats.updateStatsWithFailedShot()
         
         // Post a notification so that interested parties (e.g. game vc) update
-        NotificationCenter.default.post(name: .init("GameStatsUpdated"), object: nil)
+        NotificationCenter.default.post(name: Constants.gameStatsUpdatedNotificationName, object: nil)
         
         // Inform evaluator that flying bubble has landed
         bubbleGameEvaluator.updateFlyingBubbleLanded()
@@ -191,6 +191,12 @@ class BubbleGameLogic {
                     return
                 }
                 
+                // cannot remove an indestructible bubble
+                guard let powerType = (gameBubble as? PowerBubble)?.power,
+                    powerType != .Indestructible else {
+                        return
+                }
+                
                 removeFromGame(gameBubble: gameBubble, at: $0)
             }
     }
@@ -239,6 +245,12 @@ class BubbleGameLogic {
             .forEach {
                 // check if there is actually a game bubble there
                 guard let gameBubble = bubbleGridModel.getGameBubble(at: $0) else {
+                    return
+                }
+                
+                // cannot remove an indestructible bubble
+                guard let powerType = (gameBubble as? PowerBubble)?.power,
+                    powerType != .Indestructible else {
                     return
                 }
                 
