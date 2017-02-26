@@ -15,9 +15,9 @@ class BubbleGameEvaluator {
     let gameMode: BubbleGameMode
     var timer = Timer()
     private(set) var timeLeft: Int?
-    private var timerStarted = false
+    private(set) var timerStarted = false
     private(set) var shotsLeft: Int?
-    private(set) var flyingBubbles = 0
+    private(set) var flyingBubblesCount = Constants.initialFlyingBubblesCount
     
     // Mode independent
     private let bubbleGrid: UICollectionView
@@ -30,9 +30,9 @@ class BubbleGameEvaluator {
         
         switch gameMode {
         case .LimitedShots:
-            self.shotsLeft = 20
+            self.shotsLeft = Constants.limitedShotsAmmo
         case .LimitedTime:
-            self.timeLeft = 5
+            self.timeLeft = Constants.limitedTimeQuota
         case .SurvivorSolo: return
         case .SurvivorVersus: return
         case .Multiplayer: return
@@ -45,45 +45,61 @@ class BubbleGameEvaluator {
         
         switch gameMode {
         case .LimitedShots:
-            guard let remainingAmmo = shotsLeft else {
-                return true
-            }
-            
-            guard remainingAmmo > 0 else {
-                return false
-            }
-            
-            shotsLeft = remainingAmmo - 1
-            flyingBubbles += 1
-            return true
-            
+            return useBubbleAmmoForLimitedShotsMode()
         case .LimitedTime:
             fallthrough
         case .Multiplayer:
-            // start time on the first shot
-            if !timerStarted {
-                timerStarted = true
-                self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(timerHandle), userInfo: nil, repeats: true)
-            }
-            
-            guard let remainingTime = timeLeft else {
-                return true
-            }
-            
-            guard remainingTime > 0 else {
-                return false
-            }
-            
-            flyingBubbles += 1
-            return true
+            return useBubbleAmmoForTimedMode()
         default:
             return true
         }
         
     }
     
+    private func useBubbleAmmoForLimitedShotsMode() -> Bool {
+        guard let remainingAmmo = shotsLeft else {
+            return true
+        }
+        
+        // Check if still have remaining shots to fire
+        guard remainingAmmo > 0 else {
+            // Used up all shots, cannot fire anymore
+            return false
+        }
+        
+        // Use up one ammo, and increase flying bubbles count
+        // due to the bubble being shot
+        shotsLeft = remainingAmmo - 1
+        flyingBubblesCount += 1
+        return true
+    }
+    
+    private func useBubbleAmmoForTimedMode() -> Bool {
+        // Start timer on the first shot
+        if !timerStarted {
+            timerStarted = true
+            self.timer = Timer.scheduledTimer(timeInterval: 1.0, target: self,
+                selector: #selector(timerHandle), userInfo: nil, repeats: true)
+        }
+        
+        guard let remainingTime = timeLeft else {
+            return true
+        }
+        
+        // Check if there is still remaining time
+        guard remainingTime > 0 else {
+            // Times up, not allowed to fire anymore
+            return false
+        }
+        
+        // Increase flying bubbles count due to bubble being shot
+        flyingBubblesCount += 1
+        return true
+    }
+    
+    // Updates the evaluator that a bubble that was flying has landed.
     func updateFlyingBubbleLanded() {
-        flyingBubbles -= 1
+        flyingBubblesCount -= 1
     }
     
     // Evaluates the current state of the game
@@ -107,83 +123,82 @@ class BubbleGameEvaluator {
     private func evaluateGameForLimitedShots() {
         // First check if bubble in last section, if yes, auto lose.
         guard !hasBubblesInLastSection() else {
-            // lose the game
-            NotificationCenter.default.post(name: .init("GameLost"), object: nil)
-            return
-        }
-
-        // Then check based on ammo.
-        // If no ammo left, check if bubbles still exist
-        // If yes, then game is lost. Otherwise, game is won.
-        guard flyingBubbles == 0 else {
-            // some ammo left, just return
+            NotificationCenter.default.post(name: Constants.gameLostNotificationName, object: nil)
             return
         }
         
-        // no ammo left
+        // Don't evaluate if there are still bubbles flying
+        guard flyingBubblesCount == 0 else {
+            return
+        }
+        
+        // Check number of bubbles remaining in the grid
         let remainingCount = bubbleGridModel.getIndexPathOfBubblesInGrid().count
         
         guard remainingCount > 0 else {
             // Remaining count == 0 (game won!)
-            NotificationCenter.default.post(name: .init("GameWon"), object: nil)
+            NotificationCenter.default.post(name: Constants.gameWonNotificationName, object: nil)
             return
         }
         
-        // Remaining count > 0 (game lost if ammo gone!)
+        // If grid still not empty:
+        // Then check based on ammo.
+        
+        // game lost if ammo gone!
         guard let remainingAmmo = shotsLeft, remainingAmmo == 0 else {
+            // still has ammo, cannot determine outcome of game yet.
             return
         }
         
-        NotificationCenter.default.post(name: .init("GameLost"), object: nil)
+        // no ammo left, player lost!
+        NotificationCenter.default.post(name: Constants.gameLostNotificationName, object: nil)
     }
     
     // Evaluates the current state of the game based on limited time mode
     private func evaluateGameForLimitedTime() {
+        
         // First check if bubble in last section, if yes, auto lose.
         guard !hasBubblesInLastSection() else {
-            // lose the game
             timer.invalidate()
-            NotificationCenter.default.post(name: .init("GameLost"), object: nil)
+            // Lose the game
+            NotificationCenter.default.post(name: Constants.gameLostNotificationName, object: nil)
             return
         }
         
-        guard flyingBubbles == 0 else {
+        // Don't evaluate if there are still bubbles flying
+        guard flyingBubblesCount == 0 else {
             return
         }
         
-        // no ammo left
+        // Check number of bubbles remaining in the grid
         let remainingCount = bubbleGridModel.getIndexPathOfBubblesInGrid().count
         
         guard remainingCount > 0 else {
             // Remaining count == 0 (game won!)
             timer.invalidate()
-            NotificationCenter.default.post(name: .init("GameWon"), object: nil)
+            NotificationCenter.default.post(name: Constants.gameWonNotificationName, object: nil)
             return
         }
         
         // Remaining count > 0 (game lost if times up!)
         guard let remainingTime = timeLeft, remainingTime == 0 else {
+            // time not up yet, cannot determine game outcome yet
             return
         }
         
+        // no time left, player lost!
         timer.invalidate()
-        NotificationCenter.default.post(name: .init("GameLost"), object: nil)
+        NotificationCenter.default.post(name: Constants.gameLostNotificationName, object: nil)
     }
     
     private func hasBubblesInLastSection() -> Bool {
         let lastSectionIndexPaths = BubbleGameUtility.getIndexPathsForBottomSection(of: bubbleGridModel)
         
-        for indexPath in lastSectionIndexPaths {
-            // check if thre exists a bubble inside
-            
-            guard let _ = bubbleGridModel.getGameBubble(at: indexPath) else {
-                continue
-            }
-            
-            return true
-        }
+        let bubblesInLastSectionCount = lastSectionIndexPaths
+            .filter { bubbleGridModel.getGameBubble(at: $0) != nil}
+            .count
         
-        return false
+        return bubblesInLastSectionCount > 0
     }
     
     @objc private func timerHandle() {

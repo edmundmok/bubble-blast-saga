@@ -10,6 +10,17 @@ import UIKit
 import Foundation
 
 struct Constants {
+    
+    // Notifications
+    static let gameStatsUpdatedNotificationName = Notification.Name.init("GameStatsUpdated")
+    static let gameWonNotificationName = Notification.Name.init("GameWon")
+    static let gameLostNotificationName = Notification.Name.init("GameLost")
+    
+    // BubbleGameEvaluator
+    static let limitedShotsAmmo = 20
+    static let limitedTimeQuota = 20
+    static let initialFlyingBubblesCount = 0
+    
     // BubbleGrid
     static let bubblesKey = "bubbles"
     static let numSectionsKey = "numSections"
