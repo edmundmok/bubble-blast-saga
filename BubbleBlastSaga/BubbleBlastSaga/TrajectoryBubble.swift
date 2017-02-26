@@ -8,6 +8,8 @@
 
 import Foundation
 
+// Just a class for trajectory bubble to trace
+// the trajectory path.
 class TrajectoryBubble: GameBubble {
     
 }

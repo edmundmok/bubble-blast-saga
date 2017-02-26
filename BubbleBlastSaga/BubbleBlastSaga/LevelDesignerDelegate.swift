@@ -26,7 +26,10 @@ class LevelDesignerDelegate: NSObject {
 
 // MARK: UICollectionViewDelegateFlowLayout
 extension LevelDesignerDelegate: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    func collectionView(_ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        insetForSectionAt section: Int) -> UIEdgeInsets {
+        
         // compute some sizes based on screen size
         let diameterOfBubble = collectionView.frame.width / CGFloat(bubbleGridModel.numRowsPerEvenSection)
         
@@ -34,10 +37,10 @@ extension LevelDesignerDelegate: UICollectionViewDelegateFlowLayout {
         // use 2.001 instead of 2 here even though we want half for precision reasons
         // 2 will not work for some cases
         // 2.001 will work for most reasonable cases
-        let horizontalOffset = CGFloat(diameterOfBubble / 2.001)
+        let horizontalOffset = diameterOfBubble / Constants.horizontalOffsetMultiplier
         
         // vertical offset to pack sections tightly
-        let verticalOffset = CGFloat(-1 * diameterOfBubble / 8)
+        let verticalOffset = diameterOfBubble / Constants.verticalOffsetMultiplier
         
         let oddSectionInset = UIEdgeInsetsMake(verticalOffset, horizontalOffset, verticalOffset, horizontalOffset)
         let evenSectionInset =  UIEdgeInsetsMake(0, 0, 0, 0)
@@ -45,15 +48,24 @@ extension LevelDesignerDelegate: UICollectionViewDelegateFlowLayout {
         return section % 2 == 0 ? evenSectionInset : oddSectionInset
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        
         return 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    func collectionView(_ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        
         return 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
         let bubbleDiameter = Double(collectionView.frame.width) / Double(bubbleGridModel.numRowsPerEvenSection)
         return CGSize(width: bubbleDiameter, height: bubbleDiameter)
     }

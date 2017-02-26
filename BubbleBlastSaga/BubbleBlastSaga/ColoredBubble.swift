@@ -16,7 +16,8 @@ class ColoredBubble: GameBubble {
     let color: BubbleColor
     
     convenience init(color: BubbleColor) {
-        self.init(color: color, radius: 0, center: CGPoint(), velocity: CGVector())
+        self.init(color: color, radius: Constants.defaultRadius,
+            center: CGPoint(), velocity: CGVector())
     }
     
     init(color: BubbleColor, radius: CGFloat, center: CGPoint, velocity: CGVector) {

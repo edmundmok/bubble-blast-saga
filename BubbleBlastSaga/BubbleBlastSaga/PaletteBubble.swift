@@ -25,16 +25,16 @@ class PaletteBubble: UIButton {
     }
     
     private func setSelectedStyle() {
-        self.layer.borderWidth = 3
+        self.layer.borderWidth = Constants.paletteBubbleBorderWidth
         self.layer.borderColor = UIColor.black.cgColor
         self.layer.backgroundColor = UIColor.white.cgColor
-        self.layer.cornerRadius = min(self.frame.width, self.frame.height)/2
-        self.imageView?.alpha = 1
+        self.layer.cornerRadius = min(self.frame.width, self.frame.height) / 2
+        self.imageView?.alpha = Constants.shownAlpha
     }
     
     private func setUnselectedStyle() {
-        self.layer.borderWidth = 0
+        self.layer.borderWidth = Constants.paletteBubbleUnselectedBorderWidth
         self.layer.backgroundColor = UIColor.clear.cgColor
-        self.imageView?.alpha = 0.5
+        self.imageView?.alpha = Constants.unselectedAlpha
     }
 }

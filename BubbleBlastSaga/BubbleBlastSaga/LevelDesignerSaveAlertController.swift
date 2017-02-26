@@ -54,31 +54,30 @@ class LevelDesignerSaveAlertController: UIViewController {
     // to save the current bubble grid as.
     private func presentAlertToSaveAsNewFile() {
         // setup title, message and text field for the save alert
-        let saveAlertTitle = "Level Name"
-        let saveAlertMessage = "Please enter the name of the level to save as. (Only alphanumeric characters allowed)"
-        let saveAlertTextFieldPlaceholder = "Level Name to save as"
+        let saveAlertTitle = Constants.saveAlertTitle
+        let saveAlertMessage = Constants.saveAlertMessage
+        let saveAlertTextFieldPlaceholder = Constants.saveAlertTextPlaceholder
         
         // attach title, message and text fields to the alert
-        let saveAlert = UIAlertController(title: saveAlertTitle, message: saveAlertMessage, preferredStyle: .alert)
+        let saveAlert = UIAlertController(title: saveAlertTitle, message: saveAlertMessage,
+            preferredStyle: .alert)
         saveAlert.addTextField(configurationHandler: { (textField) in
             textField.placeholder = saveAlertTextFieldPlaceholder
             textField.addTarget(self, action: #selector(self.textChanged), for: .editingChanged)
         })
         
         // setup actions for alert
-        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+        let cancelAction = UIAlertAction(title: Constants.cancelTitle, style: .cancel)
         
-        let saveAction = UIAlertAction(title: "Save", style: .default) { [weak self, weak saveAlert] (_) -> Void in
+        let saveAction = UIAlertAction(title: Constants.saveTitle, style: .default) {
+            [weak self, weak saveAlert] (_) -> Void in
             
             // get the level name
-            let levelName = saveAlert?.textFields?.first?.text ?? ""
+            let levelName = saveAlert?.textFields?.first?.text ?? Constants.blankLevelName
             
-            // Get the URL of the Documents Directory
-            let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-            let fileExtension = Constants.fileExtension
-            
-            // Get the URL for a file in the Documents Directory
-            let fileURL = documentDirectory.appendingPathComponent(levelName).appendingPathExtension(fileExtension)
+            guard let fileURL = self?.getFileURL(for: levelName, and: Constants.fileExtension) else {
+                return
+            }
             
             // ask user to confirm overwrite if file already exists
             guard !FileManager.default.fileExists(atPath: fileURL.relativePath) else {
@@ -98,6 +97,14 @@ class LevelDesignerSaveAlertController: UIViewController {
         self.parent?.present(saveAlert, animated: true)
     }
     
+    private func getFileURL(for name: String, and fileExtension: String) -> URL {
+        // Get the URL of the Documents Directory
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        
+        // Get the URL for a file in the Documents Directory
+        return documentDirectory.appendingPathComponent(name).appendingPathExtension(fileExtension)
+    }
+    
     // Used to validate the textfield to ensure only alphanumeric characters for level name
     weak var actionToEnable: UIAlertAction?
     
@@ -114,16 +121,20 @@ class LevelDesignerSaveAlertController: UIViewController {
         let message = "Please confirm if you would like to save as \(levelName) or as another file."
         let saveAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         
-        saveAlert.addAction(UIAlertAction(title: "Save as \(levelName)", style: .default) { [weak self] (_) -> Void in
+        saveAlert.addAction(UIAlertAction(title: "Save as \(levelName)", style: .default) {
+            [weak self] (_) -> Void in
+            
             // user wants to save as current name (overwrite file), just save
             self?.saveBubbleGridAndPresentResultAlert(levelName: levelName)
         })
-        saveAlert.addAction(UIAlertAction(title: "Save as another name", style: .default) { [weak self] (_) -> Void in
+        saveAlert.addAction(UIAlertAction(title: Constants.saveAsAnotherTitle, style: .default) {
+            [weak self] (_) -> Void in
+            
             // user wants to save as different name, bring up the 
             // custom name alert
             self?.presentAlertToSaveAsNewFile()
         })
-        saveAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        saveAlert.addAction(UIAlertAction(title: Constants.cancelTitle, style: .cancel))
         self.parent?.present(saveAlert, animated: true)
     }
     
@@ -155,12 +166,7 @@ class LevelDesignerSaveAlertController: UIViewController {
         UIGraphicsEndImageContext()
         let imageData = UIImagePNGRepresentation(image)
         
-        // Get the URL of the Documents Directory
-        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        
-        // Get the URL for a file in the Documents Directory
-        let fileURL = documentDirectory.appendingPathComponent(levelName).appendingPathExtension("png")
-        
+        let fileURL = getFileURL(for: levelName, and: Constants.pngExtension)
         try? imageData?.write(to: fileURL, options: .atomic)
         
         
@@ -177,14 +183,19 @@ class LevelDesignerSaveAlertController: UIViewController {
     private func presentAlertForNameAlreadyExists(for levelName: String) {
         let title = "\(levelName) already exists."
         let message = "Overwrite the existing saved \(levelName)?"
-        let fileNameExistsAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let fileNameExistsAlert = UIAlertController(title: title, message: message,
+            preferredStyle: .alert)
         
-        fileNameExistsAlert.addAction(UIAlertAction(title: "Yes", style: .default) { [weak self] (_) -> Void in
+        fileNameExistsAlert.addAction(UIAlertAction(title: Constants.yesTitle, style: .default) {
+            [weak self] (_) -> Void in
+            
             // user confirmed to overwrite, go ahead and save
             self?.saveBubbleGridAndPresentResultAlert(levelName: levelName)
         })
         
-        fileNameExistsAlert.addAction(UIAlertAction(title: "No", style: .cancel) { [weak self] (_) -> Void in
+        fileNameExistsAlert.addAction(UIAlertAction(title: Constants.noTitle, style: .cancel) {
+            [weak self] (_) -> Void in
+            
             // do not overwrite, present custom name alert again
             // for user to specify another name
             self?.presentAlertToSaveAsNewFile()
@@ -196,17 +207,19 @@ class LevelDesignerSaveAlertController: UIViewController {
     // Presents the alert for a save success.
     private func presentAlertForSaveSuccess(for levelName: String) {
         let title =  "\(levelName) saved successfully."
-        let saveSuccessAlert = UIAlertController(title: title, message: "", preferredStyle: .alert)
-        saveSuccessAlert.addAction(UIAlertAction(title: "OK", style: .cancel))
+        let saveSuccessAlert = UIAlertController(title: title, message: Constants.blankMessage,
+            preferredStyle: .alert)
+        saveSuccessAlert.addAction(UIAlertAction(title: Constants.okTitle, style: .cancel))
         self.parent?.present(saveSuccessAlert, animated: true)
     }
     
     // Presents the alert for a save failure.
     private func presentAlertForSaveFailure(for levelName: String) {
         let title = "\(levelName) could not be saved."
-        let message = "Please try again!"
+        let message = Constants.tryAgainMessage
         let saveFailureAlert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        saveFailureAlert.addAction(UIAlertAction(title: "OK", style: .cancel) { [weak self] (_) -> Void in
+        saveFailureAlert.addAction(UIAlertAction(title: Constants.okTitle, style: .cancel) {
+            [weak self] (_) -> Void in
             // on OK, presents the save alert again to provide an opportunity for user to save again
             self?.presentSaveAlert()
         })

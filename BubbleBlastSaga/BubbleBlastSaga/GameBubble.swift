@@ -30,7 +30,7 @@ class GameBubble: GameObject, PhysicsCircle {
     
     // MARK: NSObject
     convenience init() {
-        self.init(radius: 0, center: CGPoint())
+        self.init(radius: Constants.defaultRadius, center: CGPoint())
     }
     
     convenience init(radius: CGFloat, center: CGPoint) {

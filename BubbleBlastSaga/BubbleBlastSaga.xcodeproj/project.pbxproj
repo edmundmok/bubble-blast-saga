@@ -35,8 +35,6 @@
 		F1C748BE1E5596010080A4B2 /* GameBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748AB1E5596000080A4B2 /* GameBubble.swift */; };
 		F1C748BF1E5596010080A4B2 /* LevelDesignerDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748AC1E5596000080A4B2 /* LevelDesignerDataSource.swift */; };
 		F1C748C01E5596010080A4B2 /* LevelDesignerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748AD1E5596000080A4B2 /* LevelDesignerDelegate.swift */; };
-		F1C748C11E5596010080A4B2 /* LevelDesignerLoadDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748AE1E5596000080A4B2 /* LevelDesignerLoadDataSource.swift */; };
-		F1C748C21E5596010080A4B2 /* LevelDesignerLoadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748AF1E5596000080A4B2 /* LevelDesignerLoadViewController.swift */; };
 		F1C748C31E5596010080A4B2 /* LevelDesignerSaveAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748B01E5596000080A4B2 /* LevelDesignerSaveAlertController.swift */; };
 		F1C748C41E5596010080A4B2 /* LevelDesignerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748B11E5596000080A4B2 /* LevelDesignerViewController.swift */; };
 		F1C748C51E5596010080A4B2 /* PaletteBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1C748B21E5596000080A4B2 /* PaletteBubble.swift */; };
@@ -126,8 +124,6 @@
 		F1C748AB1E5596000080A4B2 /* GameBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBubble.swift; sourceTree = "<group>"; };
 		F1C748AC1E5596000080A4B2 /* LevelDesignerDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelDesignerDataSource.swift; sourceTree = "<group>"; };
 		F1C748AD1E5596000080A4B2 /* LevelDesignerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelDesignerDelegate.swift; sourceTree = "<group>"; };
-		F1C748AE1E5596000080A4B2 /* LevelDesignerLoadDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelDesignerLoadDataSource.swift; sourceTree = "<group>"; };
-		F1C748AF1E5596000080A4B2 /* LevelDesignerLoadViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelDesignerLoadViewController.swift; sourceTree = "<group>"; };
 		F1C748B01E5596000080A4B2 /* LevelDesignerSaveAlertController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelDesignerSaveAlertController.swift; sourceTree = "<group>"; };
 		F1C748B11E5596000080A4B2 /* LevelDesignerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LevelDesignerViewController.swift; sourceTree = "<group>"; };
 		F1C748B21E5596000080A4B2 /* PaletteBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PaletteBubble.swift; sourceTree = "<group>"; };
@@ -190,6 +186,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		F19313CA1E6283A70046E05B /* LevelSelect */ = {
+			isa = PBXGroup;
+			children = (
+				F1F821EF1E587590006DD5C3 /* LevelSelectViewController.swift */,
+				F19313C21E6164B10046E05B /* LevelSelectDataSource.swift */,
+				F19313C41E617B760046E05B /* LevelSelectDelegate.swift */,
+			);
+			name = LevelSelect;
+			sourceTree = "<group>";
+		};
 		F1C748661E55954C0080A4B2 = {
 			isa = PBXGroup;
 			children = (
@@ -264,11 +270,8 @@
 			children = (
 				F1C7490A1E55A0C80080A4B2 /* BubbleGame */,
 				F1C748D11E5597E30080A4B2 /* LevelDesigner */,
-				F1C748D21E5597EB0080A4B2 /* LevelDesignerLoad */,
+				F19313CA1E6283A70046E05B /* LevelSelect */,
 				F1F821ED1E58718C006DD5C3 /* MainMenuViewController.swift */,
-				F1F821EF1E587590006DD5C3 /* LevelSelectViewController.swift */,
-				F19313C21E6164B10046E05B /* LevelSelectDataSource.swift */,
-				F19313C41E617B760046E05B /* LevelSelectDelegate.swift */,
 			);
 			name = Controllers;
 			sourceTree = "<group>";
@@ -282,15 +285,6 @@
 				F1C748B11E5596000080A4B2 /* LevelDesignerViewController.swift */,
 			);
 			name = LevelDesigner;
-			sourceTree = "<group>";
-		};
-		F1C748D21E5597EB0080A4B2 /* LevelDesignerLoad */ = {
-			isa = PBXGroup;
-			children = (
-				F1C748AE1E5596000080A4B2 /* LevelDesignerLoadDataSource.swift */,
-				F1C748AF1E5596000080A4B2 /* LevelDesignerLoadViewController.swift */,
-			);
-			name = LevelDesignerLoad;
 			sourceTree = "<group>";
 		};
 		F1C748D31E55981E0080A4B2 /* Models */ = {
@@ -524,7 +518,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F1C748C11E5596010080A4B2 /* LevelDesignerLoadDataSource.swift in Sources */,
 				F1F821F01E587590006DD5C3 /* LevelSelectViewController.swift in Sources */,
 				F1C748751E55954C0080A4B2 /* ViewController.swift in Sources */,
 				F1C748BD1E5596010080A4B2 /* ColoredBubble.swift in Sources */,
@@ -578,7 +571,6 @@
 				F1C748C01E5596010080A4B2 /* LevelDesignerDelegate.swift in Sources */,
 				F1C748F51E559E6D0080A4B2 /* GameEngine.swift in Sources */,
 				F1C748C71E5596010080A4B2 /* SavedLevelsModel.swift in Sources */,
-				F1C748C21E5596010080A4B2 /* LevelDesignerLoadViewController.swift in Sources */,
 				F1C748F11E559E6D0080A4B2 /* BubbleGameUtility.swift in Sources */,
 				F1C748F81E559E6D0080A4B2 /* GameViewController.swift in Sources */,
 				F19313C71E61BA250046E05B /* LevelSelectDeleteButton.swift in Sources */,

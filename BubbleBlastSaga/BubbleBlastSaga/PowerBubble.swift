@@ -16,7 +16,7 @@ class PowerBubble: GameBubble {
     let power: BubblePower
     
     convenience init(power: BubblePower) {
-        self.init(power: power, radius: 0, center: CGPoint(), velocity: CGVector())
+        self.init(power: power, radius: Constants.defaultRadius, center: CGPoint(), velocity: CGVector())
     }
     
     init(power: BubblePower, radius: CGFloat, center: CGPoint, velocity: CGVector) {

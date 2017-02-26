@@ -11,7 +11,7 @@ import UIKit
 /**
  This class is a helper data source class that implements the
  appropriate UICollectionViewDataSource functions for
- the bubble grid CollectionView in the LevelDesigner.
+ the bubble grid CollectionView in the GameViewController.
  */
 class GameViewControllerDataSource: NSObject {
     

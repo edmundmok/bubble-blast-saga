@@ -52,7 +52,7 @@ class SavedLevelsModelManager: SavedLevelsModel {
         savedLevels.remove(at: index)
         
         // also remove the png image associated
-        let imageUrl = documentsUrl.appendingPathComponent(fileName).appendingPathExtension("png")
+        let imageUrl = documentsUrl.appendingPathComponent(fileName).appendingPathExtension(Constants.pngExtension)
         try? FileManager.default.removeItem(at: imageUrl)
     }
     

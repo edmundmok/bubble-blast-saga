@@ -53,12 +53,18 @@ struct Constants {
     
     // GameBubble
     static let radiusKey = "radius"
+    static let defaultRadius = CGFloat(0)
     
     // ColoredBubble
     static let colorKey = "color"
     
     // PowerBubble
     static let powerKey = "power"
+    
+    // PaletteBubble
+    static let paletteBubbleBorderWidth = CGFloat(3)
+    static let paletteBubbleUnselectedBorderWidth = CGFloat(0)
+    static let unselectedAlpha = CGFloat(0.5)
 
     // BubbleCell
     static let bubbleCellIdentifier = "BubbleCell"
@@ -160,6 +166,45 @@ struct Constants {
     
     // LevelDesignerViewController
     static let startLevelSegue = "StartLevelDesignerLevel"
+    static let defaultNumSections = 12
+    static let defaultNumRows = 12
+    static let validationFailEnterDuration = 0.5
+    static let validationFailExitDuration = 5.0
+    
+    // LevelDesignerSaveAlertController
+    static let saveAlertTitle = "Level Name"
+    static let saveAlertMessage = "Please enter the name of the level to save as. (Only alphanumeric characters allowed)"
+    static let saveAlertTextPlaceholder = "Level Name to save as"
+    static let cancelTitle = "Cancel"
+    static let saveTitle = "Save"
+    static let saveAsAnotherTitle = "Save as another name"
+    static let blankLevelName = ""
+    static let blankMessage = ""
+    static let pngExtension = "png"
+    static let yesTitle = "Yes"
+    static let noTitle = "No"
+    static let okTitle = "OK"
+    static let tryAgainMessage = "Please try again!"
+    
+    // LevelSelectViewController
+    static let deleteAlertTitle = "Confirm delete?"
+    static let deleteAlertMessage = "The level will be lost forever."
+    static let deleteTitle = "Delete"
+    static let levelsPerSection = 2
+    static let minViewControllerCount = 2
+    static let loadToLevelDesignerSegue = "loadToLevelDesigner"
+    static let loadToGameSegue = "loadToGame"
+    
+    // LevelSelectDataSource
+    static let additionalLevelForOddRow = 1
+    static let levelSelectReuseIdentifier = "LevelSelectCell"
+    static let levelSelectCellCornerMultiplier = CGFloat(15.0)
+    static let levelSelectCellAspectRatio = CGFloat(4/3)
+    static let levelSelectImageAlpha = CGFloat(0.4)
+    
+    // LevelSelectDelegate
+    static let levelSelectMinLineSpacing = CGFloat(0)
+    static let levelSelectMinInteritemSpacing = CGFloat(0)
     
     // Images
     static let blueBubbleImage = "bubble-blue"

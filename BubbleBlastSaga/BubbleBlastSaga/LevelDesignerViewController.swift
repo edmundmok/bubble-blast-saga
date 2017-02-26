@@ -14,7 +14,10 @@ class LevelDesignerViewController: UIViewController {
     @IBOutlet weak var bubbleGrid: UICollectionView!
     
     // model
-    private var bubbleGridModel: BubbleGridModel = BubbleGridModelManager(numSections: 12, numRows: 12)
+    private var bubbleGridModel: BubbleGridModel = BubbleGridModelManager(
+        numSections: Constants.defaultNumSections,
+        numRows: Constants.defaultNumRows
+    )
     private var selectedMode = PaletteMode.BluePaletteBubble
     
     // delegates
@@ -25,21 +28,25 @@ class LevelDesignerViewController: UIViewController {
     // ----------- ViewController related stuff -------------
     
     override func viewDidLoad() {
-        bubbleGrid.register(BubbleCell.self, forCellWithReuseIdentifier: Constants.bubbleCellIdentifier)
+        bubbleGrid.register(BubbleCell.self,
+            forCellWithReuseIdentifier: Constants.bubbleCellIdentifier)
         
         // set style of blue palette bubble to be selected
         setPaletteBubblesStyleToSelected(for: bluePaletteBubble)
         
         // set invalid message to hide
-        invalidMessage.alpha = 0
+        invalidMessage.alpha = Constants.hiddenAlpha
         
         // add the save alert controller as a child
-        self.saveAlertController = LevelDesignerSaveAlertController(bubbleGridModel: bubbleGridModel, bubbleGrid: bubbleGrid)
+        self.saveAlertController = LevelDesignerSaveAlertController(bubbleGridModel: bubbleGridModel,
+            bubbleGrid: bubbleGrid)
         self.addChildViewController(saveAlertController)
         
         // setup delegates
-        levelDesignerDataSource = LevelDesignerDataSource(bubbleGrid: bubbleGrid, bubbleGridModel: bubbleGridModel)
-        levelDesignerDelegate = LevelDesignerDelegate(bubbleGrid: bubbleGrid, bubbleGridModel: bubbleGridModel)
+        levelDesignerDataSource = LevelDesignerDataSource(bubbleGrid: bubbleGrid,
+            bubbleGridModel: bubbleGridModel)
+        levelDesignerDelegate = LevelDesignerDelegate(bubbleGrid: bubbleGrid,
+            bubbleGridModel: bubbleGridModel)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -316,11 +323,11 @@ class LevelDesignerViewController: UIViewController {
     
     @IBOutlet weak var invalidMessage: UILabel!
     private func presentValidationFailAlert() {
-        UIView.animate(withDuration: 0.5, animations: {
-            self.invalidMessage.alpha = 1
+        UIView.animate(withDuration: Constants.validationFailEnterDuration, animations: {
+            self.invalidMessage.alpha = Constants.shownAlpha
         }) { _ in
-            UIView.animate(withDuration: 5) {
-                self.invalidMessage.alpha = 0
+            UIView.animate(withDuration: Constants.validationFailExitDuration) {
+                self.invalidMessage.alpha = Constants.hiddenAlpha
             }
         }
     }

@@ -64,6 +64,7 @@ protocol BubbleGridModel: NSCopying {
     // bubble grid.
     func getIndexPathOfBubblesInGrid() -> Set<IndexPath>
     
+    // Returns the index paths in the section that the given index path is in.
     func getIndexPathsForSectionContaining(indexPath: IndexPath) -> [IndexPath]
     
 }

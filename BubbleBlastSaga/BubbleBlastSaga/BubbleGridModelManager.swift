@@ -97,12 +97,12 @@ class BubbleGridModelManager: BubbleGridModel {
         var neighboursIndexPath = [IndexPath]()
         
         // Calculate the index path of its neighbours
-        let topLeft = IndexPath(row: indexPath.row-1, section: indexPath.section-1)
-        let topRight = IndexPath(row: indexPath.row, section: indexPath.section-1)
-        let left = IndexPath(row: indexPath.row-1, section: indexPath.section)
-        let right = IndexPath(row: indexPath.row+1, section: indexPath.section)
-        let bottomLeft = IndexPath(row: indexPath.row-1, section: indexPath.section+1)
-        let bottomRight = IndexPath(row: indexPath.row, section: indexPath.section+1)
+        let topLeft = IndexPath(row: indexPath.row - 1, section: indexPath.section - 1)
+        let topRight = IndexPath(row: indexPath.row, section: indexPath.section - 1)
+        let left = IndexPath(row: indexPath.row - 1, section: indexPath.section)
+        let right = IndexPath(row: indexPath.row + 1, section: indexPath.section)
+        let bottomLeft = IndexPath(row: indexPath.row - 1, section: indexPath.section + 1)
+        let bottomRight = IndexPath(row: indexPath.row, section: indexPath.section + 1)
         
         // For each calculated neighbour, they may not exist.
         // We need to check if they are actually valid before adding into the array.
@@ -148,12 +148,12 @@ class BubbleGridModelManager: BubbleGridModel {
         var neighboursIndexPath = [IndexPath]()
         
         // Calculate the index path of its neighbours
-        let topLeft = IndexPath(row: indexPath.row, section: indexPath.section-1)
-        let topRight = IndexPath(row: indexPath.row+1, section: indexPath.section-1)
-        let left = IndexPath(row: indexPath.row-1, section: indexPath.section)
-        let right = IndexPath(row: indexPath.row+1, section: indexPath.section)
-        let bottomLeft = IndexPath(row: indexPath.row, section: indexPath.section+1)
-        let bottomRight = IndexPath(row: indexPath.row+1, section: indexPath.section+1)
+        let topLeft = IndexPath(row: indexPath.row, section: indexPath.section - 1)
+        let topRight = IndexPath(row: indexPath.row + 1, section: indexPath.section - 1)
+        let left = IndexPath(row: indexPath.row - 1, section: indexPath.section)
+        let right = IndexPath(row: indexPath.row + 1, section: indexPath.section)
+        let bottomLeft = IndexPath(row: indexPath.row, section: indexPath.section + 1)
+        let bottomRight = IndexPath(row: indexPath.row + 1, section: indexPath.section + 1)
         
         // For each calculated neighbour, they may not exist.
         // We need to check if they are actually valid before adding into the array.

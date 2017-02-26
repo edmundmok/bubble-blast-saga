@@ -29,13 +29,13 @@ class LevelSelectDataSource: NSObject {
     
     fileprivate func getNumberOfSections() -> Int {
         let count = savedLevelsModel.savedLevels.count
-        let remainder = count % 2
+        let remainder = count % Constants.levelsPerSection
         
         guard remainder == 0 else {
-            return count / 2 + 1
+            return count / Constants.levelsPerSection + Constants.additionalLevelForOddRow
         }
         
-        return count / 2
+        return count / Constants.levelsPerSection
     }
 }
 
@@ -49,45 +49,64 @@ extension LevelSelectDataSource: UICollectionViewDataSource {
         // check if last section
         guard section == getNumberOfSections() - 1 else {
             // not last section
-            return 2
+            return Constants.levelsPerSection
         }
         
-        return savedLevelsModel.savedLevels.count % 2 == 0 ? 2 : 1
+        return savedLevelsModel.savedLevels.count % Constants.levelsPerSection == 0
+            ? Constants.levelsPerSection
+            : Constants.levelsPerSection - Constants.additionalLevelForOddRow
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "LevelSelectCell", for: indexPath) as? LevelSelectCell else {
+    func collectionView(_ collectionView: UICollectionView,
+        cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView
+            .dequeueReusableCell(withReuseIdentifier: Constants.levelSelectReuseIdentifier, for: indexPath)
+        
+        guard let levelSelectCell = cell as? LevelSelectCell else {
             return UICollectionViewCell()
         }
         
-        cell.layer.cornerRadius = cell.frame.width / 15
-        cell.layer.masksToBounds = true
-        cell.levelImage.frame.size.width = cell.frame.width
-        cell.levelImage.frame.size.height = (cell.levelImage.frame.width * 4) / 3
+        levelSelectCell.layer.cornerRadius = cell.frame.width / Constants.levelSelectCellCornerMultiplier
+        levelSelectCell.layer.masksToBounds = true
         
-        let levelName = savedLevelsModel.savedLevels[indexPath.section * 2 + indexPath.row]
+        let width = cell.frame.width
+        let height = width * Constants.levelSelectCellAspectRatio
+        
+        levelSelectCell.levelImage.frame.size.width = width
+        levelSelectCell.levelImage.frame.size.height = height
+        
+        let index = indexPath.section * Constants.levelsPerSection + indexPath.row
+        
+        let levelName = savedLevelsModel.savedLevels[index]
         
         // Get the URL of the Documents Directory
-        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        let documentDirectory = FileManager
+            .default
+            .urls(for: .documentDirectory, in: .userDomainMask)[0]
         
         // Get the URL for a file in the Documents Directory
-        let fileURL = documentDirectory.appendingPathComponent(levelName).appendingPathExtension("png")
+        let fileURL = documentDirectory
+            .appendingPathComponent(levelName)
+            .appendingPathExtension(Constants.pngExtension)
         
         guard let imageData = NSData(contentsOf: fileURL) as? Data,
             let image = UIImage(data: imageData) else {
                 return UICollectionViewCell()
         }
         
-        cell.levelImage.clipsToBounds = true
-        cell.levelImage.image = image
-        cell.levelImage.alpha = 0.4
-        cell.levelName.text = levelName
+        levelSelectCell.levelImage.clipsToBounds = true
+        levelSelectCell.levelImage.image = image
+        levelSelectCell.levelImage.alpha = Constants.levelSelectImageAlpha
+        levelSelectCell.levelName.text = levelName
         
-        cell.deleteButton.indexPath = indexPath
-        cell.playLoadButton.indexPath = indexPath
+        levelSelectCell.deleteButton.indexPath = indexPath
+        levelSelectCell.playLoadButton.indexPath = indexPath
 
-        cell.deleteButton.addTarget(self, action: #selector(handleDeleteLevel(_:)), for: .touchUpInside)
-        cell.playLoadButton.addTarget(self, action: #selector(handlePlayLoadLevel(_:)), for: .touchUpInside)
+        levelSelectCell.deleteButton.addTarget(self, action: #selector(handleDeleteLevel(_:)),
+            for: .touchUpInside)
+        levelSelectCell.playLoadButton.addTarget(self, action: #selector(handlePlayLoadLevel(_:)),
+            for: .touchUpInside)
         
         return cell
     }

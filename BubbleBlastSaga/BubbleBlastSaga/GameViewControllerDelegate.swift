@@ -11,7 +11,7 @@ import UIKit
 /**
  This class is a helper delegate class that implements the
  appropriate UICollectionViewDelegateFlowLayout functions for
- the bubble grid CollectionView in the LevelDesigner.
+ the bubble grid CollectionView in the GameViewController.
  */
 class GameViewControllerDelegate: NSObject {
     
