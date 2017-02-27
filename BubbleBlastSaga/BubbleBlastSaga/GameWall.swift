@@ -30,6 +30,7 @@ class GameWall: GameObject, PhysicsBox {
     
     // MARK: NSCoding
     required init?(coder aDecoder: NSCoder) {
+        //  Don't need to implement this, not being used but was required for NSCoding
         fatalError("init(coder:) has not been implemented")
     }
     

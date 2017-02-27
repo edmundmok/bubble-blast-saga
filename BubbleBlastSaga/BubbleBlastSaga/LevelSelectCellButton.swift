@@ -1,15 +1,15 @@
 //
-//  LevelSelectPlayLoadButton.swift
+//  LevelSelectCellButton.swift
 //  BubbleBlastSaga
 //
-//  Created by Edmund Mok on 25/2/17.
+//  Created by Edmund Mok on 27/2/17.
 //  Copyright © 2017 nus.cs3217.a0093960x. All rights reserved.
 //
 
 import UIKit
 
-class LevelSelectPlayLoadButton: UIButton {
-
+class LevelSelectCellButton: UIButton {
+    
     var indexPath: IndexPath?
 
 }

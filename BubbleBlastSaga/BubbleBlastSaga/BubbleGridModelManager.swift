@@ -94,8 +94,6 @@ class BubbleGridModelManager: BubbleGridModel {
     // Get the neighbours of the given index path, assuming that the given index path
     // is in an even section.
     private func getEvenSectionNeighboursIndexPath(of indexPath: IndexPath) -> [IndexPath] {
-        var neighboursIndexPath = [IndexPath]()
-        
         // Calculate the index path of its neighbours
         let topLeft = IndexPath(row: indexPath.row - 1, section: indexPath.section - 1)
         let topRight = IndexPath(row: indexPath.row, section: indexPath.section - 1)
@@ -104,49 +102,21 @@ class BubbleGridModelManager: BubbleGridModel {
         let bottomLeft = IndexPath(row: indexPath.row - 1, section: indexPath.section + 1)
         let bottomRight = IndexPath(row: indexPath.row, section: indexPath.section + 1)
         
-        // For each calculated neighbour, they may not exist.
-        // We need to check if they are actually valid before adding into the array.
-        // top left
-        if isValidIndexPath(indexPath: topLeft) {
-            neighboursIndexPath.append(topLeft)
-        }
+        let potentialNeighbours = [
+            topLeft,
+            topRight,
+            left,
+            right,
+            bottomLeft,
+            bottomRight
+        ]
         
-        // top right
-        if isValidIndexPath(indexPath: topRight) {
-            neighboursIndexPath.append(topRight)
-        }
-        
-        // left
-        if isValidIndexPath(indexPath: left) {
-            neighboursIndexPath.append(left)
-        }
-        
-        // right
-        if isValidIndexPath(indexPath: right) {
-            neighboursIndexPath.append(right)
-            
-        }
-        
-        // bottom left
-        if isValidIndexPath(indexPath: bottomLeft) {
-            neighboursIndexPath.append(bottomLeft)
-            
-        }
-        
-        // bottom right
-        if isValidIndexPath(indexPath: bottomRight) {
-            neighboursIndexPath.append(bottomRight)
-            
-        }
-        
-        return neighboursIndexPath
+        return getValidIndexPaths(from: potentialNeighbours)
     }
     
     // Get the neighbours of the given index path, assumiming that the given index path
     // is in an odd section.
     private func getOddSectionNeighboursIndexPath(of indexPath: IndexPath) -> [IndexPath] {
-        var neighboursIndexPath = [IndexPath]()
-        
         // Calculate the index path of its neighbours
         let topLeft = IndexPath(row: indexPath.row, section: indexPath.section - 1)
         let topRight = IndexPath(row: indexPath.row + 1, section: indexPath.section - 1)
@@ -155,39 +125,21 @@ class BubbleGridModelManager: BubbleGridModel {
         let bottomLeft = IndexPath(row: indexPath.row, section: indexPath.section + 1)
         let bottomRight = IndexPath(row: indexPath.row + 1, section: indexPath.section + 1)
         
-        // For each calculated neighbour, they may not exist.
-        // We need to check if they are actually valid before adding into the array.
-        // top left
-        if isValidIndexPath(indexPath: topLeft) {
-            neighboursIndexPath.append(topLeft)
-        }
+        let potentialNeighbours = [
+            topLeft,
+            topRight,
+            left,
+            right,
+            bottomLeft,
+            bottomRight
+        ]
         
-        // top right
-        if isValidIndexPath(indexPath: topRight) {
-            neighboursIndexPath.append(topRight)
-        }
-        
-        // left
-        if isValidIndexPath(indexPath: left) {
-            neighboursIndexPath.append(left)
-        }
-        
-        // right
-        if isValidIndexPath(indexPath: right) {
-            neighboursIndexPath.append(right)
-        }
-        
-        // bottom left
-        if isValidIndexPath(indexPath: bottomLeft) {
-            neighboursIndexPath.append(bottomLeft)
-        }
-        
-        // bottom right
-        if isValidIndexPath(indexPath: bottomRight) {
-            neighboursIndexPath.append(bottomRight)
-        }
-        
-        return neighboursIndexPath
+        return getValidIndexPaths(from: potentialNeighbours)
+    }
+    
+    // Returns all the valid index paths from the given index paths.
+    private func getValidIndexPaths(from indexPaths: [IndexPath]) -> [IndexPath] {
+        return indexPaths.filter { isValidIndexPath(indexPath: $0) }
     }
     
     // Sets the given bubble at the specified indexpath.
@@ -477,6 +429,7 @@ class BubbleGridModelManager: BubbleGridModel {
         return indexPaths
     }
     
+    // Returns all the index paths in the section that the given index path belongs to.
     func getIndexPathsForSectionContaining(indexPath: IndexPath) -> [IndexPath] {
         var indexPaths = [IndexPath]()
 

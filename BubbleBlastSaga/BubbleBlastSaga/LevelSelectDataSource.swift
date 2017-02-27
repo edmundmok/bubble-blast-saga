@@ -132,7 +132,7 @@ extension LevelSelectDataSource: UICollectionViewDataSource {
     
     @objc private func handleDeleteLevel(_ sender: UIButton) {
         
-        guard let indexPathToDelete = (sender as? LevelSelectDeleteButton)?.indexPath else {
+        guard let indexPathToDelete = (sender as? LevelSelectCellButton)?.indexPath else {
             return
         }
         
@@ -141,7 +141,7 @@ extension LevelSelectDataSource: UICollectionViewDataSource {
     
     @objc private func handlePlayLoadLevel(_ sender: UIButton) {
         
-        guard let indexPathToLoad = (sender as? LevelSelectPlayLoadButton)?.indexPath else {
+        guard let indexPathToLoad = (sender as? LevelSelectCellButton)?.indexPath else {
             return
         }
         

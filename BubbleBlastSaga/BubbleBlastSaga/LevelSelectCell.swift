@@ -13,15 +13,6 @@ class LevelSelectCell: UICollectionViewCell {
     @IBOutlet weak var levelImage: UIImageView!
     @IBOutlet weak var levelName: UILabel!
     @IBOutlet weak var highScore: UILabel!
-    @IBOutlet weak var deleteButton: LevelSelectDeleteButton!
-    @IBOutlet weak var playLoadButton: LevelSelectPlayLoadButton!
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
+    @IBOutlet weak var deleteButton: LevelSelectCellButton!
+    @IBOutlet weak var playLoadButton: LevelSelectCellButton!
 }

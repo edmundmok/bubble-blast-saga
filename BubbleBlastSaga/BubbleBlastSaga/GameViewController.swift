@@ -326,7 +326,7 @@ class GameViewController: UIViewController {
         // render end screen
         renderEndScreen(outcome: .Win)
         
-        // update highscore
+        // update highscore on win
         updateHighscore()
     }
     
@@ -336,9 +336,6 @@ class GameViewController: UIViewController {
 
         // render end screen
         renderEndScreen(outcome: .Lose)
-        
-        // update highscore
-        updateHighscore()
     }
     
     private func updateHighscore() {

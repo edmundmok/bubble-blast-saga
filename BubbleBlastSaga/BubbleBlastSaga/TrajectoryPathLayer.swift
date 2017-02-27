@@ -12,18 +12,18 @@ class TrajectoryPathLayer: CAShapeLayer {
     
     func setPathStyle(gameArea: UIView) {
         // Style for trajectory - dotted lines
-        self.strokeColor = UIColor.white.cgColor
-        self.fillColor = UIColor.clear.cgColor
-        self.lineWidth = gameArea.frame.size.width * Constants.lineWidthMultiplier
-        self.lineCap = kCALineCapRound
+        strokeColor = UIColor.white.cgColor
+        fillColor = UIColor.clear.cgColor
+        lineWidth = gameArea.frame.size.width * Constants.lineWidthMultiplier
+        lineCap = kCALineCapRound
         
         let dashes = [
             Constants.dashPatternStart,
-            NSNumber(value: Double(self.lineWidth * Constants.dashMultiplier))
+            NSNumber(value: Double(lineWidth * Constants.dashMultiplier))
         ]
         
-        self.lineDashPhase = Constants.dashPhase
-        self.lineDashPattern = dashes
+        lineDashPhase = Constants.dashPhase
+        lineDashPattern = dashes
     }
     
     func drawPath(from points: [CGPoint], start: CGPoint) {
@@ -31,7 +31,7 @@ class TrajectoryPathLayer: CAShapeLayer {
         trajectoryPath.move(to: start)
         
         points.forEach { trajectoryPath.addLine(to: $0) }
-        self.path = trajectoryPath.cgPath
+        path = trajectoryPath.cgPath
     }
     
 }

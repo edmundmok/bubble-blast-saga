@@ -25,9 +25,8 @@ class BubbleGameEvaluator {
         self.bubbleGridModel = bubbleGridModel
     }
     
-    // Use up 1 bubble cannon ammo, if possible.
-    // Returns a boolean representing if it is possible or not.
-    func useBubbleAmmo() -> Bool {
+    // Returns if the game is allowed to fire a cannon bubble.
+    func canFire() -> Bool {
         
         // Start timer on the first shot
         if !timerStarted {

@@ -132,10 +132,7 @@ class BubbleGame {
         let topWall = GameWall(wallType: .TopWall, position: topWallPosition,
             size: CGSize(width: horizontalWallWidth, height: wallThickness))
         
-        // Bottom wall - move it SLIGHTLY below the screen, so that the bubble doesnt 
-        // immediately trigger the collision at the bottom edge of the screen but rather
-        // fly down a little first, so that it looks like it flew to eternity instead of
-        // being terminated at the edge (aesthetic purposes)
+        // Bottom wall - specifically placed slightly below screen bottom edge
         let bottomWallPosition = CGPoint(x: gameArea.frame.origin.x - wallThickness,
             y: gameArea.frame.maxY + (getStandardBubbleSize().width * Constants.bottomWallMultiplier))
         
@@ -187,7 +184,7 @@ class BubbleGame {
     func fireBubble(from startPosition: CGPoint, at angle: CGFloat) -> Bool {
         
         // Check if there is still ammo to use to fire more bubbles.
-        guard bubbleGameEvaluator.useBubbleAmmo() else {
+        guard bubbleGameEvaluator.canFire() else {
             // If no more ammo, cannot fire anymore. Return false.
             return false
         }
@@ -353,15 +350,6 @@ class BubbleGame {
             }
             
         }
-        
-        // still need to deal with no position to shoot (e.g. no adjacent bubbles possible 
-        // with same color)
-        
-        // if still no positions to shoot:
-        // - Recommend a swap to the next bubble
-        // - If even after swap, still no valid location, just recommend to fire at a decent location
-        // - Decent location (subjective) means:
-        //   1. As high as possible so that it does not accidentally lose the game
         return nil
     }
     
@@ -414,19 +402,18 @@ class BubbleGame {
     }
     
     private func getCandidates(for coloredBubble: ColoredBubble) -> [IndexPath] {
-        // Assume that the last section is empty (game should be over otherwise anyway)
         let bottomIndexPaths = BubbleGameUtility.getIndexPathsForBottomSection(of: bubbleGridModel)
         
         // Carry out BFS from the last section 
         // Look for empty cells that have filled neighbours
-        // and add them to the set
+        // and add them to the set of candidates
         var queue = Queue<IndexPath>()
         var visited = Set<IndexPath>()
         
         var candidates = [IndexPath]()
         
         bottomIndexPaths
-            .filter { bubbleGridModel.getGameBubble(at: $0) == nil }
+            .filter { bubbleGridModel.getBubbleType(at: $0) == .Empty }
             .forEach {
                 queue.enqueue($0)
                 visited.insert($0)
@@ -473,8 +460,6 @@ class BubbleGame {
                 }
         }
         
-        // don't lose the game
-        // return candidates.filter { $0.section < bubbleGridModel.numSections - 1 }
         return candidates
     }
     
