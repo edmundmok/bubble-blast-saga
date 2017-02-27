@@ -24,13 +24,24 @@ class LevelSelectDataSource: NSObject {
         self.savedLevels = savedLevels
         self.levelSelectViewController = levelSelectViewController
         super.init()
+        
+        // Set delegates
         savedLevels.dataSource = self
         
+        // Register observers
+        regiseterObservers()
+    }
+    
+    private func regiseterObservers() {
         NotificationCenter.default.addObserver(forName: Constants.newHighscoreNotificationName,
             object: nil, queue: nil) { [weak self] _ in
             
             self?.handleNewHighscore()
         }
+    }
+    
+    fileprivate func handleNewHighscore() {
+        savedLevels.reloadData()
     }
     
     fileprivate func getNumberOfSections() -> Int {
@@ -42,10 +53,6 @@ class LevelSelectDataSource: NSObject {
         }
         
         return count / Constants.levelsPerSection
-    }
-    
-    fileprivate func handleNewHighscore() {
-        savedLevels.reloadData()
     }
 }
 
@@ -74,17 +81,12 @@ extension LevelSelectDataSource: UICollectionViewDataSource {
             .dequeueReusableCell(withReuseIdentifier: Constants.levelSelectReuseIdentifier, for: indexPath)
         
         guard let levelSelectCell = cell as? LevelSelectCell else {
-            return UICollectionViewCell()
+            return cell
         }
         
-        levelSelectCell.layer.cornerRadius = cell.frame.width / Constants.levelSelectCellCornerMultiplier
-        levelSelectCell.layer.masksToBounds = true
-        
-        let width = cell.frame.width
-        let height = width * Constants.levelSelectCellAspectRatio
-        
-        levelSelectCell.levelImage.frame.size.width = width
-        levelSelectCell.levelImage.frame.size.height = height
+        // Set up cell info
+        levelSelectCell.setStyle()
+        levelSelectCell.set(indexPath: indexPath)
         
         let index = indexPath.section * Constants.levelsPerSection + indexPath.row
         
@@ -99,22 +101,18 @@ extension LevelSelectDataSource: UICollectionViewDataSource {
         }
         
         // Get the URL for a file in the Documents Directory
-        let highScoreFileURL = FileUtility.getFileURL(for: levelName, and: "plist")
+        let levelInfoURL = FileUtility.getFileURL(for: levelName, and: Constants.plistExtension)
         
-        let levelInfo = NSMutableDictionary(contentsOf: highScoreFileURL) ?? NSMutableDictionary()
+        let levelInfo = NSMutableDictionary(contentsOf: levelInfoURL) ?? NSMutableDictionary()
         
         let highScore = levelInfo.object(forKey: NSString(string: "score")) as? Int ?? 0
         
+        // Set display values
         levelSelectCell.highScore.text = String(highScore)
-        
-        levelSelectCell.levelImage.clipsToBounds = true
         levelSelectCell.levelImage.image = image
-        levelSelectCell.levelImage.alpha = Constants.levelSelectImageAlpha
         levelSelectCell.levelName.text = levelName
         
-        levelSelectCell.deleteButton.indexPath = indexPath
-        levelSelectCell.playLoadButton.indexPath = indexPath
-
+        // Setup cell buttons
         levelSelectCell.deleteButton.addTarget(self, action: #selector(handleDeleteLevel(_:)),
             for: .touchUpInside)
         levelSelectCell.playLoadButton.addTarget(self, action: #selector(handlePlayLoadLevel(_:)),
@@ -125,19 +123,23 @@ extension LevelSelectDataSource: UICollectionViewDataSource {
     
     @objc private func handleDeleteLevel(_ sender: UIButton) {
         
+        // Get the index path of the level to delete
         guard let indexPathToDelete = (sender as? LevelSelectCellButton)?.indexPath else {
             return
         }
         
+        // Delete level selection
         levelSelectViewController?.deleteLevel(at: indexPathToDelete)
     }
     
     @objc private func handlePlayLoadLevel(_ sender: UIButton) {
         
+        // Get the index path of the level to play or load
         guard let indexPathToLoad = (sender as? LevelSelectCellButton)?.indexPath else {
             return
         }
         
+        // Play / load the level
         levelSelectViewController?.playLoadLevel(at: indexPathToLoad)
     }
 }

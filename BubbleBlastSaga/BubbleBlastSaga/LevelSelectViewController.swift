@@ -94,10 +94,10 @@ class LevelSelectViewController: UIViewController {
         switch parentVC {
         case is LevelDesignerViewController:
             // if is level designer vc, that is where we came from, need to unwind back
-            self.performSegue(withIdentifier: Constants.loadToLevelDesignerSegue, sender: levelName)
+            performSegue(withIdentifier: Constants.loadToLevelDesignerSegue, sender: levelName)
         case is MainMenuViewController:
             // if is main menu, segue to a new game view
-            self.performSegue(withIdentifier: Constants.loadToGameSegue, sender: levelName)
+            performSegue(withIdentifier: Constants.loadToGameSegue, sender: levelName)
         default:
             return
         }
@@ -121,6 +121,7 @@ class LevelSelectViewController: UIViewController {
                 return
         }
         
+        // Inform level designer to load the file
         levelDesignerVC.loadBubbleGridModelFromFile(name: levelName)
     }
     

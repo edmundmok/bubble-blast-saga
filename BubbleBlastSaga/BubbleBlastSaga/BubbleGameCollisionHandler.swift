@@ -108,7 +108,7 @@ extension BubbleGameCollisionHandler: CollisionHandler {
     // calls the logic to handle the resulting interactions.
     private func updateModel(with gameBubble: GameBubble, at indexPath: IndexPath) {
         bubbleGridModel.set(gameBubble: gameBubble, at: indexPath)
-        bubbleGameLogic.handleInteractions(with: gameBubble)
+        let _ = bubbleGameLogic.handleInteractions(with: gameBubble)
     }
     
     func handleCollisionBetween(_ aCircle: PhysicsCircle, and aBox: PhysicsBox) {

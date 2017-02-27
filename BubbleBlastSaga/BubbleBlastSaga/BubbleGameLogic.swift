@@ -48,14 +48,14 @@ class BubbleGameLogic {
     
     // Handle the resulting interactions of the snapped bubble, such as removing connected
     // bubbles and also removing floating bubbles after.
-    func handleInteractions(with snappedBubble: GameBubble) {
+    func handleInteractions(with snappedBubble: GameBubble) -> Int {
         
         // Redraw first to show snapped position
         gameEngine.renderer.draw([snappedBubble])
         
         // The game only shoots colored bubbles
         guard let coloredBubble = snappedBubble as? ColoredBubble else {
-            return
+            return 0
         }
         
         // Reset the special data structure at the start of each interaction handling
@@ -86,11 +86,13 @@ class BubbleGameLogic {
         guard totalBubblesRemoved > 0 else {
             // no bubbles were removed by this shot, reset necessary stats
             bubbleGameStats.updateStatsWithFailedShot()
-            return
+            return 0
         }
         
         bubbleGameStats.updateStatsWithSuccessfulShot(removalCount: totalBubblesRemoved,
             chainCount: currentChainCount, with: coloredBubble)
+        
+        return totalBubblesRemoved
     }
     
     private func activateSpecialBubbles(near snappedBubble: ColoredBubble) {

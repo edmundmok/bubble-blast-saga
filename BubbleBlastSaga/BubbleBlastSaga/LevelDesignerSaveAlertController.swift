@@ -161,7 +161,7 @@ class LevelDesignerSaveAlertController: UIViewController {
         try? imageData?.write(to: fileURL, options: .atomic)
         
         // save new info list
-        let levelInfoURL = FileUtility.getFileURL(for: levelName, and: "plist")
+        let levelInfoURL = FileUtility.getFileURL(for: levelName, and: Constants.plistExtension)
         let levelInfoDict = NSMutableDictionary()
         
         let _ = levelInfoDict.write(to: levelInfoURL, atomically: true)

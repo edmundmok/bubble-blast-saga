@@ -268,13 +268,14 @@ class BubbleGame {
     // Get the hint for the next move.
     func getHint(from startPosition: CGPoint) -> CGFloat? {
         
-        // TODO: Refactor this line
-        guard let currentColoredBubble = bubbleCannon.currentBubble as? ColoredBubble else {
-            return nil
-        }
-        
         // get all the candidate positions
-        let candidates = getCandidates(for: currentColoredBubble)
+        let candidates = getCandidates()
+        
+        let rendererMock = Renderer(canvas: UIView())
+        let gameEngineMock = GameEngine(physicsEngine: PhysicsEngine(), renderer: rendererMock, gameSettings: GameSettings())
+        let bubbleGameAnimatorMock = BubbleGameAnimator(gameArea: UIView(), renderer: rendererMock, bubbleGrid: bubbleGrid)
+        let bubbleGameStatsMock = BubbleGameStats()
+        let bubbleGameEvaluatorMock = BubbleGameEvaluator(bubbleGrid: bubbleGrid, bubbleGridModel: bubbleGridModel)
         
         var candidateCountDictionary = [IndexPath: Int]()
         for candidate in candidates {
@@ -283,7 +284,11 @@ class BubbleGame {
             }
             
             modelCopy.set(gameBubble: bubbleCannon.currentBubble, at: candidate)
-            let bubbleGameLogicSim = BubbleGameLogicSimulator(bubbleGrid: bubbleGrid, bubbleGridModel: modelCopy)
+            // let bubbleGameLogicSim = BubbleGameLogicSimulator(bubbleGrid: bubbleGrid, bubbleGridModel: modelCopy)
+            
+            let bubbleGameLogicSim = BubbleGameLogic(bubbleGrid: bubbleGrid, bubbleGridModel: modelCopy,
+                gameEngine: gameEngineMock, bubbleGameAnimator: bubbleGameAnimatorMock, bubbleGameStats: bubbleGameStatsMock, bubbleGameEvaluator: bubbleGameEvaluatorMock)
+            
             
             let count = bubbleGameLogicSim.handleInteractions(with: bubbleCannon.currentBubble)
             
@@ -401,11 +406,17 @@ class BubbleGame {
         return reboundCoord
     }
     
-    private func getCandidates(for coloredBubble: ColoredBubble) -> [IndexPath] {
+    private func getCandidates() -> [IndexPath] {
+        // Get the color of the current bubble
+        guard let desiredColor = (bubbleCannon.currentBubble as? ColoredBubble)?.color else {
+            return []
+        }
+        
+        // Get bottom index paths to start from
         let bottomIndexPaths = BubbleGameUtility.getIndexPathsForBottomSection(of: bubbleGridModel)
         
         // Carry out BFS from the last section 
-        // Look for empty cells that have filled neighbours
+        // Look for empty cells that have filled neighbours with same color
         // and add them to the set of candidates
         var queue = Queue<IndexPath>()
         var visited = Set<IndexPath>()
@@ -424,26 +435,29 @@ class BubbleGame {
                 break
             }
             
-            
-            let nextNeighbours = bubbleGridModel.getNeighboursIndexPath(of: next)
-            
-            guard bubbleGridModel.getGameBubble(at: next) == nil else {
+            guard bubbleGridModel.getBubbleType(at: next) == .Empty else {
                 continue
             }
             
+            let nextNeighbours = bubbleGridModel.getNeighboursIndexPath(of: next)
             
-            // TODO: REFACTOR this
+            // it is a candidate if it has at least one neighbour of the same color as
+            // the cannon bubble or it has a special bubble neighbour
             let isCandidate =  nextNeighbours
                 .filter {
                     
-                    if let powerBubble = bubbleGridModel.getGameBubble(at: $0) as? PowerBubble {
-                        guard powerBubble.power != .Indestructible else {
-                            return false
-                        }
+                    // Do not follow indestructible bubble
+                    guard bubbleGridModel.getBubbleType(at: $0) != .IndestructibleBubble else {
+                        return false
+                    }
+                    
+                    // If the neighbour is a special bubble, then it is a good candidate
+                    if bubbleGridModel.getGameBubble(at: $0) is PowerBubble {
                         return true
                     }
                     
-                    return (bubbleGridModel.getGameBubble(at: $0) as? ColoredBubble)?.color == coloredBubble.color
+                    // Otherwise it is a good candidate if a neighbour has same color
+                    return (bubbleGridModel.getGameBubble(at: $0) as? ColoredBubble)?.color == desiredColor
                 
                 }
                 .count > 0

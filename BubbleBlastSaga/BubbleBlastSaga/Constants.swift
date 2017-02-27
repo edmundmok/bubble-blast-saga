@@ -178,6 +178,7 @@ struct Constants {
     static let blankLevelName = ""
     static let blankMessage = ""
     static let pngExtension = "png"
+    static let plistExtension = "plist"
     static let yesTitle = "Yes"
     static let noTitle = "No"
     static let okTitle = "OK"

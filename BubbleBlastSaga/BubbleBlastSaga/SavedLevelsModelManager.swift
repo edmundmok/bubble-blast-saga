@@ -55,7 +55,7 @@ class SavedLevelsModelManager: SavedLevelsModel {
         try? FileManager.default.removeItem(at: imageURL)
         
         // and delete the associated plist
-        let levelInfoURL = FileUtility.getFileURL(for: fileName, and: "plist")
+        let levelInfoURL = FileUtility.getFileURL(for: fileName, and: Constants.plistExtension)
         try? FileManager.default.removeItem(at: levelInfoURL)
     }
     

@@ -345,7 +345,7 @@ class GameViewController: UIViewController {
         }
         
         // Get the URL for a file in the Documents Directory
-        let levelInfoURL = FileUtility.getFileURL(for: levelName, and: "plist")
+        let levelInfoURL = FileUtility.getFileURL(for: levelName, and: Constants.plistExtension)
             
         
         let levelInfo = NSMutableDictionary(contentsOf: levelInfoURL) ?? NSMutableDictionary()
