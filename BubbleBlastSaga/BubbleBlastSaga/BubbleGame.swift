@@ -273,7 +273,7 @@ class BubbleGame {
         
         // Create mock components for simulation of moves in getting the hint
         let rendererMock = Renderer(canvas: UIView())
-        let gameEngineMock = GameEngine(physicsEngine: PhysicsEngine(), renderer: rendererMock, gameSettings: GameSettings())
+        let gameEngineMock = GameEngine(physicsEngine: PhysicsEngine(), renderer: rendererMock, gameSettings: gameSettings)
         let bubbleGameAnimatorMock = BubbleGameAnimator(gameArea: UIView(), renderer: rendererMock, bubbleGrid: bubbleGrid)
         let bubbleGameStatsMock = BubbleGameStats()
         let bubbleGameEvaluatorMock = BubbleGameEvaluator(bubbleGrid: bubbleGrid, bubbleGridModel: bubbleGridModel)
@@ -308,55 +308,58 @@ class BubbleGame {
             }
             
             let targetCenter = targetCell.center
+            let targetWidth = targetCell.frame.size.width
             
-            // try direct angle
-            let directAngle = atan2(targetCenter.y - startPosition.y,
-                              targetCenter.x - startPosition.x)
-            
-            if let finalPosition = getTrajectoryPoints(from: startPosition, at: directAngle).last {
-                // check if direct angle lands at location close enough
-                guard finalPosition.distance(to: targetCenter) > targetCell.frame.size.width else {
-                    DispatchQueue.main.sync {
-                        bubbleGameAnimator.flashHintLocations(candidate)
-                    }
-                    return directAngle
-                }
-            }
- 
-            
-            // try left angle
-            let leftReboundCoord = getCoordinateForLeftRebound(from: startPosition, to: targetCenter)
-            let leftReboundAngle = atan2(leftReboundCoord.y - startPosition.y,
-                                         leftReboundCoord.x - startPosition.x)
-            
-            if let finalPosition = getTrajectoryPoints(from: startPosition, at: leftReboundAngle).last {
-                // check if direct angle lands at location close enough
-                guard finalPosition.distance(to: targetCenter) > targetCell.frame.size.width else {
-                    DispatchQueue.main.sync {
-                        bubbleGameAnimator.flashHintLocations(candidate)
-                    }
-                    return leftReboundAngle
-                }
+            guard let angleToShootAtTarget = getAngleToShoot(at: targetCenter, of: targetWidth, from: startPosition) else {
+                continue
             }
             
-            // try right angle
-            let rightReboundCoord = getCoordinateForRightRebound(from: startPosition, to: targetCenter)
-            let rightReboundAngle = atan2(rightReboundCoord.y - startPosition.y,
-                                         rightReboundCoord.x - startPosition.x)
-            
-            if let finalPosition = getTrajectoryPoints(from: startPosition, at: rightReboundAngle).last {
-                // check if direct angle lands at location close enough
-                guard finalPosition.distance(to: targetCenter) > targetCell.frame.size.width else {
-                    DispatchQueue.main.sync {
-                        bubbleGameAnimator.flashHintLocations(candidate)
-                    }
-                    return rightReboundAngle
-                }
+            DispatchQueue.main.sync {
+                bubbleGameAnimator.flashHint(at: candidate)
             }
+            
+            return angleToShootAtTarget
             
         }
         return nil
     }
+    
+    private func getAngleToShoot(at target: CGPoint, of width: CGFloat, from start: CGPoint) -> CGFloat? {
+        
+        // try direct angle
+        let directAngle = atan2(target.y - start.y, target.x - start.x)
+        guard !canShoot(target: target, of: width, from: start, with: directAngle) else {
+            return directAngle
+        }
+        
+        // try left angle
+        let leftReboundCoord = getCoordinateForLeftRebound(from: start, to: target)
+        let leftReboundAngle = atan2(leftReboundCoord.y - start.y, leftReboundCoord.x - start.x)
+        guard !canShoot(target: target, of: width, from: start, with: leftReboundAngle) else {
+            return leftReboundAngle
+        }
+        
+        // try right angle
+        let rightReboundCoord = getCoordinateForRightRebound(from: start, to: target)
+        let rightReboundAngle = atan2(rightReboundCoord.y - start.y, rightReboundCoord.x - start.x)
+        guard !canShoot(target: target, of: width, from: start, with: rightReboundAngle) else {
+            return rightReboundAngle
+        }
+        
+        // no good angle to fire from
+        return nil
+    }
+    
+    // Returns whether we are able to shoot at the target with the given width, from the 
+    // given start at the given angle.
+    private func canShoot(target: CGPoint, of width: CGFloat, from start: CGPoint, with angle: CGFloat) -> Bool {
+        guard let finalPosition = getTrajectoryPoints(from: start, at: angle).last else {
+            return false
+        }
+        
+        return finalPosition.distance(to: target) <= width
+    }
+    
     
     private func getCoordinateForLeftRebound(from startPosition: CGPoint, to coordinate: CGPoint) -> CGPoint {
         let actualRadiusOfBubble = getStandardBubbleSize().width

@@ -48,7 +48,7 @@ class BubbleGameLogic {
     
     // Handle the resulting interactions of the snapped bubble, such as removing connected
     // bubbles and also removing floating bubbles after.
-    func handleInteractions(with snappedBubble: GameBubble) -> Int {
+    @discardableResult func handleInteractions(with snappedBubble: GameBubble) -> Int {
         
         // Redraw first to show snapped position
         gameEngine.renderer.draw([snappedBubble])

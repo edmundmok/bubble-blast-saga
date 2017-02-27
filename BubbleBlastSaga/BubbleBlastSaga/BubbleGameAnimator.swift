@@ -46,6 +46,7 @@ class BubbleGameAnimator {
                 dy: distanceToDrop)
             bubbleImage.frame = finalFrame
         }, completion: { _ in
+            // Remove image on complete
             self.renderer.deregisterImage(for: gameBubble)
         })
     }
@@ -62,6 +63,7 @@ class BubbleGameAnimator {
         bubbleImage.startAnimating()
         
         Timer.scheduledTimer(withTimeInterval: Constants.popRemovalTime, repeats: false, block: { _ in
+            // Remove image on complete
             self.renderer.deregisterImage(for: gameBubble)
         })
     }
@@ -149,7 +151,7 @@ class BubbleGameAnimator {
         }
     }
     
-    func flashHintLocations(_ indexPath: IndexPath) {
+    func flashHint(at indexPath: IndexPath) {
         
         // Make sure that given index path is non empty
         // and there is a valid cell for the index path in the grid
