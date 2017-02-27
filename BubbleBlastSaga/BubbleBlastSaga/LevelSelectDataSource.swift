@@ -90,23 +90,16 @@ extension LevelSelectDataSource: UICollectionViewDataSource {
         
         let levelName = savedLevelsModel.savedLevels[index]
         
-        // Get the URL of the Documents Directory
-        let documentDirectory = FileManager
-            .default
-            .urls(for: .documentDirectory, in: .userDomainMask)[0]
-        
         // Get the URL for a file in the Documents Directory
-        let fileURL = documentDirectory
-            .appendingPathComponent(levelName)
-            .appendingPathExtension(Constants.pngExtension)
+        let imageURL = FileUtility.getFileURL(for: levelName, and: Constants.pngExtension)
         
-        guard let imageData = NSData(contentsOf: fileURL) as? Data,
+        guard let imageData = NSData(contentsOf: imageURL) as? Data,
             let image = UIImage(data: imageData) else {
                 return UICollectionViewCell()
         }
         
         // Get the URL for a file in the Documents Directory
-        let highScoreFileURL =  documentDirectory.appendingPathComponent(levelName).appendingPathExtension("plist")
+        let highScoreFileURL = FileUtility.getFileURL(for: levelName, and: "plist")
         
         let levelInfo = NSMutableDictionary(contentsOf: highScoreFileURL) ?? NSMutableDictionary()
         

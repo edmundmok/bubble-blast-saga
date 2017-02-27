@@ -44,19 +44,18 @@ class SavedLevelsModelManager: SavedLevelsModel {
         
         // get the file url
         let fileName = savedLevels[index]
-        let documentsUrl = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        let fileUrl = documentsUrl.appendingPathComponent(fileName).appendingPathExtension(Constants.fileExtension)
+        let fileURL = FileUtility.getFileURL(for: fileName, and: Constants.fileExtension)
         
         // remove from directory and the model
-        try? FileManager.default.removeItem(at:fileUrl)
+        try? FileManager.default.removeItem(at:fileURL)
         savedLevels.remove(at: index)
         
         // also remove the png image associated
-        let imageUrl = documentsUrl.appendingPathComponent(fileName).appendingPathExtension(Constants.pngExtension)
-        try? FileManager.default.removeItem(at: imageUrl)
+        let imageURL = FileUtility.getFileURL(for: fileName, and: Constants.pngExtension)
+        try? FileManager.default.removeItem(at: imageURL)
         
         // and delete the associated plist
-        let levelInfoURL = documentsUrl.appendingPathComponent(fileName).appendingPathExtension("plist")
+        let levelInfoURL = FileUtility.getFileURL(for: fileName, and: "plist")
         try? FileManager.default.removeItem(at: levelInfoURL)
     }
     

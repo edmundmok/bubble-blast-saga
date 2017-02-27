@@ -267,12 +267,7 @@ class BubbleGridModelManager: BubbleGridModel {
     
     // Helper function to get the URL for the specified bubble grid filename.
     private func getURLForBubbleGridFile(named filename: String) -> URL {
-        // Get the URL of the Documents Directory
-        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        
-        // Get the URL for a file in the Documents Directory
-        let fileURL = documentDirectory.appendingPathComponent(filename).appendingPathExtension(Constants.fileExtension)
-        return fileURL
+        return FileUtility.getFileURL(for: filename, and: Constants.fileExtension)
     }
     
     // Saves the current bubblegrid as a file with the given filename as the name

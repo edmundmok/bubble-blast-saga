@@ -69,7 +69,7 @@ class LevelSelectViewController: UIViewController {
         deleteAlert.addAction(cancelAction)
         deleteAlert.addAction(deleteAction)
         
-        self.present(deleteAlert, animated: true, completion: nil)
+        present(deleteAlert, animated: true, completion: nil)
     }
     
     func playLoadLevel(at indexPath: IndexPath) {
@@ -130,10 +130,12 @@ class LevelSelectViewController: UIViewController {
                 return
         }
         
+        // Prepare to load the requested level model
         let bubbleGridModel = BubbleGridModelManager(numSections: Constants.defaultNumSections,
             numRows: Constants.defaultNumRows)
         bubbleGridModel.load(from: levelName)
         
+        // Hand it to the game for loading into actual game engine
         gameVC.bubbleGridModel = bubbleGridModel
     }
 

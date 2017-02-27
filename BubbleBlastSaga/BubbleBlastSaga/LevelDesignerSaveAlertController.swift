@@ -75,9 +75,7 @@ class LevelDesignerSaveAlertController: UIViewController {
             // get the level name
             let levelName = saveAlert?.textFields?.first?.text ?? Constants.blankLevelName
             
-            guard let fileURL = self?.getFileURL(for: levelName, and: Constants.fileExtension) else {
-                return
-            }
+            let fileURL = FileUtility.getFileURL(for: levelName, and: Constants.fileExtension)
             
             // ask user to confirm overwrite if file already exists
             guard !FileManager.default.fileExists(atPath: fileURL.relativePath) else {
@@ -95,14 +93,6 @@ class LevelDesignerSaveAlertController: UIViewController {
         saveAlert.addAction(saveAction)
      
         self.parent?.present(saveAlert, animated: true)
-    }
-    
-    private func getFileURL(for name: String, and fileExtension: String) -> URL {
-        // Get the URL of the Documents Directory
-        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        
-        // Get the URL for a file in the Documents Directory
-        return documentDirectory.appendingPathComponent(name).appendingPathExtension(fileExtension)
     }
     
     // Used to validate the textfield to ensure only alphanumeric characters for level name
@@ -167,11 +157,11 @@ class LevelDesignerSaveAlertController: UIViewController {
         let imageData = UIImagePNGRepresentation(image)
         
         // saving image
-        let fileURL = getFileURL(for: levelName, and: Constants.pngExtension)
+        let fileURL = FileUtility.getFileURL(for: levelName, and: Constants.pngExtension)
         try? imageData?.write(to: fileURL, options: .atomic)
         
         // save new info list
-        let levelInfoURL = getFileURL(for: levelName, and: "plist")
+        let levelInfoURL = FileUtility.getFileURL(for: levelName, and: "plist")
         let levelInfoDict = NSMutableDictionary()
         
         let _ = levelInfoDict.write(to: levelInfoURL, atomically: true)

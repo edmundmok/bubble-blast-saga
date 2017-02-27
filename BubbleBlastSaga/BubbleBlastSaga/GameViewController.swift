@@ -344,20 +344,18 @@ class GameViewController: UIViewController {
             return
         }
         
-        // Get the URL of the Documents Directory
-        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
-        
         // Get the URL for a file in the Documents Directory
-        let highScoreFileURL =  documentDirectory.appendingPathComponent(levelName).appendingPathExtension("plist")
+        let levelInfoURL = FileUtility.getFileURL(for: levelName, and: "plist")
+            
         
-        let levelInfo = NSMutableDictionary(contentsOf: highScoreFileURL) ?? NSMutableDictionary()
+        let levelInfo = NSMutableDictionary(contentsOf: levelInfoURL) ?? NSMutableDictionary()
         
         let score = bubbleGame.bubbleGameEvaluator.timeLeft
         guard let prevScore = levelInfo.object(forKey: NSString(string: "score")) as? Int else {
             // no prev high score
             NotificationCenter.default.post(name: Constants.newHighscoreNotificationName, object: nil)
             levelInfo.setObject(score, forKey: NSString(string: "score"))
-            levelInfo.write(to: highScoreFileURL, atomically: true)
+            levelInfo.write(to: levelInfoURL, atomically: true)
             return
         }
         
@@ -367,7 +365,7 @@ class GameViewController: UIViewController {
         
         NotificationCenter.default.post(name: Constants.newHighscoreNotificationName, object: nil)
         levelInfo.setObject(score, forKey: NSString(string: "score"))
-        levelInfo.write(to: highScoreFileURL, atomically: true)
+        levelInfo.write(to: levelInfoURL, atomically: true)
 
     }
 
