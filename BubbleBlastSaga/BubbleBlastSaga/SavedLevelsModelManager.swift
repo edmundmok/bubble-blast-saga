@@ -54,6 +54,10 @@ class SavedLevelsModelManager: SavedLevelsModel {
         // also remove the png image associated
         let imageUrl = documentsUrl.appendingPathComponent(fileName).appendingPathExtension(Constants.pngExtension)
         try? FileManager.default.removeItem(at: imageUrl)
+        
+        // and delete the associated plist
+        let levelInfoURL = documentsUrl.appendingPathComponent(fileName).appendingPathExtension("plist")
+        try? FileManager.default.removeItem(at: levelInfoURL)
     }
     
     // Checks if the given index is valid.

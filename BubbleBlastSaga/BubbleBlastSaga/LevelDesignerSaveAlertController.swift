@@ -166,8 +166,15 @@ class LevelDesignerSaveAlertController: UIViewController {
         UIGraphicsEndImageContext()
         let imageData = UIImagePNGRepresentation(image)
         
+        // saving image
         let fileURL = getFileURL(for: levelName, and: Constants.pngExtension)
         try? imageData?.write(to: fileURL, options: .atomic)
+        
+        // save new info list
+        let levelInfoURL = getFileURL(for: levelName, and: "plist")
+        let levelInfoDict = NSMutableDictionary()
+        
+        let _ = levelInfoDict.write(to: levelInfoURL, atomically: true)
         
         
         // Present alert on whether save is successful
