@@ -101,8 +101,9 @@ class BubbleGameEvaluator {
     @objc private func timerHandle() {
         timeLeft -= 1
         
+        NotificationCenter.default.post(name: Constants.timerUpdatedUpdatedNotificationName, object: nil)
+        
         guard isTimeUp() else {
-            NotificationCenter.default.post(name: Constants.timerUpdatedUpdatedNotificationName, object: nil)
             return
         }
         

@@ -422,7 +422,7 @@ class GameViewController: UIViewController {
                 
                 UIView.animate(withDuration: Constants.redisplayUIDuration) {
                     // redisplay hidden game ui
-                    self.scoreLabel.text = String(Constants.timeLimit)
+                    self.scoreLabel.text = String(Constants.timerFinalValue)
                     self.gameView.alpha = Constants.shownAlpha
                     self.hintButton.alpha = Constants.shownAlpha
                     self.swapButton.alpha = Constants.shownAlpha

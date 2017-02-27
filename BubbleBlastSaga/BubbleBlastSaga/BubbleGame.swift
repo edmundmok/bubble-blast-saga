@@ -271,6 +271,7 @@ class BubbleGame {
         // get all the candidate positions
         let candidates = getCandidates()
         
+        // Create mock components for simulation of moves in getting the hint
         let rendererMock = Renderer(canvas: UIView())
         let gameEngineMock = GameEngine(physicsEngine: PhysicsEngine(), renderer: rendererMock, gameSettings: GameSettings())
         let bubbleGameAnimatorMock = BubbleGameAnimator(gameArea: UIView(), renderer: rendererMock, bubbleGrid: bubbleGrid)
@@ -284,7 +285,6 @@ class BubbleGame {
             }
             
             modelCopy.set(gameBubble: bubbleCannon.currentBubble, at: candidate)
-            // let bubbleGameLogicSim = BubbleGameLogicSimulator(bubbleGrid: bubbleGrid, bubbleGridModel: modelCopy)
             
             let bubbleGameLogicSim = BubbleGameLogic(bubbleGrid: bubbleGrid, bubbleGridModel: modelCopy,
                 gameEngine: gameEngineMock, bubbleGameAnimator: bubbleGameAnimatorMock, bubbleGameStats: bubbleGameStatsMock, bubbleGameEvaluator: bubbleGameEvaluatorMock)
