@@ -816,9 +816,9 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XCw-pp-UA6">
-                                <rect key="frame" x="20" y="982" width="51" height="34"/>
+                                <rect key="frame" x="3" y="950" width="122" height="71"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="25"/>
                                 <state key="normal" title="Back">
                                     <color key="titleColor" red="0.90196079019999997" green="0.90196079019999997" blue="0.90196079019999997" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
@@ -837,6 +837,7 @@
                     </view>
                     <nil key="simulatedTopBarMetrics"/>
                     <connections>
+                        <outlet property="backButton" destination="XCw-pp-UA6" id="bEr-N6-N6W"/>
                         <outlet property="savedLevels" destination="Ksa-Dy-TcN" id="en7-py-Wm1"/>
                         <segue destination="39J-a7-Akb" kind="show" identifier="loadToGame" id="eWt-6T-xS8"/>
                         <segue destination="u3b-u8-H1Q" kind="unwind" identifier="loadToLevelDesigner" unwindAction="goBackToLevelDesignerWithSegue:" id="YXq-u0-zei"/>
@@ -864,7 +865,7 @@
         <image name="trash" width="1000" height="1251"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="Q1b-8V-dJh"/>
+        <segue reference="36a-ee-5rc"/>
         <segue reference="eWt-6T-xS8"/>
     </inferredMetricsTieBreakers>
 </document>

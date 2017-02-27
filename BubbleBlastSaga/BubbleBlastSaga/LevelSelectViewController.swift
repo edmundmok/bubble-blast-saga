@@ -12,6 +12,7 @@ class LevelSelectViewController: UIViewController {
 
     fileprivate var savedLevelsModel: SavedLevelsModel = SavedLevelsModelManager()
     @IBOutlet weak var savedLevels: UICollectionView!
+    @IBOutlet weak var backButton: UIButton!
     
     private var levelSelectDataSource: LevelSelectDataSource?
     private var levelSelectDelegate: LevelSelectDelegate?
@@ -24,6 +25,9 @@ class LevelSelectViewController: UIViewController {
             savedLevelsModel: savedLevelsModel, levelSelectViewController: self)
         self.levelSelectDelegate = LevelSelectDelegate(savedLevels: savedLevels,
             savedLevelsModel: savedLevelsModel)
+        
+        backButton.layer.borderColor = backButton.titleLabel?.textColor.cgColor
+        backButton.layer.borderWidth = Constants.gameMenuButtonsBorderWidth
     }
     
     override func viewWillAppear(_ animated: Bool) {
