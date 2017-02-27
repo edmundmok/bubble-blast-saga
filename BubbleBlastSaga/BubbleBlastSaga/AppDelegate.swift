@@ -16,7 +16,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        generatePreloadedInfo()
         return true
+    }
+    
+    private func generatePreloadedInfo() {
+        let preloadedLevels = ["Chain", "RainbowPizza", "Star"]
+        
+        preloadedLevels.forEach{ generatePreloaded(level: $0) }
+    }
+    
+    private func generatePreloaded(level: String) {
+        // Get main bundle path
+        guard let gridBundlePath =  Bundle.main.path(forResource: level, ofType: Constants.fileExtension),
+            let imageBundlePath =  Bundle.main.path(forResource: level, ofType: Constants.pngExtension),
+            let infoBundlePath =  Bundle.main.path(forResource: level, ofType: Constants.plistExtension) else {
+                return
+        }
+        
+        // Get documents path
+        let gridDocumentsPath = FileUtility.getFileURL(for: level, and: Constants.fileExtension).path
+        let imageDocumentsPath = FileUtility.getFileURL(for: level, and: Constants.pngExtension).path
+        let infoDocumentsPath = FileUtility.getFileURL(for: level, and: Constants.plistExtension).path
+        
+        let fileManager = FileManager.default
+        
+        // Don't overwrite if file already exists
+        guard !fileManager.fileExists(atPath: gridDocumentsPath) else {
+            return
+        }
+        
+        // Copy from bundle to documents
+        try? fileManager.copyItem(atPath: gridBundlePath, toPath: gridDocumentsPath)
+        try? fileManager.copyItem(atPath: imageBundlePath, toPath: imageDocumentsPath)
+        try? fileManager.copyItem(atPath: infoBundlePath, toPath: infoDocumentsPath)
+
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

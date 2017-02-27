@@ -60,6 +60,15 @@
 		F1E471E81E63DD2C00D02D5E /* FileUtility.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E471E71E63DD2C00D02D5E /* FileUtility.swift */; };
 		F1E471EC1E64289400D02D5E /* BubbleGameHintHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E471EB1E64289400D02D5E /* BubbleGameHintHelper.swift */; };
 		F1E471EE1E64307400D02D5E /* BubbleGameHintMockHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1E471ED1E64307400D02D5E /* BubbleGameHintMockHelper.swift */; };
+		F1E471F91E6460E700D02D5E /* Chain.bubblegrid in Resources */ = {isa = PBXBuildFile; fileRef = F1E471F01E6460E700D02D5E /* Chain.bubblegrid */; };
+		F1E471FA1E6460E700D02D5E /* Chain.plist in Resources */ = {isa = PBXBuildFile; fileRef = F1E471F11E6460E700D02D5E /* Chain.plist */; };
+		F1E471FB1E6460E700D02D5E /* Chain.png in Resources */ = {isa = PBXBuildFile; fileRef = F1E471F21E6460E700D02D5E /* Chain.png */; };
+		F1E471FC1E6460E700D02D5E /* RainbowPizza.bubblegrid in Resources */ = {isa = PBXBuildFile; fileRef = F1E471F31E6460E700D02D5E /* RainbowPizza.bubblegrid */; };
+		F1E471FD1E6460E700D02D5E /* RainbowPizza.plist in Resources */ = {isa = PBXBuildFile; fileRef = F1E471F41E6460E700D02D5E /* RainbowPizza.plist */; };
+		F1E471FE1E6460E700D02D5E /* RainbowPizza.png in Resources */ = {isa = PBXBuildFile; fileRef = F1E471F51E6460E700D02D5E /* RainbowPizza.png */; };
+		F1E472051E6463EF00D02D5E /* Star.bubblegrid in Resources */ = {isa = PBXBuildFile; fileRef = F1E472021E6463EF00D02D5E /* Star.bubblegrid */; };
+		F1E472061E6463EF00D02D5E /* Star.plist in Resources */ = {isa = PBXBuildFile; fileRef = F1E472031E6463EF00D02D5E /* Star.plist */; };
+		F1E472071E6463EF00D02D5E /* Star.png in Resources */ = {isa = PBXBuildFile; fileRef = F1E472041E6463EF00D02D5E /* Star.png */; };
 		F1F821E01E568EC1006DD5C3 /* CannonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F821DF1E568EC1006DD5C3 /* CannonView.swift */; };
 		F1F821E21E56A8A9006DD5C3 /* BubbleCannon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F821E11E56A8A9006DD5C3 /* BubbleCannon.swift */; };
 		F1F821E81E57F738006DD5C3 /* PowerBubble.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F821E71E57F738006DD5C3 /* PowerBubble.swift */; };
@@ -152,6 +161,15 @@
 		F1E471E71E63DD2C00D02D5E /* FileUtility.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileUtility.swift; sourceTree = "<group>"; };
 		F1E471EB1E64289400D02D5E /* BubbleGameHintHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleGameHintHelper.swift; sourceTree = "<group>"; };
 		F1E471ED1E64307400D02D5E /* BubbleGameHintMockHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleGameHintMockHelper.swift; sourceTree = "<group>"; };
+		F1E471F01E6460E700D02D5E /* Chain.bubblegrid */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Chain.bubblegrid; sourceTree = "<group>"; };
+		F1E471F11E6460E700D02D5E /* Chain.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Chain.plist; sourceTree = "<group>"; };
+		F1E471F21E6460E700D02D5E /* Chain.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Chain.png; sourceTree = "<group>"; };
+		F1E471F31E6460E700D02D5E /* RainbowPizza.bubblegrid */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = RainbowPizza.bubblegrid; sourceTree = "<group>"; };
+		F1E471F41E6460E700D02D5E /* RainbowPizza.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RainbowPizza.plist; sourceTree = "<group>"; };
+		F1E471F51E6460E700D02D5E /* RainbowPizza.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = RainbowPizza.png; sourceTree = "<group>"; };
+		F1E472021E6463EF00D02D5E /* Star.bubblegrid */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = Star.bubblegrid; sourceTree = "<group>"; };
+		F1E472031E6463EF00D02D5E /* Star.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Star.plist; sourceTree = "<group>"; };
+		F1E472041E6463EF00D02D5E /* Star.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Star.png; sourceTree = "<group>"; };
 		F1F821DF1E568EC1006DD5C3 /* CannonView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CannonView.swift; sourceTree = "<group>"; };
 		F1F821E11E56A8A9006DD5C3 /* BubbleCannon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BubbleCannon.swift; sourceTree = "<group>"; };
 		F1F821E71E57F738006DD5C3 /* PowerBubble.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PowerBubble.swift; sourceTree = "<group>"; };
@@ -260,6 +278,7 @@
 				F1C748CC1E5596850080A4B2 /* Main.storyboard */,
 				F1C7487B1E55954C0080A4B2 /* LaunchScreen.storyboard */,
 				F1C7487E1E55954C0080A4B2 /* Info.plist */,
+				F1E471EF1E6460B200D02D5E /* Preloaded Levels */,
 			);
 			path = BubbleBlastSaga;
 			sourceTree = "<group>";
@@ -398,6 +417,22 @@
 			name = BubbleGame;
 			sourceTree = "<group>";
 		};
+		F1E471EF1E6460B200D02D5E /* Preloaded Levels */ = {
+			isa = PBXGroup;
+			children = (
+				F1E472021E6463EF00D02D5E /* Star.bubblegrid */,
+				F1E472031E6463EF00D02D5E /* Star.plist */,
+				F1E472041E6463EF00D02D5E /* Star.png */,
+				F1E471F01E6460E700D02D5E /* Chain.bubblegrid */,
+				F1E471F11E6460E700D02D5E /* Chain.plist */,
+				F1E471F21E6460E700D02D5E /* Chain.png */,
+				F1E471F31E6460E700D02D5E /* RainbowPizza.bubblegrid */,
+				F1E471F41E6460E700D02D5E /* RainbowPizza.plist */,
+				F1E471F51E6460E700D02D5E /* RainbowPizza.png */,
+			);
+			name = "Preloaded Levels";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -517,9 +552,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F1E472061E6463EF00D02D5E /* Star.plist in Resources */,
+				F1E471FA1E6460E700D02D5E /* Chain.plist in Resources */,
+				F1E472051E6463EF00D02D5E /* Star.bubblegrid in Resources */,
+				F1E471FB1E6460E700D02D5E /* Chain.png in Resources */,
+				F1E471FC1E6460E700D02D5E /* RainbowPizza.bubblegrid in Resources */,
 				F1C748CE1E5596850080A4B2 /* Main.storyboard in Resources */,
+				F1E471FD1E6460E700D02D5E /* RainbowPizza.plist in Resources */,
 				F1C7487D1E55954C0080A4B2 /* LaunchScreen.storyboard in Resources */,
 				F1C7487A1E55954C0080A4B2 /* Assets.xcassets in Resources */,
+				F1E472071E6463EF00D02D5E /* Star.png in Resources */,
+				F1E471FE1E6460E700D02D5E /* RainbowPizza.png in Resources */,
+				F1E471F91E6460E700D02D5E /* Chain.bubblegrid in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
