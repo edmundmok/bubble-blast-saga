@@ -12,16 +12,18 @@ import Foundation
 struct Constants {
     
     // Notifications
-    static let timerUpdatedUpdatedNotificationName = Notification.Name.init("TimerUpdated")
-    static let gameWonNotificationName = Notification.Name.init("GameWon")
-    static let gameLostNotificationName = Notification.Name.init("GameLost")
-    static let newHighscoreNotificationName = Notification.Name.init("NewHighscore")
+    static let timerUpdatedNotification = Notification.Name.init("TimerUpdated")
+    static let gameWonNotification = Notification.Name.init("GameWon")
+    static let gameLostNotification = Notification.Name.init("GameLost")
+    static let newHighscoreNotification = Notification.Name.init("NewHighscore")
     
     // BubbleGameEvaluator
     static let timerFinalValue = timeLimit * timerPrecision
     static let timeLimit = 100
     static let timerPrecision = 10
-    static let initialFlyingBubblesCount = 0
+    static let timerSecond = 1.0
+    static let timesUp = 0
+    static let noFlyingBubbles = 0
     
     // BubbleGameStats
     static let initialScore = 0.0
@@ -35,6 +37,10 @@ struct Constants {
     static let scoreMultiplierPerChain = 0.5
     static let scoreMultiplierPerStreak = 0.5
     static let baseValue = 1.0
+    
+    // BubbleCannon
+    static let luckRating = UInt32(4)
+    static let chanceRange = UInt32(10)
     
     // BubbleGameHintHelper
     static let defaultRemovalCount = -1
@@ -80,7 +86,7 @@ struct Constants {
     static let wallThickness = 10 * Constants.bubbleSpeed
     static let sideWallHeightMultiplier = CGFloat(1.3)
     static let horizontalWallWidthMultiplier = CGFloat(2)
-    static let numberOfBubbles = UInt32(4)
+    static let numberOfBubbleColors = UInt32(4)
     static let bottomWallMultiplier = CGFloat(1.2)
     static let trajectoryPointsCount = 100
     static let widthToRadiusMultiplier = CGFloat(0.5)

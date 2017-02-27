@@ -49,23 +49,27 @@ class GameViewController: UIViewController {
     private var gameViewControllerDelegate: GameViewControllerDelegate?
 
     override func viewDidLoad() {
-        // Register collectionview cell
-        bubbleGrid.register(GameBubbleCell.self, forCellWithReuseIdentifier: Constants.bubbleCellIdentifier)
-
-        // Setup delegates
-        gameViewControllerDataSource = GameViewControllerDataSource(bubbleGrid: bubbleGrid,
-            bubbleGridModel: bubbleGridModel)
-        gameViewControllerDelegate = GameViewControllerDelegate(bubbleGrid: bubbleGrid,
-            bubbleGridModel: bubbleGridModel)
-                        
+        configureBubbleGridCollection()
         configureGestureRecognizers()
         
         // Request to layout and adjust constraints for game setup
         view.subviews.forEach { $0.layoutIfNeeded() }
         
-        startGame()
         setupNotificationObservers()
+        startGame()
         configureGameUI()
+    }
+    
+    private func configureBubbleGridCollection() {
+        // Register collectionview cell
+        bubbleGrid.register(GameBubbleCell.self,
+            forCellWithReuseIdentifier: Constants.bubbleCellIdentifier)
+        
+        // Setup delegates
+        gameViewControllerDataSource = GameViewControllerDataSource(bubbleGrid: bubbleGrid,
+            bubbleGridModel: bubbleGridModel)
+        gameViewControllerDelegate = GameViewControllerDelegate(bubbleGrid: bubbleGrid,
+            bubbleGridModel: bubbleGridModel)
     }
     
     private func configureGestureRecognizers() {
@@ -75,32 +79,31 @@ class GameViewController: UIViewController {
     }
     
     private func startGame() {
-        // Create a copy of the model, so that any changes due to gameplay
-        // do not affect the level designer's model
-        // Plus, can reset the game state to original state easily.
+        // Create a copy of the model, to ensure that we can reset easily
+        // and level designer's model is not affected by gameplay
         guard let modelCopy = bubbleGridModel.copy() as? BubbleGridModel else {
             return
         }
         
         bubbleGame = BubbleGame(gameSettings: GameSettings(), bubbleGridModel: modelCopy,
-                                bubbleGrid: bubbleGrid, gameArea: gameArea)
+            bubbleGrid: bubbleGrid, gameArea: gameArea)
         bubbleGame.startGame()
     }
     
     private func setupNotificationObservers() {
-        NotificationCenter.default.addObserver(forName: Constants.timerUpdatedUpdatedNotificationName,
+        NotificationCenter.default.addObserver(forName: Constants.timerUpdatedNotification,
             object: nil, queue: nil) { [weak self] _ in
             
             self?.handleTimerUpdated()
         }
         
-        NotificationCenter.default.addObserver(forName: Constants.gameWonNotificationName,
+        NotificationCenter.default.addObserver(forName: Constants.gameWonNotification,
             object: nil, queue: nil) { [weak self] _ in
             
             self?.handleGameWon()
         }
         
-        NotificationCenter.default.addObserver(forName: Constants.gameLostNotificationName,
+        NotificationCenter.default.addObserver(forName: Constants.gameLostNotification,
             object: nil, queue: nil) { [weak self] _ in
            
             self?.handleGameLost()
@@ -353,7 +356,7 @@ class GameViewController: UIViewController {
         let score = bubbleGame.bubbleGameEvaluator.timeLeft
         guard let prevScore = levelInfo.object(forKey: NSString(string: "score")) as? Int else {
             // no prev high score
-            NotificationCenter.default.post(name: Constants.newHighscoreNotificationName, object: nil)
+            NotificationCenter.default.post(name: Constants.newHighscoreNotification, object: nil)
             levelInfo.setObject(score, forKey: NSString(string: "score"))
             levelInfo.write(to: levelInfoURL, atomically: true)
             return
@@ -363,7 +366,7 @@ class GameViewController: UIViewController {
             return
         }
         
-        NotificationCenter.default.post(name: Constants.newHighscoreNotificationName, object: nil)
+        NotificationCenter.default.post(name: Constants.newHighscoreNotification, object: nil)
         levelInfo.setObject(score, forKey: NSString(string: "score"))
         levelInfo.write(to: levelInfoURL, atomically: true)
 

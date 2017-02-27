@@ -44,18 +44,12 @@ class BubbleCannon {
     
     // Simple algorithm to decide next cannon bubble
     // (Luck rating) % chance of getting most common color
-    // (1 - luck rating) % chance of getting random color
-    //
-    // Easy: 60%
-    // Medium: 50%
-    // Hard: 40%
+    // (100 - luck rating) % chance of getting random color
     private func getNextCannonBubble() -> GameBubble {
-        // 0..<(luck rating), get the common color
-        // luck rating..9, get the random color
-        let chanceNumber = arc4random() % 10
+        let chanceNumber = arc4random() % Constants.chanceRange
         
-        // assume easy rating for now
-        guard chanceNumber < 4 else {
+        // Check if we are lucky
+        guard chanceNumber < Constants.luckRating else {
             // get the random color as number falls outside luck range
             return getRandomBubble()
         }
@@ -68,7 +62,7 @@ class BubbleCannon {
     
     // Randomly generates the next cannon bubble and returns it.
     private func getRandomBubble() -> GameBubble {
-        let randomGameBubbleNumber = arc4random() % Constants.numberOfBubbles
+        let randomGameBubbleNumber = arc4random() % Constants.numberOfBubbleColors
         switch randomGameBubbleNumber {
         case 0: return ColoredBubble(color: .Red)
         case 1: return ColoredBubble(color: .Blue)

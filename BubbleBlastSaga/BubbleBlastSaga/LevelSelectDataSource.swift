@@ -33,7 +33,7 @@ class LevelSelectDataSource: NSObject {
     }
     
     private func regiseterObservers() {
-        NotificationCenter.default.addObserver(forName: Constants.newHighscoreNotificationName,
+        NotificationCenter.default.addObserver(forName: Constants.newHighscoreNotification,
             object: nil, queue: nil) { [weak self] _ in
             
             self?.handleNewHighscore()

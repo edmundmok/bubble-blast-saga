@@ -14,7 +14,7 @@ class BubbleGameEvaluator {
     var timer = Timer()
     private(set) var timeLeft = Constants.timeLimit * Constants.timerPrecision
     private(set) var timerStarted = false
-    private(set) var flyingBubblesCount = Constants.initialFlyingBubblesCount
+    private(set) var flyingBubblesCount = Constants.noFlyingBubbles
     
     // Mode independent
     private let bubbleGrid: UICollectionView
@@ -31,20 +31,24 @@ class BubbleGameEvaluator {
         // Start timer on the first shot
         if !timerStarted {
             timerStarted = true
-            self.timer = Timer.scheduledTimer(timeInterval: 1.0 / Double(Constants.timerPrecision), target: self,
-                selector: #selector(timerHandle), userInfo: nil, repeats: true)
+            self.timer = Timer.scheduledTimer(
+                timeInterval: Constants.timerSecond / Double(Constants.timerPrecision),
+                target: self,
+                selector: #selector(timerHandle),
+                userInfo: nil,
+                repeats: true
+            )
         }
         
         // Check if there is still remaining time
-        guard timeLeft > 0 else {
-            // Times up, not allowed to fire anymore
-            return false
+        guard isTimeUp() else {
+            // Increase flying bubbles count due to bubble being shot
+            flyingBubblesCount += 1
+            return true
         }
         
-        // Increase flying bubbles count due to bubble being shot
-        flyingBubblesCount += 1
-        return true
-        
+        // Times up, not allowed to fire anymore
+        return false
     }
     
     // Updates the evaluator that a bubble that was flying has landed.
@@ -56,13 +60,12 @@ class BubbleGameEvaluator {
     func evaluateGame() {
         // First check if bubble in last section, if yes, auto lose.
         guard !hasBubblesInLastSection() else {
-            timer.invalidate()
-            NotificationCenter.default.post(name: Constants.gameLostNotificationName, object: nil)
+            handleGameLost()
             return
         }
         
         // Don't evaluate if there are still bubbles flying
-        guard flyingBubblesCount == 0 else {
+        guard flyingBubblesCount == Constants.noFlyingBubbles else {
             return
         }
         
@@ -71,8 +74,7 @@ class BubbleGameEvaluator {
         
         guard remainingCount > 0 else {
             // Remaining count == 0 (game won!)
-            timer.invalidate()
-            NotificationCenter.default.post(name: Constants.gameWonNotificationName, object: nil)
+            handleGameWon()
             return
         }
         
@@ -83,9 +85,17 @@ class BubbleGameEvaluator {
         }
         
         // no time left, player lost!
+        handleGameLost()
+    }
+    
+    private func handleGameWon() {
         timer.invalidate()
-        NotificationCenter.default.post(name: Constants.gameLostNotificationName, object: nil)
-
+        NotificationCenter.default.post(name: Constants.gameWonNotification, object: nil)
+    }
+    
+    private func handleGameLost() {
+        timer.invalidate()
+        NotificationCenter.default.post(name: Constants.gameLostNotification, object: nil)
     }
     
     private func hasBubblesInLastSection() -> Bool {
@@ -99,9 +109,9 @@ class BubbleGameEvaluator {
     }
     
     @objc private func timerHandle() {
-        timeLeft -= 1
+        timeLeft -= Int(Constants.timerSecond)
         
-        NotificationCenter.default.post(name: Constants.timerUpdatedUpdatedNotificationName, object: nil)
+        NotificationCenter.default.post(name: Constants.timerUpdatedNotification, object: nil)
         
         guard isTimeUp() else {
             return
@@ -113,6 +123,6 @@ class BubbleGameEvaluator {
     }
     
     private func isTimeUp() -> Bool {
-        return timeLeft <= 0
+        return timeLeft <= Constants.timesUp
     }
 }

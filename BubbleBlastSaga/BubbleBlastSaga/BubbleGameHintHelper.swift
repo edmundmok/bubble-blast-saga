@@ -36,6 +36,77 @@ class BubbleGameHintHelper {
         return getAngleForBestTarget(from: startPosition, candidates: sortedCandidates)
     }
     
+    private func getCandidates() -> [IndexPath] {
+        // Get the color of the current bubble
+        guard let desiredColor = (bubbleCannon.currentBubble as? ColoredBubble)?.color else {
+            return []
+        }
+        
+        // Get bottom index paths to start from
+        let bottomIndexPaths = BubbleGameUtility.getIndexPathsForBottomSection(of: bubbleGridModel)
+        
+        // Carry out BFS from the last section
+        // Look for empty cells that have filled neighbours with same color
+        // and add them to the set of candidates
+        var queue = Queue<IndexPath>()
+        var visited = Set<IndexPath>()
+        
+        var candidates = [IndexPath]()
+        
+        bottomIndexPaths
+            .filter { bubbleGridModel.getBubbleType(at: $0) == .Empty }
+            .forEach {
+                queue.enqueue($0)
+                visited.insert($0)
+        }
+        
+        while !queue.isEmpty {
+            guard let next = try? queue.dequeue() else {
+                break
+            }
+            
+            guard bubbleGridModel.getBubbleType(at: next) == .Empty else {
+                continue
+            }
+            
+            let nextNeighbours = bubbleGridModel.getNeighboursIndexPath(of: next)
+            
+            // it is a candidate if it has at least one neighbour of the same color as
+            // the cannon bubble or it has a special bubble neighbour
+            let isCandidate =  nextNeighbours
+                .filter {
+                    
+                    // Do not follow indestructible bubble
+                    guard bubbleGridModel.getBubbleType(at: $0) != .IndestructibleBubble else {
+                        return false
+                    }
+                    
+                    // If the neighbour is a special bubble, then it is a good candidate
+                    if bubbleGridModel.getGameBubble(at: $0) is PowerBubble {
+                        return true
+                    }
+                    
+                    // Otherwise it is a good candidate if a neighbour has same color
+                    return (bubbleGridModel.getGameBubble(at: $0) as? ColoredBubble)?.color == desiredColor
+                    
+                }
+                .count > 0
+            
+            if isCandidate {
+                candidates.append(next)
+            }
+            
+            nextNeighbours
+                .filter { !visited.contains($0) }
+                .forEach {
+                    queue.enqueue($0)
+                    visited.insert($0)
+                }
+        }
+        
+        return candidates
+    }
+    
     private func getSortedCandidatesToShoot(from start: CGPoint) -> [IndexPath] {
         // get ALL the possible candidate positions
         let candidates = getCandidates()
@@ -209,77 +280,6 @@ class BubbleGameHintHelper {
         
         // Get the right rebound coordinate
         return CGPoint(x: rightWallX, y: coordinate.y - verticalDistanceToReboundCoordinate)
-    }
-    
-    private func getCandidates() -> [IndexPath] {
-        // Get the color of the current bubble
-        guard let desiredColor = (bubbleCannon.currentBubble as? ColoredBubble)?.color else {
-            return []
-        }
-        
-        // Get bottom index paths to start from
-        let bottomIndexPaths = BubbleGameUtility.getIndexPathsForBottomSection(of: bubbleGridModel)
-        
-        // Carry out BFS from the last section
-        // Look for empty cells that have filled neighbours with same color
-        // and add them to the set of candidates
-        var queue = Queue<IndexPath>()
-        var visited = Set<IndexPath>()
-        
-        var candidates = [IndexPath]()
-        
-        bottomIndexPaths
-            .filter { bubbleGridModel.getBubbleType(at: $0) == .Empty }
-            .forEach {
-                queue.enqueue($0)
-                visited.insert($0)
-        }
-        
-        while !queue.isEmpty {
-            guard let next = try? queue.dequeue() else {
-                break
-            }
-            
-            guard bubbleGridModel.getBubbleType(at: next) == .Empty else {
-                continue
-            }
-            
-            let nextNeighbours = bubbleGridModel.getNeighboursIndexPath(of: next)
-            
-            // it is a candidate if it has at least one neighbour of the same color as
-            // the cannon bubble or it has a special bubble neighbour
-            let isCandidate =  nextNeighbours
-                .filter {
-                    
-                    // Do not follow indestructible bubble
-                    guard bubbleGridModel.getBubbleType(at: $0) != .IndestructibleBubble else {
-                        return false
-                    }
-                    
-                    // If the neighbour is a special bubble, then it is a good candidate
-                    if bubbleGridModel.getGameBubble(at: $0) is PowerBubble {
-                        return true
-                    }
-                    
-                    // Otherwise it is a good candidate if a neighbour has same color
-                    return (bubbleGridModel.getGameBubble(at: $0) as? ColoredBubble)?.color == desiredColor
-                    
-                }
-                .count > 0
-            
-            if isCandidate {
-                candidates.append(next)
-            }
-            
-            nextNeighbours
-                .filter { !visited.contains($0) }
-                .forEach {
-                    queue.enqueue($0)
-                    visited.insert($0)
-            }
-        }
-        
-        return candidates
     }
     
 }
