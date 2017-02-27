@@ -54,7 +54,7 @@ class LevelSelectViewController: UIViewController {
         let deleteAlertTitle = Constants.deleteAlertTitle
         let deleteAlertMessage = Constants.deleteAlertMessage
         
-        // confirm delete
+        // confirm delete with an alert
         let deleteAlert = UIAlertController(title: deleteAlertTitle, message: deleteAlertMessage,
             preferredStyle: .alert)
         let cancelAction = UIAlertAction(title: Constants.cancelTitle, style: .cancel)

@@ -133,6 +133,7 @@ struct Constants {
     static let showGameStatsDuration = 1.0
     static let swapDuration = 0.5
     static let gameMenuButtonsBorderWidth = CGFloat(3)
+    static let highscoreProperty = NSString(string: "score")
     
     // TrajectoryPathLayer
     static let lineWidthMultiplier = CGFloat(0.005)
@@ -207,6 +208,7 @@ struct Constants {
     static let levelSelectCellCornerMultiplier = CGFloat(15.0)
     static let levelSelectCellAspectRatio = CGFloat(4/3)
     static let levelSelectImageAlpha = CGFloat(0.4)
+    static let defaultScore = 0
     
     // LevelSelectDelegate
     static let levelSelectMinLineSpacing = CGFloat(0)

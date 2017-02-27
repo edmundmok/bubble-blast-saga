@@ -29,10 +29,10 @@ class LevelSelectDataSource: NSObject {
         savedLevels.dataSource = self
         
         // Register observers
-        regiseterObservers()
+        registerObservers()
     }
     
-    private func regiseterObservers() {
+    private func registerObservers() {
         NotificationCenter.default.addObserver(forName: Constants.newHighscoreNotification,
             object: nil, queue: nil) { [weak self] _ in
             
@@ -105,7 +105,8 @@ extension LevelSelectDataSource: UICollectionViewDataSource {
         
         let levelInfo = NSMutableDictionary(contentsOf: levelInfoURL) ?? NSMutableDictionary()
         
-        let highScore = levelInfo.object(forKey: NSString(string: "score")) as? Int ?? 0
+        let highScore = levelInfo.object(forKey: Constants.highscoreProperty) as? Int
+            ?? Constants.defaultScore
         
         // Set display values
         levelSelectCell.highScore.text = String(highScore)

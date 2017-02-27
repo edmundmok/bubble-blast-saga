@@ -362,10 +362,10 @@ class GameViewController: UIViewController {
         let levelInfo = NSMutableDictionary(contentsOf: levelInfoURL) ?? NSMutableDictionary()
         
         let score = bubbleGame.bubbleGameEvaluator.timeLeft
-        guard let prevScore = levelInfo.object(forKey: NSString(string: "score")) as? Int else {
+        guard let prevScore = levelInfo.object(forKey: Constants.highscoreProperty) as? Int else {
             // no prev high score
             NotificationCenter.default.post(name: Constants.newHighscoreNotification, object: nil)
-            levelInfo.setObject(score, forKey: NSString(string: "score"))
+            levelInfo.setObject(score, forKey: Constants.highscoreProperty)
             levelInfo.write(to: levelInfoURL, atomically: true)
             return
         }
@@ -375,7 +375,7 @@ class GameViewController: UIViewController {
         }
         
         NotificationCenter.default.post(name: Constants.newHighscoreNotification, object: nil)
-        levelInfo.setObject(score, forKey: NSString(string: "score"))
+        levelInfo.setObject(score, forKey: Constants.highscoreProperty)
         levelInfo.write(to: levelInfoURL, atomically: true)
 
     }
@@ -405,48 +405,6 @@ class GameViewController: UIViewController {
         // Setup the image for the current cannon bubble
         updateCurrentCannonBubbleImage()
         updateNextCannonBubbleImage()
-    }
-    
-    private func hideEndScreen() {
-        // disable buttons while animating
-        retryButton.isEnabled = false
-        backButton.isEnabled = false
-        
-        UIView.animate(withDuration: Constants.hideGameStatsDuration, animations: {
-            // hide the end game stats
-            self.endGameStats.forEach { $0.alpha = Constants.hiddenAlpha }
-        }) { _ in
-            
-            UIView.animate(withDuration: Constants.moveUIBackDuration, animations: {
-                
-                guard let retryLocation = self.originalRetryLocation,
-                    let backLocation = self.originalBackLocation,
-                    let scoreLocation = self.originalScoreLocation else {
-                        
-                        return
-                }
-                
-                // move ui items back to their game positions
-                self.gameOutcome.alpha = Constants.hiddenAlpha
-                self.retryButton.center = retryLocation
-                self.backButton.center = backLocation
-                self.timerLabel.center = scoreLocation
-                
-            }) { _ in
-                
-                UIView.animate(withDuration: Constants.redisplayUIDuration) {
-                    // redisplay hidden game ui
-                    self.timerLabel.text = String(Constants.timerFinalValue)
-                    self.gameView.alpha = Constants.shownAlpha
-                    self.hintButton.alpha = Constants.shownAlpha
-                    self.swapButton.alpha = Constants.shownAlpha
-                    
-                    self.retryButton.isEnabled = true
-                    self.backButton.isEnabled = true
-                }
-                
-            }
-        }
     }
     
     @IBOutlet weak var gameView: UIView!
@@ -526,11 +484,52 @@ class GameViewController: UIViewController {
                     self.backButton.isEnabled = true
                 }
                 
-                
             }
             
         }
         
+    }
+    
+    private func hideEndScreen() {
+        // disable buttons while animating
+        retryButton.isEnabled = false
+        backButton.isEnabled = false
+        
+        UIView.animate(withDuration: Constants.hideGameStatsDuration, animations: {
+            // hide the end game stats
+            self.endGameStats.forEach { $0.alpha = Constants.hiddenAlpha }
+        }) { _ in
+            
+            UIView.animate(withDuration: Constants.moveUIBackDuration, animations: {
+                
+                guard let retryLocation = self.originalRetryLocation,
+                    let backLocation = self.originalBackLocation,
+                    let scoreLocation = self.originalScoreLocation else {
+                        
+                        return
+                }
+                
+                // move ui items back to their game positions
+                self.gameOutcome.alpha = Constants.hiddenAlpha
+                self.retryButton.center = retryLocation
+                self.backButton.center = backLocation
+                self.timerLabel.center = scoreLocation
+                
+            }) { _ in
+                
+                UIView.animate(withDuration: Constants.redisplayUIDuration) {
+                    // redisplay hidden game ui
+                    self.timerLabel.text = String(Constants.timerFinalValue)
+                    self.gameView.alpha = Constants.shownAlpha
+                    self.hintButton.alpha = Constants.shownAlpha
+                    self.swapButton.alpha = Constants.shownAlpha
+                    
+                    self.retryButton.isEnabled = true
+                    self.backButton.isEnabled = true
+                }
+                
+            }
+        }
     }
 
     private var canSwap = true
