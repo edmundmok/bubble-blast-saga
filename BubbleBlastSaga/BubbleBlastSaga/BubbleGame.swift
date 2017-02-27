@@ -263,224 +263,16 @@ class BubbleGame {
         return trajectoryPoints
     }
     
-    // ------------------------ HINT RELATED ------------------------
-    
     // Get the hint for the next move.
     func getHint(from startPosition: CGPoint) -> CGFloat? {
+        // create a helper to get the hint
+        let bubbleGameHintHelper = BubbleGameHintHelper(bubbleGame: self,
+            bubbleGridModel: bubbleGridModel, bubbleGrid: bubbleGrid,
+            bubbleCannon: bubbleCannon, bubbleGameAnimator: bubbleGameAnimator,
+            gameArea: gameArea)
         
-        // get all the candidate positions
-        let candidates = getCandidates()
-        
-        // Create mock components for simulation of moves in getting the hint
-        let rendererMock = Renderer(canvas: UIView())
-        let gameEngineMock = GameEngine(physicsEngine: PhysicsEngine(), renderer: rendererMock, gameSettings: gameSettings)
-        let bubbleGameAnimatorMock = BubbleGameAnimator(gameArea: UIView(), renderer: rendererMock, bubbleGrid: bubbleGrid)
-        let bubbleGameStatsMock = BubbleGameStats()
-        let bubbleGameEvaluatorMock = BubbleGameEvaluator(bubbleGrid: bubbleGrid, bubbleGridModel: bubbleGridModel)
-        
-        var candidateCountDictionary = [IndexPath: Int]()
-        for candidate in candidates {
-            guard let modelCopy = bubbleGridModel.copy() as? BubbleGridModel else {
-                continue
-            }
-            
-            modelCopy.set(gameBubble: bubbleCannon.currentBubble, at: candidate)
-            
-            let bubbleGameLogicSim = BubbleGameLogic(bubbleGrid: bubbleGrid, bubbleGridModel: modelCopy,
-                gameEngine: gameEngineMock, bubbleGameAnimator: bubbleGameAnimatorMock, bubbleGameStats: bubbleGameStatsMock, bubbleGameEvaluator: bubbleGameEvaluatorMock)
-            
-            
-            let count = bubbleGameLogicSim.handleInteractions(with: bubbleCannon.currentBubble)
-            
-            candidateCountDictionary[candidate] = count
-        }
-        
-        let myArr = Array(candidateCountDictionary.keys)
-        let sortedCandidates = myArr.sorted {
-            let obj1 = candidateCountDictionary[$0] ?? 0 // get ob associated w/ key 1
-            let obj2 = candidateCountDictionary[$1] ?? 0 // get ob associated w/ key 2
-            return obj1 > obj2
-        }
-    
-        for candidate in sortedCandidates {
-            guard let targetCell = bubbleGrid.cellForItem(at: candidate) else {
-                continue
-            }
-            
-            let targetCenter = targetCell.center
-            let targetWidth = targetCell.frame.size.width
-            
-            guard let angleToShootAtTarget = getAngleToShoot(at: targetCenter, of: targetWidth, from: startPosition) else {
-                continue
-            }
-            
-            DispatchQueue.main.sync {
-                bubbleGameAnimator.flashHint(at: candidate)
-            }
-            
-            return angleToShootAtTarget
-            
-        }
-        return nil
+        return bubbleGameHintHelper.getHint(from: startPosition)
     }
-    
-    private func getAngleToShoot(at target: CGPoint, of width: CGFloat, from start: CGPoint) -> CGFloat? {
-        
-        // try direct angle
-        let directAngle = atan2(target.y - start.y, target.x - start.x)
-        guard !canShoot(target: target, of: width, from: start, with: directAngle) else {
-            return directAngle
-        }
-        
-        // try left angle
-        let leftReboundCoord = getCoordinateForLeftRebound(from: start, to: target)
-        let leftReboundAngle = atan2(leftReboundCoord.y - start.y, leftReboundCoord.x - start.x)
-        guard !canShoot(target: target, of: width, from: start, with: leftReboundAngle) else {
-            return leftReboundAngle
-        }
-        
-        // try right angle
-        let rightReboundCoord = getCoordinateForRightRebound(from: start, to: target)
-        let rightReboundAngle = atan2(rightReboundCoord.y - start.y, rightReboundCoord.x - start.x)
-        guard !canShoot(target: target, of: width, from: start, with: rightReboundAngle) else {
-            return rightReboundAngle
-        }
-        
-        // no good angle to fire from
-        return nil
-    }
-    
-    // Returns whether we are able to shoot at the target with the given width, from the 
-    // given start at the given angle.
-    private func canShoot(target: CGPoint, of width: CGFloat, from start: CGPoint, with angle: CGFloat) -> Bool {
-        guard let finalPosition = getTrajectoryPoints(from: start, at: angle).last else {
-            return false
-        }
-        
-        return finalPosition.distance(to: target) <= width
-    }
-    
-    
-    private func getCoordinateForLeftRebound(from startPosition: CGPoint, to coordinate: CGPoint) -> CGPoint {
-        let actualRadiusOfBubble = getStandardBubbleSize().width
-            * Constants.widthToRadiusMultiplier * Constants.bubbleHitBoxSizePercentage
-        
-        // w3
-        let horizontalDistanceFromStartPositionToWall = startPosition.distance(to: CGPoint(x: gameArea.frame.minX + actualRadiusOfBubble, y: startPosition.y))
-        
-        // w2
-        let horizontalDistanceFromReflectedPointToWall = horizontalDistanceFromStartPositionToWall - (startPosition.x - coordinate.x)
-        
-        // w1
-        let horizontalDistanceFromStartPositionToReflectedPoint = horizontalDistanceFromStartPositionToWall - horizontalDistanceFromReflectedPointToWall
-        
-        // ratio = w1 / w2
-        let triangleRatio = horizontalDistanceFromStartPositionToReflectedPoint / horizontalDistanceFromReflectedPointToWall
-        
-        // h = (Yd - Ys) / (2 + ratio)
-        let heightToSymmetryLine = (coordinate.y - startPosition.y) / (2 + triangleRatio)
-        
-        // left rebound coord
-        let reboundCoord = CGPoint(x: gameArea.frame.minX + actualRadiusOfBubble, y: coordinate.y - heightToSymmetryLine)
-        return reboundCoord
-    }
-    
-    private func getCoordinateForRightRebound(from startPosition: CGPoint, to coordinate: CGPoint) -> CGPoint {
-        let actualRadiusOfBubble = getStandardBubbleSize().width
-            * Constants.widthToRadiusMultiplier * Constants.bubbleHitBoxSizePercentage
-        
-        // w3
-        let horizontalDistanceFromStartPositionToWall = startPosition.distance(to: CGPoint(x: gameArea.frame.maxX - actualRadiusOfBubble, y: startPosition.y))
-        
-        // w2
-        let horizontalDistanceFromReflectedPointToWall = horizontalDistanceFromStartPositionToWall - (coordinate.x - startPosition.x)
-        
-        // w1
-        let horizontalDistanceFromStartPositionToReflectedPoint = horizontalDistanceFromStartPositionToWall - horizontalDistanceFromReflectedPointToWall
-        
-        // ratio = w1 / w2
-        let triangleRatio = horizontalDistanceFromStartPositionToReflectedPoint / horizontalDistanceFromReflectedPointToWall
-        
-        // h = (Yd - Ys) / (2 + ratio)
-        let heightToSymmetryLine = (coordinate.y - startPosition.y) / (2 + triangleRatio)
-        
-        // left rebound coord
-        let reboundCoord = CGPoint(x: gameArea.frame.maxX - actualRadiusOfBubble, y: coordinate.y - heightToSymmetryLine)
-        return reboundCoord
-    }
-    
-    private func getCandidates() -> [IndexPath] {
-        // Get the color of the current bubble
-        guard let desiredColor = (bubbleCannon.currentBubble as? ColoredBubble)?.color else {
-            return []
-        }
-        
-        // Get bottom index paths to start from
-        let bottomIndexPaths = BubbleGameUtility.getIndexPathsForBottomSection(of: bubbleGridModel)
-        
-        // Carry out BFS from the last section 
-        // Look for empty cells that have filled neighbours with same color
-        // and add them to the set of candidates
-        var queue = Queue<IndexPath>()
-        var visited = Set<IndexPath>()
-        
-        var candidates = [IndexPath]()
-        
-        bottomIndexPaths
-            .filter { bubbleGridModel.getBubbleType(at: $0) == .Empty }
-            .forEach {
-                queue.enqueue($0)
-                visited.insert($0)
-            }
-        
-        while !queue.isEmpty {
-            guard let next = try? queue.dequeue() else {
-                break
-            }
-            
-            guard bubbleGridModel.getBubbleType(at: next) == .Empty else {
-                continue
-            }
-            
-            let nextNeighbours = bubbleGridModel.getNeighboursIndexPath(of: next)
-            
-            // it is a candidate if it has at least one neighbour of the same color as
-            // the cannon bubble or it has a special bubble neighbour
-            let isCandidate =  nextNeighbours
-                .filter {
-                    
-                    // Do not follow indestructible bubble
-                    guard bubbleGridModel.getBubbleType(at: $0) != .IndestructibleBubble else {
-                        return false
-                    }
-                    
-                    // If the neighbour is a special bubble, then it is a good candidate
-                    if bubbleGridModel.getGameBubble(at: $0) is PowerBubble {
-                        return true
-                    }
-                    
-                    // Otherwise it is a good candidate if a neighbour has same color
-                    return (bubbleGridModel.getGameBubble(at: $0) as? ColoredBubble)?.color == desiredColor
-                
-                }
-                .count > 0
-            
-            if isCandidate {
-                candidates.append(next)
-            }
-            
-            nextNeighbours
-                .filter { !visited.contains($0) }
-                .forEach {
-                    queue.enqueue($0)
-                    visited.insert($0)
-                }
-        }
-        
-        return candidates
-    }
-    
-    // ------------------------ HINT RELATED ------------------------
     
     // Swap the current cannon bubble with the next cannon bubble.
     func swapCannonBubble() {
@@ -489,7 +281,7 @@ class BubbleGame {
     
     // Returns the standard size of a game bubble according to the size of the bubble cell
     // in the current bubble grid collection view.
-    private func getStandardBubbleSize() -> CGSize {
+    func getStandardBubbleSize() -> CGSize {
         return bubbleGrid.visibleCells[0].frame.size
     }
     

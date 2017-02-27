@@ -36,7 +36,9 @@ struct Constants {
     static let scoreMultiplierPerStreak = 0.5
     static let baseValue = 1.0
     
-    // BubbleCannon
+    // BubbleGameHintHelper
+    static let defaultRemovalCount = -1
+    static let reboundRatioConstant = CGFloat(2)
     
     // BubbleGrid
     static let bubblesKey = "bubbles"
