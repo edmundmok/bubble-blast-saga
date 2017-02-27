@@ -13,8 +13,8 @@ class BubbleGameCollisionHandler {
     
     fileprivate let bubbleGrid: UICollectionView
     fileprivate let bubbleGridModel: BubbleGridModel
-    fileprivate let bubbleGameLogic: BubbleGameLogic
-    fileprivate let gameEngine: GameEngine
+    fileprivate weak var bubbleGameLogic: BubbleGameLogic!
+    fileprivate weak var gameEngine: GameEngine!
     
     init(bubbleGrid: UICollectionView, bubbleGridModel: BubbleGridModel,
         bubbleGameLogic: BubbleGameLogic, gameEngine: GameEngine) {

@@ -12,7 +12,7 @@ class BubbleGameLogic {
     
     private let bubbleGrid: UICollectionView
     private let bubbleGridModel: BubbleGridModel
-    private let gameEngine: GameEngine
+    private weak var gameEngine: GameEngine!
     private let bubbleGameAnimator: BubbleGameAnimator
     private let bubbleGameStats: BubbleGameStats
     private let bubbleGameEvaluator: BubbleGameEvaluator

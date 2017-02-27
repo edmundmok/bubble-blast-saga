@@ -73,9 +73,8 @@ class BubbleGameHintHelper {
             
             // it is a candidate if it has at least one neighbour of the same color as
             // the cannon bubble or it has a special bubble neighbour
-            let isCandidate =  nextNeighbours
+            let isCandidate = nextNeighbours
                 .filter {
-                    
                     // Do not follow indestructible bubble
                     guard bubbleGridModel.getBubbleType(at: $0) != .IndestructibleBubble else {
                         return false

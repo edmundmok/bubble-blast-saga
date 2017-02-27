@@ -376,6 +376,9 @@ class GameViewController: UIViewController {
         // Invalidate the timer in case game was still running
         bubbleGame.bubbleGameEvaluator.timer.invalidate()
         
+        // End the game
+        bubbleGame.endGame()
+        
         let _ = self.navigationController?.popViewController(animated: true)
     }
     

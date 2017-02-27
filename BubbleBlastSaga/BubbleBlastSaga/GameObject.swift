@@ -18,7 +18,6 @@ class GameObject: NSObject, NSCoding, PhysicsBody {
     var position: CGPoint
     var velocity: CGVector
     
-    
     // MARK: NSObject
     override convenience init() {
         self.init(position: CGPoint(), velocity: CGVector())

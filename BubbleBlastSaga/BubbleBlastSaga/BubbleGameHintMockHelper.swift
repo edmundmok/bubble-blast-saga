@@ -26,10 +26,14 @@ class BubbleGameHintMockHelper {
         let mockCanvas = UIView()
         let mockGameSettings = GameSettings()
         let mockRenderer = Renderer(canvas: mockCanvas)
-        self.mockGameEngine = GameEngine(physicsEngine: PhysicsEngine(), renderer: mockRenderer, gameSettings: mockGameSettings)
-        self.mockBubbleGameAnimator = BubbleGameAnimator(gameArea: mockCanvas, renderer: mockRenderer, bubbleGrid: bubbleGrid)
+        
+        self.mockGameEngine = GameEngine(physicsEngine: PhysicsEngine(), renderer: mockRenderer,
+            gameSettings: mockGameSettings)
+        self.mockBubbleGameAnimator = BubbleGameAnimator(gameArea: mockCanvas, renderer: mockRenderer,
+            bubbleGrid: bubbleGrid)
         self.mockBubbleGameStats = BubbleGameStats()
-        self.mockBubbleGameEvaluator = BubbleGameEvaluator(bubbleGrid: bubbleGrid, bubbleGridModel: bubbleGridModel)
+        self.mockBubbleGameEvaluator = BubbleGameEvaluator(bubbleGrid: bubbleGrid,
+            bubbleGridModel: bubbleGridModel)
     }
     
     func getLogicSimulator(for modelCopy: BubbleGridModel) -> BubbleGameLogic {
