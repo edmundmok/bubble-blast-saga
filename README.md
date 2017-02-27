@@ -262,6 +262,35 @@ Please save your diagram as `class-diagram.png` in the root directory of the rep
 				- Test that a star effect is generated on all colored bubbles that it removes
 				- Test that the star activated will destroy all colored bubbles as the one who initiated the chain at the start
 				- Test that the bubble that collided with the star is destroyed (if any)
+		- Test start game
+			- Test that the game grid is filled with the level that was selected to load
+			- Test that the countdown timer does not start until the player shoots the first bubble
+				- Test that the countdown timer starts when the player shoots the first bubble
+		- Test reset game
+			- Test that the game resets back to the original grid
+			- Test that the timer resets to the initial time limit
+			- Test that the timer does not start until the player starts to shoot again
+		- Test timer
+			- Test that the player cannot fire when time limit is up (time left is 0)
+			- Test that the game will end soon after the time limit is up (game will wait for flying bubbles to settle down to accumulate final points)
+		- Test back button from game
+			- Test that no memory leaks due to game still running
+			- Test that back segues back to the previous screen
+				- If the game was started by a play in the level selection screen, back will move it back to level selection.
+				- If the game was started by a start in the level designer, back will move it to the level designer screen.
+		- Test level designer validator
+			- Detects invalid grid on save or start 
+			- Test invalid grid:
+				- Empty grid
+				- Floating bubbles
+				- Bubble in last section of the grid
+		- Test level selection
+			- Test delete button
+				- Test that it deletes the correct cell
+				- Test that if the user deletes the level and creates a new level of the same name, highscore is not that of the old one (should be 0 now)
+			- Test highscore
+				- Test that when level is won, highscore is updated if possible
+				- Test that when level is lost, score is not updated even if time is greater than previous highscore
 
 **Glass-box testing**
 
