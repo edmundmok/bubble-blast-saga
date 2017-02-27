@@ -15,6 +15,8 @@ CS3217 Problem Set 5
 
 ### Rules of Your Game
 
+Comes with 3 preloaded levels. Preloaded levels can be deleted, but will be reinstalled back on next app startup. So effectively it cannot be removed.
+
 All levels have a fixed time limit of 100 seconds to complete. Player must clear the level as fast as possible in order to win. While in gameplay, player has unlimited bubbles to fire.
 
 Colored bubbles work as per previous PS.

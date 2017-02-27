@@ -161,7 +161,9 @@ class BubbleGameHintHelper {
             let targetCenter = targetCell.center
             let targetWidth = targetCell.frame.width
             
-            guard let angleToShootAtTarget = getAngleToShoot(at: targetCenter, of: targetWidth, from: start) else {
+            guard let angleToShootAtTarget = getAngleToShoot(at: targetCenter, of: targetWidth,
+                from: start) else {
+                    
                 continue
             }
             
@@ -177,7 +179,8 @@ class BubbleGameHintHelper {
     
     // Returns the angle required to shoot at the target of given width, from the start position
     // if possible. Otherwise, returns nil.
-    private func getAngleToShoot(at target: CGPoint, of width: CGFloat, from start: CGPoint) -> CGFloat? {
+    private func getAngleToShoot(at target: CGPoint, of width: CGFloat,
+        from start: CGPoint) -> CGFloat? {
         
         // try direct angle
         let directAngle = atan2(target.y - start.y, target.x - start.x)
@@ -205,7 +208,9 @@ class BubbleGameHintHelper {
     
     // Returns whether we are able to shoot at the target with the given width, from the
     // given start at the given angle.
-    private func canShoot(target: CGPoint, of width: CGFloat, from start: CGPoint, with angle: CGFloat) -> Bool {
+    private func canShoot(target: CGPoint, of width: CGFloat, from start: CGPoint,
+        with angle: CGFloat) -> Bool {
+        
         guard let finalPosition = bubbleGame.getTrajectoryPoints(from: start, at: angle).last else {
             return false
         }
@@ -214,7 +219,9 @@ class BubbleGameHintHelper {
     }
     
     
-    private func getCoordinateForLeftRebound(from startPosition: CGPoint, to coordinate: CGPoint) -> CGPoint {
+    private func getCoordinateForLeftRebound(from startPosition: CGPoint,
+        to coordinate: CGPoint) -> CGPoint {
+        
         let actualRadiusOfBubble = bubbleGame.getStandardBubbleSize().width
             * Constants.widthToRadiusMultiplier * Constants.bubbleHitBoxSizePercentage
         
@@ -250,7 +257,9 @@ class BubbleGameHintHelper {
         return CGPoint(x: leftWallX, y: coordinate.y - verticalDistanceToReboundCoordinate)
     }
     
-    private func getCoordinateForRightRebound(from startPosition: CGPoint, to coordinate: CGPoint) -> CGPoint {
+    private func getCoordinateForRightRebound(from startPosition: CGPoint,
+        to coordinate: CGPoint) -> CGPoint {
+        
         let actualRadiusOfBubble = bubbleGame.getStandardBubbleSize().width
             * Constants.widthToRadiusMultiplier * Constants.bubbleHitBoxSizePercentage
         

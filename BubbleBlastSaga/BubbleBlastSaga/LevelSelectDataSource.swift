@@ -19,7 +19,9 @@ class LevelSelectDataSource: NSObject {
     fileprivate let savedLevels: UICollectionView
     weak fileprivate var levelSelectViewController: LevelSelectViewController?
     
-    init(savedLevels: UICollectionView, savedLevelsModel: SavedLevelsModel, levelSelectViewController: LevelSelectViewController) {
+    init(savedLevels: UICollectionView, savedLevelsModel: SavedLevelsModel,
+        levelSelectViewController: LevelSelectViewController) {
+        
         self.savedLevelsModel = savedLevelsModel
         self.savedLevels = savedLevels
         self.levelSelectViewController = levelSelectViewController

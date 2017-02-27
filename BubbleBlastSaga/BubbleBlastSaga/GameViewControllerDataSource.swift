@@ -42,8 +42,10 @@ extension GameViewControllerDataSource: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView,
         cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: Constants.bubbleCellIdentifier,
-            for: indexPath)
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: Constants.bubbleCellIdentifier,
+            for: indexPath
+        )
         
         guard let bubbleCell = cell as? BubbleCell else {
             return cell

@@ -188,9 +188,8 @@ class BubbleGameLogic {
                 }
                 
                 // cannot remove an indestructible bubble
-                guard let powerType = (gameBubble as? PowerBubble)?.power,
-                    powerType != .Indestructible else {
-                        return
+                guard bubbleGridModel.getBubbleType(at: $0) != .IndestructibleBubble else {
+                    return
                 }
                 
                 removeFromGame(gameBubble: gameBubble, at: $0)
@@ -245,8 +244,7 @@ class BubbleGameLogic {
                 }
                 
                 // cannot remove an indestructible bubble
-                guard let powerType = (gameBubble as? PowerBubble)?.power,
-                    powerType != .Indestructible else {
+                guard bubbleGridModel.getBubbleType(at: $0) != .IndestructibleBubble else {
                     return
                 }
                 
