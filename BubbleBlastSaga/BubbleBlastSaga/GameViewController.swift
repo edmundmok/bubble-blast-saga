@@ -23,7 +23,7 @@ class GameViewController: UIViewController {
     @IBOutlet weak var currentBubbleView: UIImageView!
     @IBOutlet weak var nextBubbleView: UIImageView!
     @IBOutlet weak var trajectoryPathView: UIView!
-    @IBOutlet weak var scoreLabel: UILabel!
+    @IBOutlet weak var timerLabel: UILabel!
     
     private var trajectoryPathLayer = TrajectoryPathLayer()
     
@@ -58,6 +58,10 @@ class GameViewController: UIViewController {
         setupNotificationObservers()
         startGame()
         configureGameUI()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
     }
     
     private func configureBubbleGridCollection() {
@@ -115,23 +119,17 @@ class GameViewController: UIViewController {
         // Change cannon anchor point to the hole area
         cannon.layer.anchorPoint = CGPoint(x: Constants.cannonAnchorX, y: Constants.cannonAnchorY)
         
-        // border around buttons
-        gameMenuButtons.forEach {
-            $0.layer.borderWidth = Constants.gameMenuButtonsBorderWidth
-            $0.layer.borderColor = $0.titleLabel?.textColor.cgColor
-        }
+        decorateMenuButtons()
         
         // Update timer
-        scoreLabel.text = String(Constants.timerFinalValue)
+        timerLabel.text = String(Constants.timerFinalValue)
         
         // Hide end screen info
         gameOutcome.alpha = Constants.hiddenAlpha
         endGameStats.forEach { $0.alpha = Constants.hiddenAlpha }
         
         // save score label, retry and back button position so that we can get it back later
-        originalScoreLocation = scoreLabel.center
-        originalBackLocation = backButton.center
-        originalRetryLocation = retryButton.center
+        setOriginalButtonLocations()
         
         // Setup the image for the current cannon bubble
         updateCurrentCannonBubbleImage()
@@ -145,8 +143,18 @@ class GameViewController: UIViewController {
         trajectoryPathLayer.setPathStyle(gameArea: gameArea)
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+    private func decorateMenuButtons() {
+        gameMenuButtons.forEach {
+            // border around buttons
+            $0.layer.borderWidth = Constants.gameMenuButtonsBorderWidth
+            $0.layer.borderColor = $0.titleLabel?.textColor.cgColor
+        }
+    }
+    
+    private func setOriginalButtonLocations() {
+        originalScoreLocation = timerLabel.center
+        originalBackLocation = backButton.center
+        originalRetryLocation = retryButton.center
     }
     
     private func getStandardBubbleSize() -> CGSize {
@@ -319,7 +327,7 @@ class GameViewController: UIViewController {
     }
     
     private func handleTimerUpdated() {
-        scoreLabel.text = String(bubbleGame.bubbleGameEvaluator.timeLeft)
+        timerLabel.text = String(bubbleGame.bubbleGameEvaluator.timeLeft)
     }
     
     private func handleGameWon() {
@@ -422,13 +430,13 @@ class GameViewController: UIViewController {
                 self.gameOutcome.alpha = Constants.hiddenAlpha
                 self.retryButton.center = retryLocation
                 self.backButton.center = backLocation
-                self.scoreLabel.center = scoreLocation
+                self.timerLabel.center = scoreLocation
                 
             }) { _ in
                 
                 UIView.animate(withDuration: Constants.redisplayUIDuration) {
                     // redisplay hidden game ui
-                    self.scoreLabel.text = String(Constants.timerFinalValue)
+                    self.timerLabel.text = String(Constants.timerFinalValue)
                     self.gameView.alpha = Constants.shownAlpha
                     self.hintButton.alpha = Constants.shownAlpha
                     self.swapButton.alpha = Constants.shownAlpha
@@ -502,13 +510,13 @@ class GameViewController: UIViewController {
         }) { _ in
             
             UIView.animate(withDuration: Constants.moveUIDuration, animations: {
-                // game outcome
+                // diplay game outcome
                 self.gameOutcome.alpha = Constants.shownAlpha
                 
                 // move stuff that are already on screen
                 self.retryButton.center = retryFinalCenter
                 self.backButton.center = backFinalCenter
-                self.scoreLabel.center = scoreFinalCenter
+                self.timerLabel.center = scoreFinalCenter
             }) { _ in
                 
                 UIView.animate(withDuration: Constants.showGameStatsDuration) {
@@ -568,7 +576,6 @@ class GameViewController: UIViewController {
             self.canSwap = true
             
         }
-        
         
         // swap the actual thing
         bubbleGame.bubbleCannon.swapCurrentWithNextBubble()

@@ -449,7 +449,7 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="FTY-c7-3he">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.10000000000000001" translatesAutoresizingMaskIntoConstraints="NO" id="FTY-c7-3he" userLabel="Timer Label">
                                 <rect key="frame" x="0.0" y="679" width="768" height="173"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="100"/>
@@ -671,8 +671,8 @@
                         <outlet property="nextBubbleView" destination="oaB-Hf-Hk2" id="jyC-Xx-mtK"/>
                         <outlet property="panGestureRecognizer" destination="OOV-5g-Bhh" id="jNl-8p-ceP"/>
                         <outlet property="retryButton" destination="cVY-A1-Wtg" id="mQV-Sr-aem"/>
-                        <outlet property="scoreLabel" destination="FTY-c7-3he" id="OQw-J3-jMY"/>
                         <outlet property="swapButton" destination="xF6-TG-xJs" id="A1g-7u-cLf"/>
+                        <outlet property="timerLabel" destination="FTY-c7-3he" id="HBh-5r-llY"/>
                         <outlet property="trajectoryPathView" destination="Rqq-Xj-CLf" id="gcf-d7-Sha"/>
                         <outletCollection property="endGameStats" destination="VAI-wS-qY1" collectionClass="NSMutableArray" id="VLg-p3-4wS"/>
                         <outletCollection property="endGameStats" destination="fRY-ad-ZyV" collectionClass="NSMutableArray" id="fbg-QS-gJi"/>
