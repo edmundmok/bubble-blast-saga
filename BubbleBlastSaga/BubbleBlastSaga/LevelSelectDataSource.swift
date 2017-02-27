@@ -25,6 +25,12 @@ class LevelSelectDataSource: NSObject {
         self.levelSelectViewController = levelSelectViewController
         super.init()
         savedLevels.dataSource = self
+        
+        NotificationCenter.default.addObserver(forName: Constants.newHighscoreNotificationName,
+            object: nil, queue: nil) { [weak self] _ in
+            
+            self?.handleNewHighscore()
+        }
     }
     
     fileprivate func getNumberOfSections() -> Int {
@@ -36,6 +42,10 @@ class LevelSelectDataSource: NSObject {
         }
         
         return count / Constants.levelsPerSection
+    }
+    
+    fileprivate func handleNewHighscore() {
+        savedLevels.reloadData()
     }
 }
 
@@ -94,6 +104,15 @@ extension LevelSelectDataSource: UICollectionViewDataSource {
             let image = UIImage(data: imageData) else {
                 return UICollectionViewCell()
         }
+        
+        // Get the URL for a file in the Documents Directory
+        let highScoreFileURL =  documentDirectory.appendingPathComponent(levelName).appendingPathExtension("plist")
+        
+        let levelInfo = NSMutableDictionary(contentsOf: highScoreFileURL) ?? NSMutableDictionary()
+        
+        let highScore = levelInfo.object(forKey: NSString(string: "score")) as? Int ?? 0
+        
+        levelSelectCell.highScore.text = String(highScore)
         
         levelSelectCell.levelImage.clipsToBounds = true
         levelSelectCell.levelImage.image = image

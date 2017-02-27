@@ -14,9 +14,6 @@ import Foundation
  */
 class BubbleGameStats {
     
-    // About the game
-    private(set) var currentScore = Constants.initialScore
-    
     // Streak - number of times in a row player shoots a bubble that removes something
     private(set) var currentStreak = Constants.initialStreak
     private(set) var maxStreak = Constants.initialStreak
@@ -78,15 +75,5 @@ class BubbleGameStats {
         if chainCount > maxChain {
             maxChain = chainCount
         }
-        
-        // update the total score
-        let removalScore = removalCount * Constants.scorePerRemoval
-        let chainCountBonus = Double(chainCount) * Constants.scoreMultiplierPerChain
-        let streakBonus = Double(currentStreak) * Constants.scoreMultiplierPerStreak
-        
-        currentScore += Double(removalScore) * (Constants.baseValue + chainCountBonus + streakBonus)
-        
-        // update streak only after updating score
-        currentStreak += 1
     }
 }

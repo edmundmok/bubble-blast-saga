@@ -82,27 +82,30 @@ class GameViewController: UIViewController {
             return
         }
         
-        bubbleGame = BubbleGame(gameSettings: GameSettings(gameMode: .LimitedTime), bubbleGridModel: modelCopy,
+        bubbleGame = BubbleGame(gameSettings: GameSettings(), bubbleGridModel: modelCopy,
                                 bubbleGrid: bubbleGrid, gameArea: gameArea)
         bubbleGame.startGame()
     }
     
     private func setupNotificationObservers() {
-        NotificationCenter.default.addObserver(forName: Constants.gameStatsUpdatedNotificationName,
-            object: nil, queue: nil)  { [weak self] _ in
+        NotificationCenter.default.addObserver(forName: Constants.timerUpdatedUpdatedNotificationName,
+            object: nil, queue: nil) { [weak self] _ in
             
-            self?.handleGameStatsUpdated()
+            self?.handleTimerUpdated()
         }
+        
         NotificationCenter.default.addObserver(forName: Constants.gameWonNotificationName,
             object: nil, queue: nil) { [weak self] _ in
             
             self?.handleGameWon()
         }
+        
         NotificationCenter.default.addObserver(forName: Constants.gameLostNotificationName,
             object: nil, queue: nil) { [weak self] _ in
            
             self?.handleGameLost()
         }
+        
     }
     
     private func configureGameUI() {
@@ -114,6 +117,9 @@ class GameViewController: UIViewController {
             $0.layer.borderWidth = Constants.gameMenuButtonsBorderWidth
             $0.layer.borderColor = $0.titleLabel?.textColor.cgColor
         }
+        
+        // Update timer
+        scoreLabel.text = String(Constants.timerFinalValue)
         
         // Hide end screen info
         gameOutcome.alpha = Constants.hiddenAlpha
@@ -309,9 +315,8 @@ class GameViewController: UIViewController {
         }
     }
     
-    private func handleGameStatsUpdated() {
-        // update stats to show on screen
-        scoreLabel.text = String(Int(bubbleGame.bubbleGameStats.currentScore))
+    private func handleTimerUpdated() {
+        scoreLabel.text = String(bubbleGame.bubbleGameEvaluator.timeLeft)
     }
     
     private func handleGameWon() {
@@ -320,6 +325,9 @@ class GameViewController: UIViewController {
         
         // render end screen
         renderEndScreen(outcome: .Win)
+        
+        // update highscore
+        updateHighscore()
     }
     
     private func handleGameLost() {
@@ -328,6 +336,42 @@ class GameViewController: UIViewController {
 
         // render end screen
         renderEndScreen(outcome: .Lose)
+        
+        // update highscore
+        updateHighscore()
+    }
+    
+    private func updateHighscore() {
+        // check if the current grid was a loaded one
+        guard let levelName = bubbleGridModel.loadedFileName else {
+            return
+        }
+        
+        // Get the URL of the Documents Directory
+        let documentDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
+        
+        // Get the URL for a file in the Documents Directory
+        let highScoreFileURL =  documentDirectory.appendingPathComponent(levelName).appendingPathExtension("plist")
+        
+        let levelInfo = NSMutableDictionary(contentsOf: highScoreFileURL) ?? NSMutableDictionary()
+        
+        let score = bubbleGame.bubbleGameEvaluator.timeLeft
+        guard let prevScore = levelInfo.object(forKey: NSString(string: "score")) as? Int else {
+            // no prev high score
+            NotificationCenter.default.post(name: Constants.newHighscoreNotificationName, object: nil)
+            levelInfo.setObject(score, forKey: NSString(string: "score"))
+            levelInfo.write(to: highScoreFileURL, atomically: true)
+            return
+        }
+        
+        guard score > prevScore else {
+            return
+        }
+        
+        NotificationCenter.default.post(name: Constants.newHighscoreNotificationName, object: nil)
+        levelInfo.setObject(score, forKey: NSString(string: "score"))
+        levelInfo.write(to: highScoreFileURL, atomically: true)
+
     }
 
     @IBAction func handleBack(_ sender: UIButton) {
@@ -383,7 +427,7 @@ class GameViewController: UIViewController {
                 
                 UIView.animate(withDuration: Constants.redisplayUIDuration) {
                     // redisplay hidden game ui
-                    self.scoreLabel.text = Constants.initialScoreString
+                    self.scoreLabel.text = String(Constants.timeLimit)
                     self.gameView.alpha = Constants.shownAlpha
                     self.hintButton.alpha = Constants.shownAlpha
                     self.swapButton.alpha = Constants.shownAlpha

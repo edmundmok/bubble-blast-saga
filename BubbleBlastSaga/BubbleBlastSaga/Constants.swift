@@ -12,13 +12,15 @@ import Foundation
 struct Constants {
     
     // Notifications
-    static let gameStatsUpdatedNotificationName = Notification.Name.init("GameStatsUpdated")
+    static let timerUpdatedUpdatedNotificationName = Notification.Name.init("TimerUpdated")
     static let gameWonNotificationName = Notification.Name.init("GameWon")
     static let gameLostNotificationName = Notification.Name.init("GameLost")
+    static let newHighscoreNotificationName = Notification.Name.init("NewHighscore")
     
     // BubbleGameEvaluator
-    static let limitedShotsAmmo = 20
-    static let limitedTimeQuota = 20
+    static let timerFinalValue = timeLimit * timerPrecision
+    static let timeLimit = 100
+    static let timerPrecision = 10
     static let initialFlyingBubblesCount = 0
     
     // BubbleGameStats
@@ -108,7 +110,6 @@ struct Constants {
     static let hideGameStatsDuration = 1.0
     static let moveUIBackDuration = 1.0
     static let redisplayUIDuration = 1.5
-    static let initialScoreString = String(0)
     static let winString = "You win"
     static let loseString = "You lose"
     static let luckyColorPrefix = "Your lucky color is "

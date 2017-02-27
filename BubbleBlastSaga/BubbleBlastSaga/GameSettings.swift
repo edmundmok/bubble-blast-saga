@@ -14,14 +14,10 @@ import Foundation
 struct GameSettings {
     
     var timeStep: Double = Constants.defaultTimeStep
-    var gameMode: BubbleGameMode
     
-    init(gameMode: BubbleGameMode) {
-        self.gameMode = gameMode
-    }
+    init() { }
     
-    init(timeStep: Double, gameMode: BubbleGameMode) {
+    init(timeStep: Double) {
         self.timeStep = timeStep
-        self.gameMode = gameMode
     }
 }

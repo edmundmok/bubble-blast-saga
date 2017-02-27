@@ -46,8 +46,8 @@ class BubbleGame {
         let bubbleGameAnimator = BubbleGameAnimator(gameArea: gameArea, renderer: renderer,
             bubbleGrid: bubbleGrid)
         
-        let bubbleGameEvaluator = BubbleGameEvaluator(gameMode: gameSettings.gameMode,
-            bubbleGrid: bubbleGrid, bubbleGridModel: bubbleGridModel)
+        let bubbleGameEvaluator = BubbleGameEvaluator(bubbleGrid: bubbleGrid,
+            bubbleGridModel: bubbleGridModel)
         
         let bubbleGameLogic = BubbleGameLogic(bubbleGrid: bubbleGrid,
             bubbleGridModel: bubbleGridModel, gameEngine: gameEngine,

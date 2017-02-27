@@ -12,6 +12,7 @@ class LevelSelectCell: UICollectionViewCell {
     
     @IBOutlet weak var levelImage: UIImageView!
     @IBOutlet weak var levelName: UILabel!
+    @IBOutlet weak var highScore: UILabel!
     @IBOutlet weak var deleteButton: LevelSelectDeleteButton!
     @IBOutlet weak var playLoadButton: LevelSelectPlayLoadButton!
     

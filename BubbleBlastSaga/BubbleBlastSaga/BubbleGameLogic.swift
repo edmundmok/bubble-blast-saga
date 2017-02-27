@@ -41,9 +41,6 @@ class BubbleGameLogic {
         // No bubbles were removed by this failed shot, reset necessary stats
         bubbleGameStats.updateStatsWithFailedShot()
         
-        // Post a notification so that interested parties (e.g. game vc) update
-        NotificationCenter.default.post(name: Constants.gameStatsUpdatedNotificationName, object: nil)
-        
         // Inform evaluator that flying bubble has landed
         bubbleGameEvaluator.updateFlyingBubbleLanded()
         bubbleGameEvaluator.evaluateGame()
@@ -79,10 +76,7 @@ class BubbleGameLogic {
         
         let totalBubblesRemoved = countForBubblesRemovedBySpecialInteractions + bubblesToRemove.count
         
-        defer {
-            // post a notification so that interested parties (e.g. game vc) update
-            NotificationCenter.default.post(name: Constants.gameStatsUpdatedNotificationName, object: nil)
-            
+        defer {            
             // Flying bubble landed
             bubbleGameEvaluator.updateFlyingBubbleLanded()
             bubbleGameEvaluator.evaluateGame()
