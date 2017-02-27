@@ -7,19 +7,15 @@ CS3217 Problem Set 5
 
 **Tutor:** Delon Wong
 
-# Note to self
-> Also, clean up my code for LogicSim (hint related).
-> 
-Sprites taken from:
+> Sprites taken from:
+>
 1. Explosion: http://opengameart.org/content/pixel-explosion-12-frames
 2. Lightning: https://www.reddit.com/r/gamedev/comments/2rw8ya/1000_free_2d_sprites_animations_tiles_and_effects/
 3. Star image: http://opengameart.org/content/star
-> Sounds:
-> 1. Thunder: http://freesound.org/people/Erdie/sounds/24003/
-> 2. Explosion:
-> 3. Star: 
 
 ### Rules of Your Game
+
+All levels have a fixed time limit of 100 seconds to complete. Player must clear the level as fast as possible in order to win. While in gameplay, player has unlimited bubbles to fire.
 
 Colored bubbles work as per previous PS.
 
@@ -449,8 +445,7 @@ Please save your diagram as `class-diagram.png` in the root directory of the rep
 
 ### Problem 10: Final Reflection
 
-My original design for the MVC architecture was quite good as the model, view and controllers were clearly separated into distinct groups, so they were all very cohesive and had little coupling among each other. The communication between them is also ideal, following the MVC's recommended pattern.
+The original design for my MVC architecture was quite good as the model, view and controllers were clearly separated into distinct groups, so they were all very cohesive and had little coupling among each other. The communication between them is also ideal, following the MVC's recommended pattern, where all communication goes through the view controllers. I also tried to avoid the "massive" view controller by create delegate and data source classes for the collection views and implementing the delegate methods within these classes instead. In addition, I have also tried to minimize the amount of model-to-view translation code by creating "model controllers" in the form of model managers, once again to avoid the "massive" view controller. As such, model information will go through their respective model managers, which will translate them to data friendly to both view controller and the view so that the view controller simply needs to pass it on over to the view avoiding extra methods for translation within the view controller. However, after integrating with the game engine and adding additional features for PS5, I found it difficult to keep my view controller thin as the game view controller had to implement many animations in order to render the end game screen. Maybe I could have created a special animation class instead that the game view controller knows about and passes it the necessary data in order to render the animations. Other than that, in terms of my original design I feel that it is quite good still because the MVC architecture is still preserved. 
 
-My original game engine design was not very good as I did not really understand what the best way of implementing the game engine was, unlike the previous one where we were just supposed to follow MVC architecture. 
 
-In order to improve the design of 
+On the other hand, I feel that my original game engine design was decent but not very good, although I feel that my physics engine design was quite good. My game engine followed the recommended / suggested components of a game engine, which included the physics engine and the renderer. For my physics engine, I felt that it was good because the physics engine was very isolated and the physics engine only knew about the physics body and manipulates physics bodies. As such, it made my physics engine very easy to convert into a cocoapod and subsequently to integrate into PS5 code. My renderer was quite okay, as I fed it a canvas (which is the game display screen) to draw on. This seems to follow the idea of a renderer, instead of having the view controller be the one to draw out the game objects associated images. I feel that my game engine design has room for improvement because my physics engine design is too restrictive. It only supports rectangular shapes (boxes) and circles. Furthermore, I implemented it the physics bodies and shapes using protocols, which is very convenient when I was designing the game engine, but it makes it possible that a game object implement both PhysicsBox and PhysicsCircle concurrently, which is quite weird. The behavior would not be well defined in this case, although in my game I know that this will never happen. Another problem is in the renderer. The problem is that circle objects are usually positioned by their centers while box objects are positioned by their top-left corner coordinates. If not, the images for my circle (bubbles) would be slightly off. As such, my renderer had to cast the object and determine if it was a circle or not. If it is a circle, draw using the center position, otherwise draw using the normal top-left corner position. This is not a very good design because the renderer should not have to know about a PhysicsCircle, but simply draw using a given point. To rectify this, I think I could have used a Drawable protocol which requires a drawingPoint variable to be implemented. The renderer will only draw using this drawingPoint. For circles, drawingPoint (computed var) set to center, and for rectangles, set to top left corner. This way, renderer does not need to do any casting, and simply draw using the drawing point while the class / object itself determines what is the drawing point.
