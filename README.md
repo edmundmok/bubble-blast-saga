@@ -39,9 +39,9 @@ The user may use either a *Long Press* or *Pan Gesture* to select the cannon dir
 
 ### Problem 2: Upcoming Bubbles
 
-My algorithm will generate the next bubble based on "luck". For example, if the player selects the best luck rating, 40% of the time he will be given the bubble color that he needs (which is the color that occurs most frequently in the grid at the point of generating the bubble). The other 60% of the time he will be given a random bubble color.
+My algorithm will generate the next bubble based on "luck". 40% of the time he will be given the bubble color that he needs (which is the color that occurs most frequently in the grid at the point of generating the bubble). The other 60% of the time he will be given a random bubble color.
 
-I am planning to display the current bubble, as well as the next upcoming bubble.
+In my game, I display the current bubble, as well as the next upcoming bubble.
 
 ### Problem 3: Integration
 

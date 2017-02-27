@@ -100,7 +100,7 @@ class BubbleGame {
     }
     
     // Setup the game walls in the bubble game
-    func setupBubbleGameWalls() {
+    private func setupBubbleGameWalls() {
 
         let wallThickness = Constants.wallThickness
         
@@ -147,7 +147,7 @@ class BubbleGame {
     }
     
     // Setup the bubble grid for the bubble game
-    func setupBubbleGrid() {
+    private func setupBubbleGrid() {
         // Get all the present bubble index paths
         let presentBubblesIndexPath = bubbleGridModel.getIndexPathOfBubblesInGrid()
         
