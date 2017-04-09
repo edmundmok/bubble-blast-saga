@@ -99,7 +99,7 @@ The next step is calculating the angle to get the bubble to land in that ideal p
 2. Rebound from the left
 3. Rebound from the right
 
-In the best case, the ideal position can be reached directly if it is not blocked by any bubbles using a direct angle. However, there are cases where we need to use a rebound instead. The following describes how to compute a rebound angle from the left, but a similar concept can be applied for the right as well. 
+For each of these angles, we need to run the simulation to check if the bubble can actually reach the ideal position using the angle. In the best case, the ideal position can be reached directly if it is not blocked by any bubbles using a direct angle. However, there are cases where we need to use a rebound instead. The following describes how to compute a rebound angle from the left, but a similar concept can be applied for the right as well. 
 
 ![Angle calculation](Screenshots/angle.png)
 
@@ -117,7 +117,7 @@ What we want is the angle in green, and we can compute that easily if we have th
 	* But this vertical height is simply `idealPosition.y - startPosition.y`. 
 	* Thus `idealPosition.y - startPosition.y = h(2+r)`.
 	* Rearranging gives us: `h = (idealPosition.y - startPosition.y)/(2+r)`.
-5. With h, we can obtain the y-coordinate of the blue rebound position by simply taking `idealPosition.y - h`.
+5. With `h`, we can obtain the y-coordinate of the blue rebound position by simply taking `idealPosition.y - h`.
 6. The x-coordinate of the blue rebound position is simply the wall's x-coordinate + taking into account the radius of the ball.
 
 
