@@ -10,28 +10,28 @@ Made as part of NUS CS3217 Problem Set 3, 4 and 5.
 ### Have a look at some screenshots!
 
 ### Menu
-<img src="Screenshots/menu.PNG" width="300">
+<img src="Screenshots/menu.PNG" width="400">
 
 ### Level Selection
-<img src="Screenshots/levelselect.PNG" width="300">
+<img src="Screenshots/levelselect.PNG" width="400">
 
 ### Level Designer
-<img src="Screenshots/design.PNG" width="300">
-<img src="Screenshots/save.PNG" width="300">
-<img src="Screenshots/newlevelselect.PNG" width="300">
+<img src="Screenshots/design.PNG" width="400">
+<img src="Screenshots/save.PNG" width="400">
+<img src="Screenshots/newlevelselect.PNG" width="400">
 
 
 ### Gameplay
-<img src="Screenshots/simple.PNG" width="300">
-<img src="Screenshots/lightning.PNG" width="300">
-<img src="Screenshots/bomb.PNG" width="300">
-<img src="Screenshots/end.PNG" width="300">
+<img src="Screenshots/simple.PNG" width="400">
+<img src="Screenshots/lightning.PNG" width="400">
+<img src="Screenshots/bomb.PNG" width="400">
+<img src="Screenshots/end.PNG" width="400">
 
 
 ### Hint System
-<img src="Screenshots/easyhint.PNG" width="300">
-<img src="Screenshots/hintagain.PNG" width="300">
-<img src="Screenshots/anotherhint.PNG" width="300">
+<img src="Screenshots/easyhint.PNG" width="400">
+<img src="Screenshots/hintagain.PNG" width="400">
+<img src="Screenshots/anotherhint.PNG" width="400">
 
 
 ## Features
